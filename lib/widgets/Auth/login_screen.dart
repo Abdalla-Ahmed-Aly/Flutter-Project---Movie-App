@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const String routName = '/login';
+  static const String routeName = '/login';
 
   @override
   Widget build(BuildContext context) {
