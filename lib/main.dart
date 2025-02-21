@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/widgets/Auth/login_screen.dart';
 
 void main() {
@@ -6,10 +7,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.darktheme,
       routes: {
         LoginScreen.routName: (_) => LoginScreen(),
       },
