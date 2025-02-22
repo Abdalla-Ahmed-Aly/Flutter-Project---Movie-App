@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 50),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {},
                       child: Text(
                         'Forget Password ?',
-                        style: textTheme.bodyMedium
+                        style: textTheme.bodyLarge
                             ?.copyWith(color: AppTheme.primary),
                       ),
                     ),
