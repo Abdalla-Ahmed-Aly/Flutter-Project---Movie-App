@@ -32,9 +32,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             Image.asset("assets/images/Forgot password-bro 1.png"),
             TextFormFieldCustom(
               hintText: 'Email',
-              iconSVGpath: "assets/svg/email.svg",
+               prefixIconPath: "assets/svg/email.svg",
             ),
             CustomButton(
+              onPressed: (){
+
+              },
               buttonTitle: 'Verify Email',
               buttonColor: Colors.amber,
               fontColor: Colors.black,

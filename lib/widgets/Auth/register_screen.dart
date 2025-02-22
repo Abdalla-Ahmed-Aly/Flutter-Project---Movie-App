@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../common_widgets/cutomTextFormField.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Signup extends StatefulWidget {
   static const String routeName = "signup";
@@ -24,8 +24,7 @@ class _SignupState extends State<Signup> {
   void initState() {
     super.initState();
     _loadAvatar();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _centerToAvatar(_selectedAvatar));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _centerInitialAvatar());
   }
 
   // Load saved avatar from SharedPreferences
@@ -42,11 +41,11 @@ class _SignupState extends State<Signup> {
     await prefs.setInt('selectedAvatar', index);
   }
 
-  // Center to selected avatar
-  void _centerToAvatar(int index) {
-    final double offset = (index * 100).toDouble();
+  // Center the initial avatar
+  void _centerInitialAvatar() {
+    final double initialOffset = (_selectedAvatar * 100).toDouble();
     _scrollController.animateTo(
-      offset,
+      initialOffset,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
@@ -91,7 +90,7 @@ class _SignupState extends State<Signup> {
                         _selectedAvatar = index;
                       });
                       _saveAvatar(index);
-                      _centerToAvatar(index);
+                      _centerInitialAvatar();
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -104,11 +103,7 @@ class _SignupState extends State<Signup> {
                       ),
                       child: CircleAvatar(
                         radius: _selectedAvatar == index ? 50 : 30,
-                        backgroundColor: Colors.transparent,
-                        child: SvgPicture.asset(
-                          avatarImages[index],
-                          width: _selectedAvatar == index ? 100 : 60,
-                        ),
+                        backgroundImage: AssetImage(avatarImages[index]),
                       ),
                     ),
                   );
@@ -118,53 +113,34 @@ class _SignupState extends State<Signup> {
             const SizedBox(height: 20),
             const Text(
               "Avatar",
-              style: TextStyle(color: Colors.white, fontSize: 16),
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             const SizedBox(height: 20),
             TextFormFieldCustom(
               hintText: 'Name',
-              iconSVGpath: "assets/svg/name.svg",
+              prefixIconPath: "assets/svg/name.svg",
             ),
             TextFormFieldCustom(
               hintText: 'Email',
-              iconSVGpath: "assets/svg/email.svg",
+              prefixIconPath: "assets/svg/email.svg",
             ),
             TextFormFieldCustom(
-              isObscured: _isObscured,
+              isPassword: _isObscured,
               hintText: 'Password',
-              iconSVGpath: "assets/svg/password.svg",
-              sufIcon: IconButton(
-                icon: Icon(
-                  _isObscured ? Icons.visibility_off : Icons.visibility,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _isObscured = !_isObscured;
-                  });
-                },
-              ),
+              prefixIconPath: "assets/svg/password.svg",
             ),
             TextFormFieldCustom(
-              isObscured: _isConfirmObscured,
+              isPassword: _isConfirmObscured,
               hintText: "Confirm Password",
-              iconSVGpath: "assets/svg/password.svg",
-              sufIcon: IconButton(
-                icon: Icon(
-                  _isConfirmObscured ? Icons.visibility_off : Icons.visibility,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _isConfirmObscured = !_isConfirmObscured;
-                  });
-                },
-              ),
+              prefixIconPath: "assets/svg/password.svg",
             ),
             TextFormFieldCustom(
               hintText: 'Phone Number',
-              iconSVGpath: "assets/svg/call.svg",
+              prefixIconPath: "assets/svg/call.svg",
             ),
             const SizedBox(height: 10),
             CustomButton(
+              onPressed: () {},
               buttonTitle: 'Create Account',
               buttonColor: Colors.amber,
               fontColor: Colors.black,
