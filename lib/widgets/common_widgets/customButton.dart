@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor:
-              WidgetStatePropertyAll(notFillColor ?  Colors.black:buttonColor),
+              WidgetStatePropertyAll(notFillColor ? Colors.black : buttonColor),
           fixedSize: WidgetStatePropertyAll(
             Size(
               MediaQuery.of(context).size.width,
@@ -40,7 +40,7 @@ class CustomButton extends StatelessWidget {
         child: Text(
           buttonTitle,
           style: TextStyle(
-              color: notFillColor ?Colors.amber:fontColor, fontSize: 20),
+              color: notFillColor ? Colors.amber : fontColor, fontSize: 20),
         ),
       ),
     );

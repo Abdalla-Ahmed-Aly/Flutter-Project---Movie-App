@@ -27,14 +27,14 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
       child: TextFormField(
         obscureText: widget.isObscured,
         controller: widget.controller,
         validator: widget.validator,
         decoration: InputDecoration(
             hintText: widget.hintText,
-            contentPadding: const EdgeInsets.symmetric(vertical: 18),
+            contentPadding: const EdgeInsets.symmetric(vertical: 16),
             filled: true,
             fillColor: const Color(0xFF282A28),
             border: OutlineInputBorder(
