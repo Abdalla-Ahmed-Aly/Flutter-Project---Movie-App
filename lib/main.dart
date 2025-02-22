@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/widgets/Auth/login_screen.dart';
+import 'package:movieapp/widgets/Auth/register_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,9 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        LoginScreen.routName: (_) => LoginScreen(),
-      },
-      initialRoute: LoginScreen.routName,
+        LoginScreen.routeName: (_) => LoginScreen(),
+       },
+      initialRoute: LoginScreen.routeName,
     );
   }
 }
