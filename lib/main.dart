@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/widgets/Auth/login_screen.dart';
-import 'package:movieapp/widgets/Auth/register_screen.dart';
 
 void main() {
   runApp(MyApp());

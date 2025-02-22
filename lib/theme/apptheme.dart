@@ -70,5 +70,10 @@ class AppTheme {
         fontWeight: FontWeight.w400, // regular font
       ),
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: primary,
+      )
+    )
   );
 }
