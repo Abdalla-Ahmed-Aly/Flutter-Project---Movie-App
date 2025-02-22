@@ -48,14 +48,7 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
           borderRadius: BorderRadius.circular(15),
         ),
         hintStyle: TextStyle(color: AppTheme.white),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppTheme.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: AppTheme.primary),
-        ),
+       
         prefixIcon: widget.prefixIconPath != null
             ? Padding(
                 padding: const EdgeInsets.all(10),

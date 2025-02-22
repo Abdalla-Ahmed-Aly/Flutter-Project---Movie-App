@@ -34,7 +34,7 @@ class CustomButton extends StatelessWidget {
               side: BorderSide(color: Colors.amber)),
         ),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       icon: iconPath != null
           ? SvgPicture.asset(
               iconPath!,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/widgets/Auth/login_screen.dart';
+import 'package:movieapp/widgets/Home_Screen/HomeScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.darktheme,
       routes: {
         LoginScreen.routeName: (_) => LoginScreen(),
+        Homescreen.routeName: (_) => Homescreen(),
        },
       initialRoute: LoginScreen.routeName,
     );
