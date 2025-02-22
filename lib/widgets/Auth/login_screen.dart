@@ -4,6 +4,7 @@ import 'package:movieapp/widgets/Auth/change_language.dart';
 import 'package:movieapp/widgets/Home_Screen/HomeScreen.dart';
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:movieapp/widgets/common_widgets/cutomTextFormField.dart';
+import 'package:movieapp/widgets/update_profile/update_profile.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -157,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() {
     if (formKey.currentState!.validate()) {
-      Navigator.of(context).pushReplacementNamed(Homescreen.routeName);
+      Navigator.of(context).pushReplacementNamed(UpdateProfile.routeName);
     }
   }
 }
