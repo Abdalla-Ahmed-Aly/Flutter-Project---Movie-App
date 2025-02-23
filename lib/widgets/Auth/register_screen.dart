@@ -40,7 +40,7 @@ class _SignupState extends State<Signup> {
     final avatarPath = prefs.getString('selectedAvatar') ?? '';
     if (avatarPath.isNotEmpty) {
       setState(() {
-        _selectedAvatar = Avatar(imagePath: avatarPath, name: 'Custom Avatar');
+        _selectedAvatar = Avatar(imagePath: avatarPath, id: 'Custom Avatar');
       });
     }
   }
@@ -64,15 +64,15 @@ class _SignupState extends State<Signup> {
   }
 
   List<Avatar> _avatarPaths = [
-    Avatar(imagePath: 'assets/Avatar/gamer1.png', name: 'Gamer 1'),
-    Avatar(imagePath: 'assets/Avatar/gamer2.png', name: 'Gamer 2'),
-    Avatar(imagePath: 'assets/Avatar/gamer3.png', name: 'Gamer 3'),
-    Avatar(imagePath: 'assets/Avatar/gamer4.png', name: 'Gamer 4'),
-    Avatar(imagePath: 'assets/Avatar/gamer5.png', name: 'Gamer 5'),
-    Avatar(imagePath: 'assets/Avatar/gamer6.png', name: 'Gamer 6'),
-    Avatar(imagePath: 'assets/Avatar/gamer7.png', name: 'Gamer 7'),
-    Avatar(imagePath: 'assets/Avatar/gamer8.png', name: 'Gamer 8'),
-    Avatar(imagePath: 'assets/Avatar/gamer9.png', name: 'Gamer 9'),
+    Avatar(imagePath: 'assets/Avatar/gamer1.png', id: 'Gamer 1'),
+    Avatar(imagePath: 'assets/Avatar/gamer2.png', id: 'Gamer 2'),
+    Avatar(imagePath: 'assets/Avatar/gamer3.png', id: 'Gamer 3'),
+    Avatar(imagePath: 'assets/Avatar/gamer4.png', id: 'Gamer 4'),
+    Avatar(imagePath: 'assets/Avatar/gamer5.png', id: 'Gamer 5'),
+    Avatar(imagePath: 'assets/Avatar/gamer6.png', id: 'Gamer 6'),
+    Avatar(imagePath: 'assets/Avatar/gamer7.png', id: 'Gamer 7'),
+    Avatar(imagePath: 'assets/Avatar/gamer8.png', id: 'Gamer 8'),
+    Avatar(imagePath: 'assets/Avatar/gamer9.png', id: 'Gamer 9'),
   ];
 
   String? _validateField(String? value, String fieldType) {
