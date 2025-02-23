@@ -47,19 +47,19 @@ class _SignupState extends State<Signup> {
       case 'name':
         if (value == null || value.trim().isEmpty)
           return 'Please enter your name';
-        if (!RegExp(r'^[a-zA-Z\s]+\$').hasMatch(value))
+        if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value))
           return 'Name should contain only letters';
         break;
       case 'email':
         if (value == null || value.trim().isEmpty)
           return 'Please enter your email';
-        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\$').hasMatch(value))
+        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value))
           return 'Enter a valid email';
         break;
       case 'password':
         if (value == null || value.isEmpty) return 'Please enter your password';
         if (value.length < 8) return 'Password must be at least 8 characters';
-        if (!RegExp(r'^(?=.*[A-Z])(?=.*\d).+\$').hasMatch(value))
+        if (!RegExp(r'^(?=.*[A-Z])(?=.*\d).+$').hasMatch(value))
           return 'Password must contain an uppercase letter and a number';
         break;
       case 'confirmPassword':
@@ -68,7 +68,7 @@ class _SignupState extends State<Signup> {
       case 'phone':
         if (value == null || value.isEmpty)
           return 'Please enter your phone number';
-        if (!RegExp(r'^01\d{9}\$').hasMatch(value))
+        if (!RegExp(r'^01\d{9}$').hasMatch(value))
           return 'Enter a valid 11-digit phone number';
         break;
     }
