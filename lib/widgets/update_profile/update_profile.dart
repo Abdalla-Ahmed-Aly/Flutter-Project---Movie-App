@@ -27,12 +27,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
     'assets/Avatar/gamer8.png',
     'assets/Avatar/gamer9.png',
   ];
+
   void _loadAvatar() async {
     final prefs = await SharedPreferences.getInstance();
+    final avatarPath =
+        prefs.getString('selectedAvatar') ?? 'assets/Avatar/default.png';
     setState(() {
-      selectedAvatarIndex = prefs.getInt('selectedAvatar') ?? 0;
+      selectedAvatarIndex = avatarPaths.indexOf(avatarPath);
     });
   }
+
   void _showAvatarSelection() {
     showModalBottomSheet(
       context: context,
@@ -52,11 +56,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('selectedAvatar', index);
   }
+
   @override
   void initState() {
     super.initState();
     _loadAvatar();
   }
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/gestures.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:movieapp/widgets/update_profile/update_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../common_widgets/cutomTextFormField.dart';
+import '../update_profile/avatar_model.dart';
 import 'change_language.dart';
 
 class Signup extends StatefulWidget {
@@ -22,10 +22,10 @@ class _SignupState extends State<Signup> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-
-  int _selectedAvatar = 0;
+  Avatar? _selectedAvatar;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -37,24 +37,43 @@ class _SignupState extends State<Signup> {
 
   void _loadAvatar() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _selectedAvatar = prefs.getInt('selectedAvatar') ?? 0;
-    });
+    final avatarPath = prefs.getString('selectedAvatar') ?? '';
+    if (avatarPath.isNotEmpty) {
+      setState(() {
+        _selectedAvatar = Avatar(imagePath: avatarPath, name: 'Custom Avatar');
+      });
+    }
   }
 
-  void _saveAvatar(int index) async {
+  void _saveAvatar(Avatar avatar) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('selectedAvatar', index);
+    await prefs.setString(
+        'selectedAvatar', avatar.imagePath); // Save the avatar's image path
   }
 
   void _centerInitialAvatar() {
-    final double initialOffset = (_selectedAvatar * 100).toDouble();
-    _scrollController.animateTo(
-      initialOffset,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
+    if (_selectedAvatar != null) {
+      final double initialOffset =
+          (_avatarPaths.indexOf(_selectedAvatar!) * 100).toDouble();
+      _scrollController.animateTo(
+        initialOffset,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
   }
+
+  List<Avatar> _avatarPaths = [
+    Avatar(imagePath: 'assets/Avatar/gamer1.png', name: 'Gamer 1'),
+    Avatar(imagePath: 'assets/Avatar/gamer2.png', name: 'Gamer 2'),
+    Avatar(imagePath: 'assets/Avatar/gamer3.png', name: 'Gamer 3'),
+    Avatar(imagePath: 'assets/Avatar/gamer4.png', name: 'Gamer 4'),
+    Avatar(imagePath: 'assets/Avatar/gamer5.png', name: 'Gamer 5'),
+    Avatar(imagePath: 'assets/Avatar/gamer6.png', name: 'Gamer 6'),
+    Avatar(imagePath: 'assets/Avatar/gamer7.png', name: 'Gamer 7'),
+    Avatar(imagePath: 'assets/Avatar/gamer8.png', name: 'Gamer 8'),
+    Avatar(imagePath: 'assets/Avatar/gamer9.png', name: 'Gamer 9'),
+  ];
 
   String? _validateField(String? value, String fieldType) {
     switch (fieldType) {
@@ -68,7 +87,8 @@ class _SignupState extends State<Signup> {
       case 'email':
         if (value == null || value.trim().isEmpty) {
           return 'Please enter your email';
-        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+            .hasMatch(value)) {
           return 'Enter a valid email';
         }
         break;
@@ -100,33 +120,24 @@ class _SignupState extends State<Signup> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Reiteration is done successfully'), backgroundColor: Colors.green),
+        SnackBar(
+            content: Text('Reiteration is done successfully'),
+            backgroundColor: Colors.green),
       );
       Navigator.of(context).pushNamed(UpdateProfile.routeName);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Form data is invalid'), backgroundColor: Colors.red),
+        SnackBar(
+            content: Text('Form data is invalid'), backgroundColor: Colors.red),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> avatarPaths = [
-      'assets/Avatar/gamer1.png',
-      'assets/Avatar/gamer2.png',
-      'assets/Avatar/gamer3.png',
-      'assets/Avatar/gamer4.png',
-      'assets/Avatar/gamer5.png',
-      'assets/Avatar/gamer6.png',
-      'assets/Avatar/gamer7.png',
-      'assets/Avatar/gamer8.png',
-      'assets/Avatar/gamer9.png',
-    ];
-
     return Scaffold(
-       appBar: AppBar(
-        backgroundColor:AppTheme.black,
+      appBar: AppBar(
+        backgroundColor: AppTheme.black,
         title: const Text('Register'),
         foregroundColor: AppTheme.primary,
         centerTitle: true,
@@ -142,29 +153,30 @@ class _SignupState extends State<Signup> {
                 child: ListView.builder(
                   controller: _scrollController,
                   scrollDirection: Axis.horizontal,
-                  itemCount: avatarPaths.length,
+                  itemCount: _avatarPaths.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
-                          _selectedAvatar = index;
+                          _selectedAvatar = _avatarPaths[index];
                         });
-                        _saveAvatar(index);
+                        _saveAvatar(_selectedAvatar!);
                         _centerInitialAvatar();
                       },
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 4),
-                         decoration: BoxDecoration(
+                        decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: _selectedAvatar == index
+                          border: _selectedAvatar == _avatarPaths[index]
                               ? Border.all(color: Colors.amber, width: 3)
                               : null,
                         ),
                         child: CircleAvatar(
-                          radius: _selectedAvatar == index ? 90 : 30,
+                          radius:
+                              _selectedAvatar == _avatarPaths[index] ? 90 : 30,
                           backgroundColor: AppTheme.black,
                           child: Image.asset(
-                            avatarPaths[index],
+                            _avatarPaths[index].imagePath,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -189,7 +201,8 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
                 child: TextFormFieldCustom(
                   controller: _emailController,
                   hintText: 'Email',
@@ -208,13 +221,15 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16),
                 child: TextFormFieldCustom(
                   controller: _confirmPasswordController,
                   isPassword: true,
                   hintText: "Confirm Password",
                   prefixIconPath: "assets/svg/password.svg",
-                  validator: (value) => _validateField(value, 'confirmPassword'),
+                  validator: (value) =>
+                      _validateField(value, 'confirmPassword'),
                 ),
               ),
               Padding(
@@ -228,7 +243,8 @@ class _SignupState extends State<Signup> {
               ),
               const SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                 child: CustomButton(
                   onPressed: _submitForm,
                   buttonTitle: 'Create Account',

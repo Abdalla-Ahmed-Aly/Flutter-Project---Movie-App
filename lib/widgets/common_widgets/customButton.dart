@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor:
-        MaterialStatePropertyAll(notFillColor ? Colors.black : buttonColor),
+            MaterialStatePropertyAll(notFillColor ? Colors.black : buttonColor),
         fixedSize: MaterialStatePropertyAll(
           Size(MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height * 0.07),
@@ -42,10 +42,10 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       icon: iconPath != null
           ? SvgPicture.asset(
-        iconPath!,
-        height: 24,
-        width: 24,
-      )
+              iconPath!,
+              height: 24,
+              width: 24,
+            )
           : const SizedBox(),
       label: Text(
         buttonTitle,
