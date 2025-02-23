@@ -31,7 +31,10 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = TextTheme.of(context);
     return TextFormField(
+      style: textTheme.titleMedium,
+      cursorColor: AppTheme.primary,
       validator: widget.validator,
       controller: widget.controller,
       onChanged: widget.onChanged,
@@ -41,16 +44,16 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
       onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
       decoration: InputDecoration(
         hintText: widget.hintText,
+        hintStyle: textTheme.titleSmall,
         contentPadding: const EdgeInsets.symmetric(vertical: 18),
         filled: true,
         fillColor: AppTheme.gray,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        hintStyle: Theme.of(context).textTheme.titleSmall,
         prefixIcon: widget.prefixIconPath != null
             ? Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(left: 19, right: 10),
                 child: SvgPicture.asset(
                   widget.prefixIconPath!,
                 ),
@@ -72,9 +75,6 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
               )
             : null,
         suffixIconColor: AppTheme.white,
-      ),
-      style: TextStyle(
-        color: AppTheme.white,
       ),
     );
   }

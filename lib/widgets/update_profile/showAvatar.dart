@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/theme/apptheme.dart';
 
 class ShowAvatar extends StatelessWidget {
   final int selectedAvatarIndex;
@@ -23,11 +24,11 @@ class ShowAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        color: AppTheme.gray,
+        borderRadius: BorderRadius.circular(16),
       ),
       padding: EdgeInsets.all(16),
-      height: 400,
+      height: 370,
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
@@ -45,7 +46,9 @@ class ShowAvatar extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: isSelected ? Colors.amber[700] : Colors.black,
+                color: isSelected
+                    ? AppTheme.primary.withOpacity(0.7)
+                    : AppTheme.gray,
                 border: Border.all(color: Colors.yellow, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
