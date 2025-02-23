@@ -5,7 +5,7 @@ import 'package:movieapp/theme/apptheme.dart';
 class CustomButton extends StatelessWidget {
   final String buttonTitle;
   final Color buttonColor;
-  final Color fontColor;
+  final Color? fontColor;
   final Color? borderSideColor;
   final bool notFillColor;
   final String? iconPath;
@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
       {super.key,
       required this.buttonTitle,
       required this.buttonColor,
-      required this.fontColor,
+      this.fontColor,
       this.notFillColor = false,
       this.borderSideColor,
       this.iconPath,
@@ -28,15 +28,17 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor:
-            MaterialStatePropertyAll(notFillColor ? Colors.black : buttonColor),
-        fixedSize: MaterialStatePropertyAll(
+            WidgetStatePropertyAll(notFillColor ? Colors.black : buttonColor),
+        fixedSize: WidgetStatePropertyAll(
           Size(MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height * 0.07),
         ),
-        shape: MaterialStatePropertyAll(
+        shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
-            side: BorderSide(color: borderSideColor ?? AppTheme.primary),
+            side: BorderSide(
+              color: borderSideColor == null ? buttonColor : borderSideColor!,
+            ),
           ),
         ),
       ),
@@ -51,7 +53,7 @@ class CustomButton extends StatelessWidget {
       label: Text(buttonTitle,
           style: buttonTitleStyle == null
               ? Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: notFillColor ? AppTheme.primary : fontColor,
+                    color: notFillColor ? AppTheme.primary : fontColor!,
                   )
               : buttonTitleStyle!),
     );
