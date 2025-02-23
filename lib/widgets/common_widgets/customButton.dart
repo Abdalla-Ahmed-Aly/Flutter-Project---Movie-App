@@ -6,6 +6,7 @@ class CustomButton extends StatelessWidget {
   final String buttonTitle;
   final Color buttonColor;
   final Color fontColor;
+
   final bool notFillColor;
   final String? iconPath;
   final VoidCallback onPressed;
@@ -31,10 +32,10 @@ class CustomButton extends StatelessWidget {
           Size(MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.height * 0.07),
         ),
-        shape: const WidgetStatePropertyAll(
+        shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
-              side: BorderSide(color: Colors.amber)),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
         ),
       ),
       onPressed: onPressed,
