@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = TextTheme.of(context);
+    TextTheme textTheme =  Theme.of(context).textTheme;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
