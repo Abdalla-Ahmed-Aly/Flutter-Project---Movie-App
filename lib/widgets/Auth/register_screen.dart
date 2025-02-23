@@ -48,7 +48,7 @@ class _SignupState extends State<Signup> {
   void _saveAvatar(Avatar avatar) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
-        'selectedAvatar', avatar.imagePath); // Save the avatar's image path
+        'selectedAvatar', avatar.imagePath); 
   }
 
   void _centerInitialAvatar() {

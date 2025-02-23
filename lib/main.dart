@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
         UpdateProfile.routeName: (_) => UpdateProfile(),
       },
-      initialRoute: LoginScreen.routeName,
+      initialRoute: Signup.routeName,
       darkTheme: AppTheme.darktheme,
       themeMode: ThemeMode.dark,
     );
