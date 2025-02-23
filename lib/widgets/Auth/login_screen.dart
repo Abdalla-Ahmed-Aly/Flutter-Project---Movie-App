@@ -1,9 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/widgets/Auth/change_language.dart';
 import 'package:movieapp/widgets/Home_Screen/HomeScreen.dart';
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:movieapp/widgets/common_widgets/cutomTextFormField.dart';
+import 'package:movieapp/widgets/common_widgets/toggleSwitcher.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -18,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool language = false;
 
   @override
   Widget build(BuildContext context) {
@@ -86,25 +90,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 20),
                   Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Don’t Have Account?',
-                            style: textTheme.bodyMedium,
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Create One',
-                              style: textTheme.bodyMedium?.copyWith(
-                                color: AppTheme.primary,
-                              ),
+                      RichText(
+                        text: TextSpan(
+                          style: Theme.of(context).textTheme.bodyLarge,
+                          children: [
+                            TextSpan(
+                              text: 'Don\'t Have Account ? ',
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                          ),
-                        ],
+                            TextSpan(
+                              text: 'Create Account',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: AppTheme.primary,
+                                  ),
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 10),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Text(
+                      //       'Don’t Have Account?',
+                      //       style: textTheme.bodyLarge,
+                      //     ),
+                      //     TextButton(
+                      //       onPressed: () {},
+                      //       child: Text(
+                      //         'Create One',
+                      //         style: textTheme.bodyMedium?.copyWith(
+                      //           color: AppTheme.primary,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      SizedBox(height: 24),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 60),
                         child: Row(
@@ -139,13 +164,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 20),
                   CustomButton(
                     buttonTitle: 'Login With Google',
+                    buttonTitleStyle: textTheme.titleSmall?.copyWith(
+                      color: AppTheme.gray,
+                    ),
                     buttonColor: AppTheme.primary,
                     fontColor: AppTheme.gray,
                     iconPath: 'assets/icons/google_icon.svg',
                     onPressed: () {},
                   ),
-                  SizedBox(height: 20),
-                  ChangeLanguage(),
+                  SizedBox(height: 24),
+                  ToggleSwitcher(),
                 ],
               ),
             ),

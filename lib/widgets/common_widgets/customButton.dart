@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movieapp/theme/apptheme.dart';
 
 class CustomButton extends StatelessWidget {
   final String buttonTitle;
@@ -8,6 +9,7 @@ class CustomButton extends StatelessWidget {
   final bool notFillColor;
   final String? iconPath;
   final VoidCallback onPressed;
+  final TextStyle? buttonTitleStyle;
 
   const CustomButton(
       {super.key,
@@ -16,6 +18,7 @@ class CustomButton extends StatelessWidget {
       required this.fontColor,
       this.notFillColor = false,
       this.iconPath,
+      this.buttonTitleStyle,
       required this.onPressed});
 
   @override
@@ -38,17 +41,16 @@ class CustomButton extends StatelessWidget {
       icon: iconPath != null
           ? SvgPicture.asset(
               iconPath!,
-              height: 24,
-              width: 24,
+              height: 26.56,
+              width: 26.56,
             )
           : const SizedBox(),
-      label: Text(
-        buttonTitle,
-        style: TextStyle(
-          color: notFillColor ? Colors.amber : fontColor,
-          fontSize: 20,
-        ),
-      ),
+      label: Text(buttonTitle,
+          style: buttonTitleStyle == null
+              ? Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: notFillColor ? AppTheme.primary : fontColor,
+                  )
+              : buttonTitleStyle!),
     );
   }
 }

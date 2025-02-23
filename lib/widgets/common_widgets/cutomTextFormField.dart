@@ -47,12 +47,13 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        hintStyle: TextStyle(color: AppTheme.white),
-       
+        hintStyle: Theme.of(context).textTheme.titleSmall,
         prefixIcon: widget.prefixIconPath != null
             ? Padding(
                 padding: const EdgeInsets.all(10),
-                child: SvgPicture.asset(widget.prefixIconPath!,),
+                child: SvgPicture.asset(
+                  widget.prefixIconPath!,
+                ),
               )
             : null,
         suffixIcon: widget.isPassword
