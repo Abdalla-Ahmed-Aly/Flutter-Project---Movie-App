@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/widgets/Auth/change_language.dart';
+import 'package:movieapp/widgets/Auth/forget_password_screen.dart';
+import 'package:movieapp/widgets/Auth/register_screen.dart';
 import 'package:movieapp/widgets/Home_Screen/HomeScreen.dart';
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:movieapp/widgets/common_widgets/cutomTextFormField.dart';
+import 'package:movieapp/widgets/update_profile/update_profile.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -21,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    TextTheme textTheme =  Theme.of(context).textTheme;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -66,7 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(ForgetPasswordScreen.routeName);
+                        },
                         child: Text(
                           'Forget Password ?',
                           style: textTheme.bodyLarge
@@ -76,10 +81,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   CustomButton(
-                    onPressed: () {},
                     buttonTitle: 'Login',
                     buttonColor: AppTheme.primary,
                     fontColor: AppTheme.gray,
+                    onPressed: () {
+                      login();
+                    },
                   ),
                   SizedBox(height: 20),
                   Column(
@@ -92,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: textTheme.bodyMedium,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {Navigator.of(context).pushNamed(Signup.routeName);},
                             child: Text(
                               'Create One',
                               style: textTheme.bodyMedium?.copyWith(
@@ -155,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() {
     if (formKey.currentState!.validate()) {
-      Navigator.of(context).pushReplacementNamed(Homescreen.routeName);
+      Navigator.of(context).pushReplacementNamed(UpdateProfile.routeName);
     }
   }
 }

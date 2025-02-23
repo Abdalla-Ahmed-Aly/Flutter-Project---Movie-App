@@ -48,27 +48,28 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
           borderRadius: BorderRadius.circular(15),
         ),
         hintStyle: TextStyle(color: AppTheme.white),
-
         prefixIcon: widget.prefixIconPath != null
             ? Padding(
-          padding: const EdgeInsets.all(10),
-          child: SvgPicture.asset(widget.prefixIconPath!,),
-        )
+                padding: const EdgeInsets.all(10),
+                child: SvgPicture.asset(
+                  widget.prefixIconPath!,
+                ),
+              )
             : null,
         suffixIcon: widget.isPassword
             ? IconButton(
-          onPressed: () {
-            setState(() {
-              isObscure = !isObscure;
-            });
-          },
-          icon: Icon(
-            isObscure
-                ? Icons.visibility_outlined
-                : Icons.visibility_off_outlined,
-            color: AppTheme.white,
-          ),
-        )
+                onPressed: () {
+                  setState(() {
+                    isObscure = !isObscure;
+                  });
+                },
+                icon: Icon(
+                  isObscure
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  color: AppTheme.white,
+                ),
+              )
             : null,
         suffixIconColor: AppTheme.white,
       ),

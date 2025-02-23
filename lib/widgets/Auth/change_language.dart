@@ -7,7 +7,7 @@ class ChangeLanguage extends StatefulWidget {
 }
 
 class _ChangeLanguageState extends State<ChangeLanguage> {
-    bool isEnglish = true;
+  bool isEnglish = true;
 
   @override
   Widget build(BuildContext context) {
