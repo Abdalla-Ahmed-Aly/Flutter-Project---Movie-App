@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:movieapp/theme/apptheme.dart';
+import 'package:movieapp/widgets/Auth/login_screen.dart';
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:movieapp/widgets/update_profile/update_profile.dart';
 import '../common_widgets/cutomTextFormField.dart';
@@ -245,7 +246,7 @@ class _SignupState extends State<Signup> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.of(context).pop();
+                              Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                             },
                         ),
                       ],
