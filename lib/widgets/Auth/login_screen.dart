@@ -1,12 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/widgets/Auth/change_language.dart';
-import 'package:movieapp/widgets/Home_Screen/HomeScreen.dart';
+
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:movieapp/widgets/common_widgets/cutomTextFormField.dart';
-import 'package:movieapp/widgets/common_widgets/toggleSwitcher.dart';
+
 import 'package:movieapp/widgets/update_profile/update_profile.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -91,45 +91,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 20),
                   Column(
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.bodyLarge,
-                          children: [
-                            TextSpan(
-                              text: 'Don\'t Have Account ? ',
-                              style: Theme.of(context).textTheme.bodyLarge,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Don’t Have Account?',
+                            style: textTheme.bodyLarge,
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Create One',
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: AppTheme.primary,
+                              ),
                             ),
-                            TextSpan(
-                              text: 'Create Account',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color: AppTheme.primary,
-                                  ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Text(
-                      //       'Don’t Have Account?',
-                      //       style: textTheme.bodyLarge,
-                      //     ),
-                      //     TextButton(
-                      //       onPressed: () {},
-                      //       child: Text(
-                      //         'Create One',
-                      //         style: textTheme.bodyMedium?.copyWith(
-                      //           color: AppTheme.primary,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       SizedBox(height: 24),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 60),
@@ -174,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {},
                   ),
                   SizedBox(height: 24),
-                  ToggleSwitcher(),
+                  ChangeLanguage(),
                 ],
               ),
             ),
