@@ -3,7 +3,6 @@ import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/widgets/Auth/change_language.dart';
 import 'package:movieapp/widgets/Auth/forget_password_screen.dart';
 import 'package:movieapp/widgets/Auth/register_screen.dart';
-import 'package:movieapp/widgets/Home_Screen/HomeScreen.dart';
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:movieapp/widgets/common_widgets/cutomTextFormField.dart';
 import 'package:movieapp/widgets/update_profile/update_profile.dart';
