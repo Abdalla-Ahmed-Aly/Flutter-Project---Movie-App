@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movieapp/services/sharedpreferencekeys.dart';
 import 'package:movieapp/services/sharedpreferences.dart';
 import 'package:movieapp/theme/apptheme.dart';
+import 'package:movieapp/widgets/Auth/forget_password_screen.dart';
 import 'package:movieapp/widgets/Auth/login_screen.dart';
+import 'package:movieapp/widgets/Auth/register_screen.dart';
 import 'package:movieapp/widgets/Home_Screen/HomeScreen.dart';
 import 'package:movieapp/widgets/onboardingscreen/onboarding.dart';
 import 'package:movieapp/widgets/update_profile/update_profile.dart';
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (_) => LoginScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
         UpdateProfile.routeName: (_) => UpdateProfile(),
+        Signup.routeName: (_) => Signup(),
+        ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
         OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
       },
       initialRoute: runforthefirsttime

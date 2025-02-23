@@ -1,11 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/services/sharedpreferencekeys.dart';
-import 'package:movieapp/services/sharedpreferences.dart';
 
 import 'package:movieapp/theme/apptheme.dart';
-import 'package:movieapp/widgets/Auth/change_language.dart';
-import 'package:movieapp/widgets/Home_Screen/HomeScreen.dart';
+import 'package:movieapp/widgets/Auth/forget_password_screen.dart';
+import 'package:movieapp/widgets/Auth/register_screen.dart';
 
 import 'package:movieapp/widgets/common_widgets/customButton.dart';
 import 'package:movieapp/widgets/common_widgets/cutomTextFormField.dart';
@@ -75,7 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(ForgetPasswordScreen.routeName);
+                        },
                         child: Text(
                           'Forget Password ?',
                           style: textTheme.bodyLarge
@@ -114,7 +115,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ?.copyWith(
                                     color: AppTheme.primary,
                                   ),
-                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.of(context).pushNamed(
+                                      Signup.routeName);
+                                },
                             ),
                           ],
                         ),
