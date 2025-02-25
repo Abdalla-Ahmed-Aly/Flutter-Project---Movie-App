@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/models/onboardingmodel.dart';
-import 'package:movieapp/services/sharedpreferencekeys.dart';
-import 'package:movieapp/services/sharedpreferences.dart';
+import 'package:movieapp/features/onboarding/models/onboardingmodel.dart';
+import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
+import 'package:movieapp/features/onboarding/services/sharedpreferences.dart';
 import 'package:movieapp/theme/apptheme.dart';
-import 'package:movieapp/widgets/Auth/login_screen.dart';
-import 'package:movieapp/widgets/common_widgets/customButton.dart';
+import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
+import 'package:movieapp/core/widgets/customButton.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   static const String routeName = '/onboarding';

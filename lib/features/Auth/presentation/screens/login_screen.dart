@@ -2,14 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:movieapp/theme/apptheme.dart';
-import 'package:movieapp/widgets/Auth/forget_password_screen.dart';
-import 'package:movieapp/widgets/Auth/register_screen.dart';
+import 'package:movieapp/features/Auth/presentation/screens/forget_password_screen.dart';
+import 'package:movieapp/features/Auth/presentation/screens/register_screen.dart';
 
-import 'package:movieapp/widgets/common_widgets/customButton.dart';
-import 'package:movieapp/widgets/common_widgets/cutomTextFormField.dart';
-import 'package:movieapp/widgets/common_widgets/toggleSwitcher.dart';
+import 'package:movieapp/core/widgets/customButton.dart';
+import 'package:movieapp/core/widgets/cutomTextFormField.dart';
+import 'package:movieapp/core/widgets/toggleSwitcher.dart';
 
-import 'package:movieapp/widgets/update_profile/update_profile.dart';
+import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme =  Theme.of(context).textTheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -117,8 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.of(context).pushNamed(
-                                      Signup.routeName);
+                                  Navigator.of(context)
+                                      .pushNamed(Signup.routeName);
                                 },
                             ),
                           ],
