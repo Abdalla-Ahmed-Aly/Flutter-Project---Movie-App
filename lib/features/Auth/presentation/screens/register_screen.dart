@@ -2,12 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:movieapp/theme/apptheme.dart';
-import 'package:movieapp/widgets/Auth/login_screen.dart';
-import 'package:movieapp/widgets/common_widgets/customButton.dart';
-import 'package:movieapp/widgets/common_widgets/toggleSwitcher.dart';
-import 'package:movieapp/widgets/update_profile/update_profile.dart';
-import '../common_widgets/cutomTextFormField.dart';
-import '../update_profile/avatar_model.dart';
+import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
+import 'package:movieapp/core/widgets/customButton.dart';
+import 'package:movieapp/core/widgets/toggleSwitcher.dart';
+import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
+import '../../../../core/widgets/cutomTextFormField.dart';
+import '../../../Update_Profile/data/models/avatar_model.dart';
 
 class Signup extends StatefulWidget {
   static const String routeName = "signup";

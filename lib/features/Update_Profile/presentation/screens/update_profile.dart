@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/theme/apptheme.dart';
-import 'package:movieapp/widgets/Auth/login_screen.dart';
-import 'package:movieapp/widgets/common_widgets/customButton.dart';
-import 'package:movieapp/widgets/common_widgets/cutomTextFormField.dart';
-import 'package:movieapp/widgets/update_profile/showAvatar.dart';
+import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
+import 'package:movieapp/core/widgets/customButton.dart';
+import 'package:movieapp/core/widgets/cutomTextFormField.dart';
+import 'package:movieapp/features/Update_Profile/presentation/screens/showAvatar.dart';
 
 class UpdateProfile extends StatefulWidget {
   static const String routeName = '/update';

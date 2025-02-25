@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/widgets/common_widgets/customButton.dart';
-import '../../theme/apptheme.dart';
-import '../common_widgets/cutomTextFormField.dart';
+import 'package:movieapp/core/widgets/customButton.dart';
+import '../../../../theme/apptheme.dart';
+import '../../../../core/widgets/cutomTextFormField.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   static const String routeName = "forgetPassword";
