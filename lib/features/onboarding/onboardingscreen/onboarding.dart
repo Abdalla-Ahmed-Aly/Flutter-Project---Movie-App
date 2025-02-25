@@ -29,7 +29,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   void showWidgetWithDelay(int pageIndex) {
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(Duration(milliseconds: 100), () {
       if (mounted) {
         setState(() {
           showWidgets[pageIndex] = true;
