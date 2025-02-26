@@ -11,6 +11,8 @@ import 'package:movieapp/core/widgets/toggleSwitcher.dart';
 
 import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 
+import '../../../../core/utils/validator.dart';
+
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
 
@@ -49,12 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: 'Email',
                     controller: emailController,
                     prefixIconPath: 'assets/icons/email_icon.svg',
-                    validator: (value) {
-                      if (value == null || value.length < 5) {
-                        return 'Invalid Email';
-                      }
-                      return null;
-                    },
+                    validator:  (value) => Validator.validateField(value, 'email'),
                   ),
                   SizedBox(height: 20),
                   TextFormFieldCustom(
@@ -62,12 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordController,
                     prefixIconPath: 'assets/icons/password_icon.svg',
                     isPassword: true,
-                    validator: (value) {
-                      if (value == null || value.length < 8) {
-                        return 'Password can not be Less than 8 characters ';
-                      }
-                      return null;
-                    },
+                    validator: (value) => Validator.validateField(value, 'old password'),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
