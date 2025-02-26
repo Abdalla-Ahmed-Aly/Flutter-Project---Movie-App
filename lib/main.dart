@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/Home_screen/presentation/screens/home_screen.dart';
+
 import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferences.dart';
 import 'package:movieapp/theme/apptheme.dart';
@@ -8,6 +8,8 @@ import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movieapp/features/Auth/presentation/screens/register_screen.dart';
 import 'package:movieapp/features/onboarding/onboardingscreen/onboarding.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
+
+import 'features/Home_screen/presentation/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
