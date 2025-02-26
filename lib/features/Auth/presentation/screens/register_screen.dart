@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:movieapp/core/utils/validator.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
@@ -42,38 +43,7 @@ class _SignupState extends State<Signup> {
     Avatar(imagePath: 'assets/Avatar/gamer9.png', id: 'Gamer 9'),
   ];
 
-  String? _validateField(String? value, String fieldType) {
-    switch (fieldType) {
-      case 'name':
-        if (value == null || value.trim().isEmpty)
-          return 'Please enter your name';
-        if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value))
-          return 'Name should contain only letters';
-        break;
-      case 'email':
-        if (value == null || value.trim().isEmpty)
-          return 'Please enter your email';
-        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value))
-          return 'Enter a valid email';
-        break;
-      case 'password':
-        if (value == null || value.isEmpty) return 'Please enter your password';
-        if (value.length < 8) return 'Password must be at least 8 characters';
-        if (!RegExp(r'^(?=.*[A-Z])(?=.*\d).+$').hasMatch(value))
-          return 'Password must contain an uppercase letter and a number';
-        break;
-      case 'confirmPassword':
-        if (value != _passwordController.text) return 'Passwords do not match';
-        break;
-      case 'phone':
-        if (value == null || value.isEmpty)
-          return 'Please enter your phone number';
-        if (!RegExp(r'^01\d{9}$').hasMatch(value))
-          return 'Enter a valid 11-digit phone number';
-        break;
-    }
-    return null;
-  }
+
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -169,7 +139,7 @@ class _SignupState extends State<Signup> {
                     controller: _nameController,
                     hintText: 'Name',
                     prefixIconPath: "assets/svg/name.svg",
-                    validator: (value) => _validateField(value, 'name'),
+                    validator: (value) => Validator.validateField(value, 'name'),
                   ),
                 ),
                 Padding(
@@ -179,7 +149,7 @@ class _SignupState extends State<Signup> {
                     controller: _emailController,
                     hintText: 'Email',
                     prefixIconPath: "assets/svg/email.svg",
-                    validator: (value) => _validateField(value, 'email'),
+                    validator: (value) => Validator.validateField(value, 'email'),
                   ),
                 ),
                 Padding(
@@ -189,7 +159,7 @@ class _SignupState extends State<Signup> {
                     isPassword: true,
                     hintText: 'Password',
                     prefixIconPath: "assets/svg/password.svg",
-                    validator: (value) => _validateField(value, 'password'),
+                    validator: (value) => Validator.validateField(value, 'password'),
                   ),
                 ),
                 Padding(
@@ -201,8 +171,9 @@ class _SignupState extends State<Signup> {
                     hintText: "Confirm Password",
                     prefixIconPath: "assets/svg/password.svg",
                     validator: (value) =>
-                        _validateField(value, 'confirmPassword'),
+                        Validator.validateField(value, 'confirmPassword',password: _passwordController.text),
                   ),
+
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -210,7 +181,7 @@ class _SignupState extends State<Signup> {
                     controller: _phoneController,
                     hintText: 'Phone Number',
                     prefixIconPath: "assets/svg/call.svg",
-                    validator: (value) => _validateField(value, 'phone'),
+                    validator: (value) => Validator.validateField(value, 'phone'),
                   ),
                 ),
                 const SizedBox(height: 10),
