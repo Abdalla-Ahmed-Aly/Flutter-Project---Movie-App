@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextButton(
                         onPressed: () {
                           Navigator.of(context)
-                              .pushNamed(ForgetPasswordScreen.routeName);
+                              .pushNamed(ResetPasswordScreen.routeName);
                         },
                         child: Text(
                           'Forget Password ?',

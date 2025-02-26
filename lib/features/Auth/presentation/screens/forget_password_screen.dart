@@ -4,16 +4,16 @@ import '../../../../core/utils/validator.dart';
 import '../../../../theme/apptheme.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
 
-class ForgetPasswordScreen extends StatefulWidget {
+class ResetPasswordScreen extends StatefulWidget {
   static const String routeName = "forgetPassword";
 
-  const ForgetPasswordScreen({super.key});
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _formKey = GlobalKey<FormState>(); // Form Key
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
