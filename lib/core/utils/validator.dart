@@ -23,9 +23,10 @@ class Validator {
         if (value.length < 8) {
           return 'Password must be at least 8 characters';
         }
-        if (!RegExp(r'^(?=.[A-Z])(?=.\d).+$').hasMatch(value)) {
+        if (!RegExp(r'^(?=.*[A-Z])(?=.*\d).+$').hasMatch(value)) {
           return 'Password must contain at least one uppercase letter and one number';
         }
+
         break;
       case 'old password':
         if (password == null || value != password) {
