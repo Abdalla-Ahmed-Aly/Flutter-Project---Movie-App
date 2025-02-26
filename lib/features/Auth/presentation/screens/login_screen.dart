@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordController,
                     prefixIconPath: 'assets/icons/password_icon.svg',
                     isPassword: true,
-                    validator: (value) => Validator.validateField(value, 'old password'),
+                    validator: (value) => Validator.validateField(value, 'password'),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
