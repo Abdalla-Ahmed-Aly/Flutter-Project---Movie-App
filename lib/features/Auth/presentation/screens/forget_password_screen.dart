@@ -63,7 +63,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     hintText: 'old password',
                     prefixIconPath: "assets/svg/password.svg",
                     validator: (value) =>
-                        Validator.validateField(value, 'old password'),
+                        Validator.validateField(value, 'password'),
                   ),
                 ),
                 Padding(
