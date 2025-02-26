@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
+import '../../../../core/utils/validator.dart';
 import '../../../../theme/apptheme.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
 
-class ForgetPasswordScreen extends StatefulWidget {
+class ResetPasswordScreen extends StatefulWidget {
   static const String routeName = "forgetPassword";
 
-  const ForgetPasswordScreen({super.key});
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _formKey = GlobalKey<FormState>(); // Form Key
-  final TextEditingController _emailController =
-      TextEditingController(); // Email Controller
-
-  // Email Validator
-  String? _validateEmail(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'Please enter your email';
-    } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-      return 'Enter a valid email';
-    }
-    return null;
-  }
+  final TextEditingController _oldPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
 
   void _showSnackbar(String message, Color bgColor) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -40,11 +31,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // Email is valid
-      print('Email is valid: ${_emailController.text}');
+      print('Email is valid: ${_newPasswordController.text}');
       _showSnackbar('Verification email sent successfully!', Colors.green);
     } else {
-      // Invalid email
       _showSnackbar('Please fix the errors before proceeding.', Colors.red);
     }
   }
@@ -52,43 +41,56 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppTheme.black,
-        title: const Text(
-          'Forget Password',
-          style: TextStyle(fontSize: 16),
-        ),
-        foregroundColor: Colors.amber,
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Image.asset("assets/images/Forgot password-bro 1.png"),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: TextFormFieldCustom(
-                  controller: _emailController,
-                  hintText: 'Email',
-                  prefixIconPath: "assets/svg/email.svg",
-                  validator: _validateEmail,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CustomButton(
-                  onPressed: _submitForm,
-                  buttonTitle: 'Verify Email',
-                  buttonColor: AppTheme.primary,
-                  fontColor: AppTheme.black,
-                ),
-              ),
-            ],
+        appBar: AppBar(
+          backgroundColor: AppTheme.black,
+          title: const Text(
+            'Reset Password',
+            style: TextStyle(fontSize: 16),
           ),
+          foregroundColor: Colors.amber,
+          centerTitle: true,
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Image.asset("assets/images/Forgot password-bro 1.png"),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextFormFieldCustom(
+                    controller: _oldPasswordController,
+                    hintText: 'old password',
+                    prefixIconPath: "assets/svg/password.svg",
+                    validator: (value) =>
+                        Validator.validateField(value, 'old password'),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: 16.0, right: 16, left: 16),
+                  child: TextFormFieldCustom(
+                    controller: _newPasswordController,
+                    hintText: 'new password',
+                    prefixIconPath: "assets/svg/password.svg",
+                    validator: (value) => Validator.validateField(
+                      value,
+                      'new password',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CustomButton(
+                    onPressed: _submitForm,
+                    buttonTitle: 'Verify Email',
+                    buttonColor: AppTheme.primary,
+                    fontColor: AppTheme.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

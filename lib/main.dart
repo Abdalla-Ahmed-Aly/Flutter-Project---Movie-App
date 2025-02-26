@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           LoginScreen.routeName: (_) => LoginScreen(),
           UpdateProfile.routeName: (_) => UpdateProfile(),
           Signup.routeName: (_) => Signup(),
-          ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
+          ResetPasswordScreen.routeName: (_) => ResetPasswordScreen(),
           OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
         },
         initialRoute: runforthefirsttime
