@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/Home_screen/presentation/screens/home_screen.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferences.dart';
 import 'package:movieapp/theme/apptheme.dart';
@@ -36,9 +37,10 @@ class MyApp extends StatelessWidget {
           Signup.routeName: (_) => Signup(),
           ResetPasswordScreen.routeName: (_) => ResetPasswordScreen(),
           OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
+          HomeScreen.routeName: (_) => HomeScreen(),
         },
         initialRoute: runforthefirsttime
-            ? LoginScreen.routeName
+            ? HomeScreen.routeName
             : OnBoardingScreen.routeName);
   }
 }
