@@ -8,7 +8,7 @@ class Validator {
     switch (fieldType) {
       case 'name':
         if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
-          return 'Name should contain only letters';
+          return 'name should contain only letters';
         }
         break;
 
