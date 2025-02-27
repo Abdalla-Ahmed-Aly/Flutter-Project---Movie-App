@@ -80,6 +80,7 @@ class ProfileTab extends StatelessWidget {
                           onPressed: () {},
                           fontColor: AppTheme.white,
                           buttonTitleStyle: textTheme.titleMedium,
+                          iconAlignment: IconAlignment.end,
                           iconPath: "assets/svg/exit.svg",
                         ),
                       ),
