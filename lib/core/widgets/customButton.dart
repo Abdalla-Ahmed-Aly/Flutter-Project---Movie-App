@@ -11,17 +11,18 @@ class CustomButton extends StatelessWidget {
   final String? iconPath;
   final VoidCallback onPressed;
   final TextStyle? buttonTitleStyle;
+  IconAlignment iconAlignment;
 
-  const CustomButton(
-      {super.key,
-      required this.buttonTitle,
+  CustomButton(
+      {required this.buttonTitle,
       required this.buttonColor,
       this.fontColor,
       this.notFillColor = false,
       this.borderSideColor,
       this.iconPath,
       this.buttonTitleStyle,
-      required this.onPressed});
+      required this.onPressed,
+      this.iconAlignment = IconAlignment.start});
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +57,7 @@ class CustomButton extends StatelessWidget {
                     color: notFillColor ? AppTheme.primary : fontColor!,
                   )
               : buttonTitleStyle!),
+      iconAlignment: iconAlignment!,
     );
   }
 }
