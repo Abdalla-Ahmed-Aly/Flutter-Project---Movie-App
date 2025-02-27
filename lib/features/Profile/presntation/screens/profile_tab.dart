@@ -68,8 +68,8 @@ class ProfileTab extends StatelessWidget {
                             Navigator.of(context)
                                 .pushNamed(UpdateProfile.routeName);
                           },
-                          fontColor: AppTheme.black,
-                          buttonTitleStyle: textTheme.titleMedium,
+                          buttonTitleStyle: textTheme.titleMedium
+                              ?.copyWith(color: AppTheme.black),
                         ),
                       ),
                       SizedBox(width: 5),
