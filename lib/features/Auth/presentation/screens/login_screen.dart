@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.dart';
 
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/features/Auth/presentation/screens/forget_password_screen.dart';
@@ -191,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() {
     if (formKey.currentState!.validate()) {
-      Navigator.of(context).pushReplacementNamed(UpdateProfile.routeName);
+      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
     }
   }
 }

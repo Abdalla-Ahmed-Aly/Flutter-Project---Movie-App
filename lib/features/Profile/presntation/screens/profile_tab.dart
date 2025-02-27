@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
+import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 
 import '../../../../core/widgets/tab_bar_icon.dart';
 import '../../../../theme/apptheme.dart';
@@ -69,7 +70,10 @@ class ProfileTab extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 23,horizontal: 16),
                   child: Row(
                     children: [
-                      Expanded(flex:3,child: CustomButton(buttonTitle: "Edit Profile", buttonColor: AppTheme.primary, onPressed: (){},fontColor: AppTheme.black,buttonTitleStyle: textTheme.titleMedium,)),
+                      Expanded(flex:3,child: CustomButton(buttonTitle: "Edit Profile", buttonColor: AppTheme.primary, onPressed: (){
+                              Navigator.of(context).pushReplacementNamed(UpdateProfile.routeName);
+
+                      },fontColor: AppTheme.black,buttonTitleStyle: textTheme.titleMedium,)),
                       SizedBox(width: 10,),
                       Expanded(child: CustomButton(buttonTitle: "Exit", buttonColor: AppTheme.red, onPressed: (){},fontColor: AppTheme.white,buttonTitleStyle:textTheme.titleMedium)),
 
