@@ -10,7 +10,6 @@ import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/cutomTextFormField.dart';
 import 'package:movieapp/core/widgets/toggleSwitcher.dart';
 
-import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 
 import '../../../../core/utils/validator.dart';
 
@@ -81,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     buttonTitle: 'Login',
                     buttonColor: AppTheme.primary,
-                    fontColor: AppTheme.gray,
+                    fontColor: AppTheme.gray, 
                     onPressed: () {
                       login();
                       //        LocalStorageServices.setbool(

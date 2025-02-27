@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
 import 'package:movieapp/theme/apptheme.dart';
 
 class ShowAvatar extends StatelessWidget {
@@ -8,17 +9,7 @@ class ShowAvatar extends StatelessWidget {
   ShowAvatar(
       {required this.selectedAvatarIndex, required this.onAvatarSelected});
 
-  final List<String> avatarPaths = [
-    'assets/Avatar/gamer1.png',
-    'assets/Avatar/gamer2.png',
-    'assets/Avatar/gamer3.png',
-    'assets/Avatar/gamer4.png',
-    'assets/Avatar/gamer5.png',
-    'assets/Avatar/gamer6.png',
-    'assets/Avatar/gamer7.png',
-    'assets/Avatar/gamer8.png',
-    'assets/Avatar/gamer9.png',
-  ];
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +26,7 @@ class ShowAvatar extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemCount: avatarPaths.length,
+        itemCount: Avatar.avatarPaths.length,
         itemBuilder: (context, index) {
           bool isSelected = selectedAvatarIndex == index;
 
@@ -55,7 +46,7 @@ class ShowAvatar extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Image.asset(
-                  avatarPaths[index],
+                  Avatar.avatarPaths[index].imagePath,
                   fit: BoxFit.cover,
                 ),
               ),

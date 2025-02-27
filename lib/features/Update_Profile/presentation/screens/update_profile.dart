@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/core/utils/validator.dart';
+import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
@@ -15,18 +17,6 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   int selectedAvatarIndex = 0;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  List<String> avatarPaths = [
-    'assets/Avatar/gamer1.png',
-    'assets/Avatar/gamer2.png',
-    'assets/Avatar/gamer3.png',
-    'assets/Avatar/gamer4.png',
-    'assets/Avatar/gamer5.png',
-    'assets/Avatar/gamer6.png',
-    'assets/Avatar/gamer7.png',
-    'assets/Avatar/gamer8.png',
-    'assets/Avatar/gamer9.png',
-  ];
 
   void _showAvatarSelection() {
     showModalBottomSheet(
@@ -88,7 +78,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   child: GestureDetector(
                     onTap: _showAvatarSelection,
                     child: Image.asset(
-                      avatarPaths[selectedAvatarIndex],
+                      Avatar.avatarPaths[selectedAvatarIndex].imagePath,
                       width: MediaQuery.sizeOf(context).width * 0.4,
                       fit: BoxFit.fill,
                     ),
@@ -105,23 +95,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         TextFormFieldCustom(
                           hintText: 'Name',
                           prefixIconPath: 'assets/icons/UserIcon.svg',
-                          validator: (value) {
-                            if (value == null || value.length < 5) {
-                              return 'Invalid Email';
-                            }
-                            return null;
-                          },
+                          validator: (value) =>
+                              Validator.validateField(value, 'name'),
                         ),
                         SizedBox(height: 19),
                         TextFormFieldCustom(
                           hintText: 'Phone',
                           prefixIconPath: 'assets/icons/phoneicons.svg',
-                          validator: (value) {
-                            if (value == null || value.length < 5) {
-                              return 'Invalid Email';
-                            }
-                            return null;
-                          },
+                          validator: (value) =>
+                              Validator.validateField(value, 'phone'),
                         ),
                         SizedBox(height: 19),
                         TextButton(
@@ -168,8 +150,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   void login() {
+    print(Avatar.avatarPaths[selectedAvatarIndex].id);
     if (formKey.currentState!.validate()) {
-      Navigator.of(context).pushReplacementNamed(UpdateProfile.routeName);
+      // Navigator.of(context).pushReplacementNamed(UpdateProfile.routeName);
     }
   }
 }
