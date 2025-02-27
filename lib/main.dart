@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           HomeScreen.routeName: (_) => HomeScreen(),
         },
         initialRoute: runforthefirsttime
-            ? LoginScreen.routeName
+            ? HomeScreen.routeName
             : OnBoardingScreen.routeName);
   }
 }
