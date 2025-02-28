@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Profile/presntation/screens/profile_tab.dart';
 
@@ -36,21 +35,6 @@ class MyApp extends StatelessWidget {
           LocalStorageKeys.loginpagekey,
         ) ??
         false;
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.darktheme,
-        routes: {
-          LoginScreen.routeName: (_) => LoginScreen(),
-          UpdateProfile.routeName: (_) => UpdateProfile(),
-          Signup.routeName: (_) => Signup(),
-          ResetPasswordScreen.routeName: (_) => ResetPasswordScreen(),
-          OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
-          HomeScreen.routeName: (_) => HomeScreen(),
-        },
-        initialRoute: runforthefirsttime
-            ? LoginScreen.routeName
-            : OnBoardingScreen.routeName);
-=======
     return BlocProvider(
       create: (_) => AuthCubit(),
       child: ScreenUtilInit(
@@ -74,6 +58,5 @@ class MyApp extends StatelessWidget {
                 : OnBoardingScreen.routeName),
       ),
     );
->>>>>>> aaa29e6d9d4b6d9459d594c95202288cc593da4b
   }
 }
