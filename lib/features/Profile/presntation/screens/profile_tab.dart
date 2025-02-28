@@ -59,35 +59,21 @@ class ProfileTab extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: CustomButton(
-                          buttonTitle: "Edit Profile",
-                          buttonColor: AppTheme.primary,
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(UpdateProfile.routeName);
-                          },
-                          buttonTitleStyle: textTheme.titleMedium
-                              ?.copyWith(color: AppTheme.black),
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      Expanded(
-                        child: CustomButton(
-                          buttonTitle: "Exit",
-                          buttonColor: AppTheme.red,
-                          onPressed: () {},
-                          fontColor: AppTheme.white,
-                          buttonTitleStyle: textTheme.titleMedium,
-                          iconAlignment: IconAlignment.end,
-                          iconPath: "assets/svg/exit.svg",
-                        ),
-                      ),
+                      Expanded(flex:3,child: CustomButton(buttonTitle: "Edit Profile", buttonColor: AppTheme.primary, onPressed: (){},fontColor: AppTheme.black,buttonTitleStyle: textTheme.titleMedium,)),
+                      SizedBox(width: 10,),
+                      Expanded(child: CustomButton(buttonTitle: "Exit", buttonColor: AppTheme.red, onPressed: (){},fontColor: AppTheme.white,buttonTitleStyle:textTheme.titleMedium)),
+
+
+
+
                     ],
+
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(
+                  height: 10,
+
+                ),
                 DefaultTabController(
                   length: 2,
                   child: TabBar(

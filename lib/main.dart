@@ -32,26 +32,19 @@ class MyApp extends StatelessWidget {
           LocalStorageKeys.loginpagekey,
         ) ??
         false;
-    return ScreenUtilInit(
-      designSize: const Size(430, 932),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_,__)=>
-      MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.darktheme,
-          routes: {
-            LoginScreen.routeName: (_) => LoginScreen(),
-            UpdateProfile.routeName: (_) => UpdateProfile(),
-            Signup.routeName: (_) => Signup(),
-            ResetPasswordScreen.routeName: (_) => ResetPasswordScreen(),
-            OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
-            HomeScreen.routeName: (_) => HomeScreen(),
-            ProfileTab.routeName: (_) => ProfileTab(),
-          },
-          initialRoute: runforthefirsttime
-              ? HomeScreen.routeName
-              : OnBoardingScreen.routeName),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.darktheme,
+        routes: {
+          LoginScreen.routeName: (_) => LoginScreen(),
+          UpdateProfile.routeName: (_) => UpdateProfile(),
+          Signup.routeName: (_) => Signup(),
+          ResetPasswordScreen.routeName: (_) => ResetPasswordScreen(),
+          OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
+          HomeScreen.routeName: (_) => HomeScreen(),
+        },
+        initialRoute: runforthefirsttime
+            ? LoginScreen.routeName
+            : OnBoardingScreen.routeName);
   }
 }
