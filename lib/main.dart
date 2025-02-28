@@ -31,10 +31,7 @@ class MyApp extends StatelessWidget {
           LocalStorageKeys.runforthefirsttime,
         ) ??
         false;
-    bool loginpagekey = LocalStorageServices.getbool(
-          LocalStorageKeys.loginpagekey,
-        ) ??
-        false;
+   
     return BlocProvider(
       create: (_) => AuthCubit(),
       child: ScreenUtilInit(
