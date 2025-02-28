@@ -40,10 +40,9 @@ class _SignupState extends State<Signup> {
   final CarouselSliderController _carouselController =
       CarouselSliderController();
   Avatar? _selectedAvatar;
-  Data? userData;
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      userData = await context.read<AuthCubit>().register(RegisterRequest(
+       await context.read<AuthCubit>().register(RegisterRequest(
             name: _nameController.text,
             email: _emailController.text,
             password: _passwordController.text,
@@ -51,7 +50,6 @@ class _SignupState extends State<Signup> {
             phone: '+2' + _phoneController.text,
             avaterId: Avatar.avatarPaths.indexOf(_selectedAvatar!),
           ));
-      print(userData);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -201,7 +199,6 @@ class _SignupState extends State<Signup> {
                         LoadingIndicator.hide(context);
                         Navigator.of(context).pushNamedAndRemoveUntil(
                           HomeScreen.routeName,
-                          arguments: userData,
                           (Route<dynamic> route) => false,
                         );
                       } else if (state is AuthError) {

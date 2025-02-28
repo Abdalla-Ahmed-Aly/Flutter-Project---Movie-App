@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/core/utils/validator.dart';
+import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
 import 'package:movieapp/theme/apptheme.dart';
-import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/cutomTextFormField.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/showAvatar.dart';
@@ -15,8 +16,21 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   int selectedAvatarIndex = 0;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    final _userData = context.read<AuthCubit>().userData;
+    selectedAvatarIndex = _userData?.avaterId ?? 0;
+    nameController.text = _userData?.name ?? '';
+    phoneController.text = _userData?.phone?.replaceFirst("+2", "") ?? '';
+    print(_userData!.email);
+    print(_userData!.password);
+  }
 
   void _showAvatarSelection() {
     showModalBottomSheet(
@@ -42,6 +56,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
+    int avatarIndex = selectedAvatarIndex;
+    String avatarPath = Avatar.avatarPaths[avatarIndex].imagePath;
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -57,15 +73,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   alignment: Alignment.center,
                   children: [
                     Align(
-                        alignment: Alignment.centerLeft,
-                        child: IconButton(
-                          color: AppTheme.primary,
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, LoginScreen.routeName);
-                          },
-                          icon: Icon(Icons.arrow_back),
-                        )),
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        color: AppTheme.primary,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: Icon(Icons.arrow_back),
+                      ),
+                    ),
                     Text(
                       'Pick Avatar',
                       style: textTheme.titleSmall
@@ -78,7 +94,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   child: GestureDetector(
                     onTap: _showAvatarSelection,
                     child: Image.asset(
-                      Avatar.avatarPaths[selectedAvatarIndex].imagePath,
+                      avatarPath,
                       width: MediaQuery.sizeOf(context).width * 0.4,
                       fit: BoxFit.fill,
                     ),
@@ -87,8 +103,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 SizedBox(height: 35),
                 Expanded(
                   child: SingleChildScrollView(
-                    // keyboardDismissBehavior:
-                    //     ScrollViewKeyboardDismissBehavior.onDrag,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -97,6 +111,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           prefixIconPath: 'assets/icons/UserIcon.svg',
                           validator: (value) =>
                               Validator.validateField(value, 'name'),
+                          controller: nameController,
                         ),
                         SizedBox(height: 19),
                         TextFormFieldCustom(
@@ -104,6 +119,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           prefixIconPath: 'assets/icons/phoneicons.svg',
                           validator: (value) =>
                               Validator.validateField(value, 'phone'),
+                          controller: phoneController,
                         ),
                         SizedBox(height: 19),
                         TextButton(
@@ -150,9 +166,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   void login() {
-    print(Avatar.avatarPaths[selectedAvatarIndex].id);
     if (formKey.currentState!.validate()) {
-      // Navigator.of(context).pushReplacementNamed(UpdateProfile.routeName);
+      print(nameController.text);
+      print(phoneController.text);
+      print('Selected Avatar ID: $selectedAvatarIndex');
     }
   }
 }

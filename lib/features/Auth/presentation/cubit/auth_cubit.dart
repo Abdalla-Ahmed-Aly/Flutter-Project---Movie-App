@@ -8,14 +8,16 @@ import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
-  final AuthRepository _authRepository =
-      AuthRepository(AuthRemoteApiDataSources());
-  Future<Data> register(RegisterRequest register_request) async {
+
+  final AuthRepository _authRepository = AuthRepository(AuthRemoteApiDataSources());
+
+  Data? userData; 
+
+  Future<void> register(RegisterRequest register_request) async {
     try {
       emit(AuthLoading());
-      final userData = await _authRepository.register(register_request);
-      emit(AuthSuccess(userData));
-      return userData;
+      userData = await _authRepository.register(register_request);
+      emit(AuthSuccess());
     } on AppException catch (e) {
       emit(AuthError(e.message));
       throw e;
