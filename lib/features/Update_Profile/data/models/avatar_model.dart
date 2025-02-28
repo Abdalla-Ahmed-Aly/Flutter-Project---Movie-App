@@ -6,7 +6,7 @@ class Avatar {
     required this.imagePath,
     required this.id,
   });
- static final List<Avatar> avatarPaths = [
+  static final List<Avatar> avatarPaths = [
     Avatar(imagePath: 'assets/Avatar/gamer1.png', id: '1'),
     Avatar(imagePath: 'assets/Avatar/gamer2.png', id: '2'),
     Avatar(imagePath: 'assets/Avatar/gamer3.png', id: '3'),

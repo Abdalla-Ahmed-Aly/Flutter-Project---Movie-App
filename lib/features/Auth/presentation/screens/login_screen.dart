@@ -10,7 +10,6 @@ import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/cutomTextFormField.dart';
 import 'package:movieapp/core/widgets/toggleSwitcher.dart';
 
-
 import '../../../../core/utils/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -51,7 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: 'Email',
                     controller: emailController,
                     prefixIconPath: 'assets/icons/email_icon.svg',
-                    validator:  (value) => Validator.validateField(value, 'email'),
+                    validator: (value) =>
+                        Validator.validateField(value, 'email'),
                   ),
                   SizedBox(height: 20),
                   TextFormFieldCustom(
@@ -59,7 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordController,
                     prefixIconPath: 'assets/icons/password_icon.svg',
                     isPassword: true,
-                    validator: (value) => Validator.validateField(value, 'password'),
+                    validator: (value) =>
+                        Validator.validateField(value, 'password'),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -80,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     buttonTitle: 'Login',
                     buttonColor: AppTheme.primary,
-                    fontColor: AppTheme.gray, 
+                    fontColor: AppTheme.gray,
                     onPressed: () {
                       login();
                       //        LocalStorageServices.setbool(

@@ -6,11 +6,11 @@ class NavIcon extends StatelessWidget {
   NavIcon({required this.imageIcon});
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset("assets/icons/${imageIcon}.svg",
+    return SvgPicture.asset(
+      "assets/icons/${imageIcon}.svg",
       fit: BoxFit.scaleDown,
       height: 24,
       width: 24,
-
     );
   }
 }

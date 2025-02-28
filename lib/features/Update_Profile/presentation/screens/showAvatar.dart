@@ -9,8 +9,6 @@ class ShowAvatar extends StatelessWidget {
   ShowAvatar(
       {required this.selectedAvatarIndex, required this.onAvatarSelected});
 
- 
-
   @override
   Widget build(BuildContext context) {
     return Container(
