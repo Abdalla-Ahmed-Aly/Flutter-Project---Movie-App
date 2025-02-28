@@ -1,13 +1,11 @@
-import 'package:movieapp/features/Auth/data/models/data.dart';
 
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  final Data userData; 
 
-  AuthSuccess(this.userData);
+  AuthSuccess();
 }
 class AuthLoading extends AuthState {}
 class AuthError extends AuthState {
