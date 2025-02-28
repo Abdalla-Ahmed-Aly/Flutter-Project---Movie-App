@@ -1,12 +1,21 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movieapp/core/utils/validator.dart';
+import 'package:movieapp/core/widgets/LoadingIndicatore.dart';
+import 'package:movieapp/features/Auth/data/models/data.dart';
+import 'package:movieapp/features/Auth/data/models/register_request.dart';
+import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
+import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
+import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/toggleSwitcher.dart';
-import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
 import '../../../Update_Profile/data/models/avatar_model.dart';
 
@@ -26,34 +35,34 @@ class _SignupState extends State<Signup> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+
   final CarouselSliderController _carouselController =
       CarouselSliderController();
   Avatar? _selectedAvatar;
-
- 
-
-
-
-  void _submitForm() {
+  Data? userData;
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Registration successful'),
-            backgroundColor: Colors.green),
-      );
-      Navigator.of(context).pushNamed(UpdateProfile.routeName);
+      userData = await context.read<AuthCubit>().register(RegisterRequest(
+            name: _nameController.text,
+            email: _emailController.text,
+            password: _passwordController.text,
+            confirmPassword: _confirmPasswordController.text,
+            phone: '+2' + _phoneController.text,
+            avaterId: Avatar.avatarPaths.indexOf(_selectedAvatar!),
+          ));
+      print(userData);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content: Text('Form data is invalid'), backgroundColor: Colors.red),
+            content: Text('Registration failed: $e'),
+            backgroundColor: Colors.red),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -80,7 +89,8 @@ class _SignupState extends State<Signup> {
                     carouselController: _carouselController,
                     itemCount: Avatar.avatarPaths.length,
                     itemBuilder: (context, index, realIndex) {
-                      bool isSelected = _selectedAvatar == Avatar.avatarPaths[index];
+                      bool isSelected =
+                          _selectedAvatar == Avatar.avatarPaths[index];
                       if (_selectedAvatar == null) {
                         _selectedAvatar = Avatar.avatarPaths.first;
                       }
@@ -130,7 +140,8 @@ class _SignupState extends State<Signup> {
                     controller: _nameController,
                     hintText: 'Name',
                     prefixIconPath: "assets/svg/name.svg",
-                    validator: (value) => Validator.validateField(value, 'name'),
+                    validator: (value) =>
+                        Validator.validateField(value, 'name'),
                   ),
                 ),
                 Padding(
@@ -140,7 +151,8 @@ class _SignupState extends State<Signup> {
                     controller: _emailController,
                     hintText: 'Email',
                     prefixIconPath: "assets/svg/email.svg",
-                    validator: (value) => Validator.validateField(value, 'email'),
+                    validator: (value) =>
+                        Validator.validateField(value, 'email'),
                   ),
                 ),
                 Padding(
@@ -150,7 +162,8 @@ class _SignupState extends State<Signup> {
                     isPassword: true,
                     hintText: 'Password',
                     prefixIconPath: "assets/svg/password.svg",
-                    validator: (value) => Validator.validateField(value, 'password'),
+                    validator: (value) =>
+                        Validator.validateField(value, 'password'),
                   ),
                 ),
                 Padding(
@@ -161,10 +174,10 @@ class _SignupState extends State<Signup> {
                     isPassword: true,
                     hintText: "Confirm Password",
                     prefixIconPath: "assets/svg/password.svg",
-                    validator: (value) =>
-                        Validator.validateField(value, 'confirmPassword',password: _passwordController.text),
+                    validator: (value) => Validator.validateField(
+                        value, 'confirmPassword',
+                        password: _passwordController.text),
                   ),
-
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -172,18 +185,36 @@ class _SignupState extends State<Signup> {
                     controller: _phoneController,
                     hintText: 'Phone Number',
                     prefixIconPath: "assets/svg/call.svg",
-                    validator: (value) => Validator.validateField(value, 'phone'),
+                    validator: (value) =>
+                        Validator.validateField(value, 'phone'),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                  child: CustomButton(
-                    onPressed: _submitForm,
-                    buttonTitle: 'Create Account',
-                    buttonColor: AppTheme.primary,
-                    fontColor: AppTheme.black,
+                  child: BlocListener<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthLoading) {
+                        LoadingIndicator.show(context);
+                      } else if (state is AuthSuccess) {
+                        LoadingIndicator.hide(context);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          HomeScreen.routeName,
+                          arguments: userData,
+                          (Route<dynamic> route) => false,
+                        );
+                      } else if (state is AuthError) {
+                        LoadingIndicator.hide(context);
+                        Fluttertoast.showToast(msg: state.message);
+                      }
+                    },
+                    child: CustomButton(
+                      onPressed: _submitForm,
+                      buttonTitle: 'Create Account',
+                      buttonColor: AppTheme.primary,
+                      fontColor: AppTheme.black,
+                    ),
                   ),
                 ),
                 Padding(
@@ -208,7 +239,8 @@ class _SignupState extends State<Signup> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                              Navigator.of(context)
+                                  .pushReplacementNamed(LoginScreen.routeName);
                             },
                         ),
                       ],

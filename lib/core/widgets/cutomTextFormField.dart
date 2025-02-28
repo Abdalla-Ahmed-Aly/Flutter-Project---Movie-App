@@ -31,7 +31,7 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme =  Theme.of(context).textTheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
     return TextFormField(
       style: textTheme.titleMedium,
       cursorColor: AppTheme.primary,

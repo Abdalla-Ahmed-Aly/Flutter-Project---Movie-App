@@ -6,60 +6,62 @@ import '../../../Browse/presentation/screens/browse_tab.dart';
 import '../../../Home/presentation/screens/Home_tab.dart';
 import '../../../Profile/presntation/screens/profile_tab.dart';
 import '../../../Search/presentation/screens/search_tab.dart';
+
 class HomeScreen extends StatefulWidget {
-  static const String routeName="/home";
+  static const String routeName = "/home";
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- int currentIndex=0;
- List<Widget>tabs=[
-   HomeTab(),
-   SearchTab(),
-   BrowseTab(),
-   ProfileTab(),
- ];
+  int currentIndex = 0;
+  List<Widget> tabs = [
+    HomeTab(),
+    SearchTab(),
+    BrowseTab(),
+    ProfileTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: tabs[currentIndex],
       bottomNavigationBar: Container(
-        clipBehavior: Clip.antiAliasWithSaveLayer
-        ,
-        margin:const EdgeInsets.only(left: 9,right: 9,bottom: 9),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        margin: const EdgeInsets.only(left: 9, right: 9, bottom: 9),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: AppTheme.gray
-
-        ),
+            borderRadius: BorderRadius.circular(16), color: AppTheme.gray),
         child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor:Colors.transparent,
+            backgroundColor: Colors.transparent,
             elevation: 0,
             showUnselectedLabels: false,
             showSelectedLabels: false,
-            currentIndex: currentIndex,onTap: (value) {
-          if(currentIndex==value)return;
-          currentIndex=value;
-          setState(() {
-
-          });
-
-        },items: [
-          BottomNavigationBarItem(icon: NavIcon(imageIcon: "home"),activeIcon: NavIcon(imageIcon: "homeActive"),label: "Home"),
-          BottomNavigationBarItem(icon: NavIcon(imageIcon: "search"),activeIcon: NavIcon(imageIcon: "searchActive"),label: "Search"),
-          BottomNavigationBarItem(icon: NavIcon(imageIcon: "browse"),activeIcon: NavIcon(imageIcon: "browseActive"),label: "Browse"),
-          BottomNavigationBarItem(icon: NavIcon(imageIcon: "profile"),activeIcon: NavIcon(imageIcon: "profileActive"),label: "Profile"),
-
-
-
-        ]),
+            currentIndex: currentIndex,
+            onTap: (value) {
+              if (currentIndex == value) return;
+              currentIndex = value;
+              setState(() {});
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: NavIcon(imageIcon: "home"),
+                  activeIcon: NavIcon(imageIcon: "homeActive"),
+                  label: "Home"),
+              BottomNavigationBarItem(
+                  icon: NavIcon(imageIcon: "search"),
+                  activeIcon: NavIcon(imageIcon: "searchActive"),
+                  label: "Search"),
+              BottomNavigationBarItem(
+                  icon: NavIcon(imageIcon: "browse"),
+                  activeIcon: NavIcon(imageIcon: "browseActive"),
+                  label: "Browse"),
+              BottomNavigationBarItem(
+                  icon: NavIcon(imageIcon: "profile"),
+                  activeIcon: NavIcon(imageIcon: "profileActive"),
+                  label: "Profile"),
+            ]),
       ),
-
-
-
     );
   }
 }
