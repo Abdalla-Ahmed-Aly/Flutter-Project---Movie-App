@@ -11,7 +11,7 @@ class MovieItem extends StatelessWidget {
         children: [
           ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset("assets/images/dummyMovie.png",width: double.infinity,height: double.infinity,fit: BoxFit.fill,)),
+              child: Image.asset("assets/images/Dummyimage.png",width: double.infinity,height: double.infinity,fit: BoxFit.fill,)),
           Positioned(top: 13,left: 10,child: Container(
             padding: EdgeInsets.symmetric(vertical: 6,horizontal: 8),
             decoration: BoxDecoration(
