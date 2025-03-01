@@ -13,7 +13,7 @@ class TabBarForBrowse extends StatelessWidget {
       decoration: BoxDecoration(
           color: isSelected?AppTheme.primary:Colors.transparent,
           borderRadius: BorderRadius.circular(16),
-          border:isSelected?null:Border.all(width: 1,color: AppTheme.primary)
+          border:isSelected?null:Border.all(width: 2,color: AppTheme.primary)
       ),
       child: Text(label,style: Theme.of(context).textTheme.displaySmall!.copyWith(color: isSelected?AppTheme.black:AppTheme.primary),),
 
