@@ -42,7 +42,7 @@ class _SignupState extends State<Signup> {
   Avatar? _selectedAvatar;
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-       await context.read<AuthCubit>().register(RegisterRequest(
+      await context.read<AuthCubit>().register(RegisterRequest(
             name: _nameController.text,
             email: _emailController.text,
             password: _passwordController.text,
