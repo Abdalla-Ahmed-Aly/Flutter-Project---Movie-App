@@ -13,6 +13,7 @@ import 'package:movieapp/features/Auth/presentation/screens/register_screen.dart
 import 'package:movieapp/features/onboarding/onboardingscreen/onboarding.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 
+import 'features/Home/presentation/screens/see_more.dart';
 import 'features/Home_screen/presentation/screens/home_screen.dart';
 
 void main() async {
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
               OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
               HomeScreen.routeName: (_) => HomeScreen(),
               ProfileTab.routeName: (_) => ProfileTab(),
+              SeeMore.routeName: (_) => SeeMore(),
             },
             initialRoute: runforthefirsttime
                 ? LoginScreen.routeName

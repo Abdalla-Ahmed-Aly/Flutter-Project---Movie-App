@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../data/data_sources/category_movies_data_source.dart';
 import '../../data/repositories/category_movies_repository.dart';
 import '../cubit/category_movies_cubit.dart';
 import '../cubit/category_movies_state.dart';
+import '../widgets/build_load_shimmer.dart';
 
 class MovieList extends StatefulWidget {
   final String genre;
@@ -26,11 +28,7 @@ class _MovieListState extends State<MovieList> {
           context.read<MovieCubit>().loadMoviesByGenre(widget.genre);
 
           if (state is MovieListLoading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.grey,
-              ),
-            );
+            return BuildLoadShimmerMovies();
           } else if (state is MovieListError) {
             return Center(
               child: Text(state.message),
@@ -89,9 +87,7 @@ class _MovieListState extends State<MovieList> {
               ),
             );
           } else {
-            return Center(
-              child: Text('Loading...'),
-            );
+            return BuildLoadShimmerMovies();
           }
         },
       ),
