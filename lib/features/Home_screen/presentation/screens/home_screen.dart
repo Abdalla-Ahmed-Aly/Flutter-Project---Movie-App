@@ -24,11 +24,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize=MediaQuery.sizeOf(context);
     return Scaffold(
       body: tabs[currentIndex],
       bottomNavigationBar: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         margin: const EdgeInsets.only(left: 9, right: 9, bottom: 9),
+          height: screenSize.height*.065,
+        width:screenSize.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16), color: AppTheme.gray),
         child: BottomNavigationBar(
