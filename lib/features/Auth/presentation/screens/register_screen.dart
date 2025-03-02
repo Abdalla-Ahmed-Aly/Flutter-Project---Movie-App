@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movieapp/core/utils/validator.dart';
 import 'package:movieapp/core/widgets/LoadingIndicatore.dart';
-import 'package:movieapp/features/Auth/data/models/data.dart';
+
 import 'package:movieapp/features/Auth/data/models/register_request.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
@@ -35,7 +35,7 @@ class _SignupState extends State<Signup> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   final CarouselSliderController _carouselController =
       CarouselSliderController();
@@ -57,6 +57,11 @@ class _SignupState extends State<Signup> {
             backgroundColor: Colors.red),
       );
     }
+    print(_nameController.text);
+    print(_emailController.text);
+    print(_passwordController.text);
+    print(_confirmPasswordController.text);
+    print(_phoneController.text);
   }
 
   @override

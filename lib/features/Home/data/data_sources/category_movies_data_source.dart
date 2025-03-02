@@ -3,13 +3,15 @@ import 'package:movieapp/features/Home/data/data_sources/category_movies_data_so
 
 import '../models/category_movies_data_model.dart';
 
-class MovieDataSource implements CategoryMoviesDataSourceAbstract{
+class MovieDataSource implements CategoryMoviesDataSourceAbstract {
   static const String apiUrl = "https://yts.mx/api/v2/list_movies.json/";
   final Dio dio = Dio();
 
   Future<List<Movie>> fetchMoviesByGenre(String genre) async {
     try {
-      final response = await dio.get(apiUrl, queryParameters: {"genre": genre});
+      final response = await dio.get(apiUrl, queryParameters: {
+        "genre": genre,
+      });
       if (response.statusCode == 200) {
         final data = response.data;
         final List movies = data['data']['movies'] ?? [];

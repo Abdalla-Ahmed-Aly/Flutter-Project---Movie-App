@@ -1,8 +1,8 @@
 class AppException {
- final String message;
- const AppException(this.message);
-  
+  final String message;
+  const AppException(this.message);
 }
+
 class RemoteException extends AppException {
- const RemoteException( super.message) ;
+  const RemoteException(super.message);
 }
