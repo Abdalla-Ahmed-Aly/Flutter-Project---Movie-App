@@ -50,11 +50,15 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> initializeAuth() async {
+    emit(AuthLoading()); // Optional: Show loading during check
     final storedToken =
         LocalStorageServices.getString(LocalStorageKeys.authToken);
     if (storedToken != null && storedToken.isNotEmpty) {
       token = storedToken;
       emit(AuthLoginSuccess(storedToken));
+    } else {
+      emit(AuthError(
+          'No token found')); // Trigger navigation to login/onboarding
     }
   }
 

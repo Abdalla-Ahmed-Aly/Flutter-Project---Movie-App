@@ -38,7 +38,7 @@ class _MovieListState extends State<MovieList> {
             );
           } else if (state is MoviesListLoaded) {
             final movies = state.movies;
-            return Container(
+            return SizedBox(
               height: screenHeight * 0.27,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -46,7 +46,8 @@ class _MovieListState extends State<MovieList> {
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
                   final movie = movies[index];
-                  return MovieItem(movieImageUrl: movie.imageUrl, movieRating: movie.rating);
+                  return MovieItem(
+                      movieImageUrl: movie.imageUrl, movieRating: movie.rating);
                 },
               ),
             );
