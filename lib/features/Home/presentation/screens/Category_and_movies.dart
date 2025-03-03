@@ -81,14 +81,14 @@ class _CategoryAndMoviesState extends State<CategoryAndMovies> {
                                 "See More",
                                 style: TextStyle(
                                   fontSize: screenWidth * 0.04,
-                                  color: Colors.amber,
+                                  color: AppTheme.primary,
                                 ),
                               ),
                               SizedBox(width: screenWidth * 0.01),
                               Icon(
                                 Icons.arrow_forward,
                                 size: screenWidth * 0.045,
-                                color: Colors.amber,
+                                color: AppTheme.primary,
                               )
                             ],
                           ),

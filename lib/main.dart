@@ -22,27 +22,8 @@ void main() async {
 
   runApp(BlocProvider(
     create: (context) => AuthCubit()..initializeAuth(),
-    child: AuthWrapper(),
+    child: MyApp(),
   ));
-}
-
-class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
-        if (state is AuthLoginSuccess) {
-          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-        }
-        if (state is AuthError) {
-          Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-        }
-      },
-      child: MyApp(),
-    );
-  }
 }
 
 class MyApp extends StatelessWidget {
@@ -74,15 +55,24 @@ class MyApp extends StatelessWidget {
           HomeScreen.routeName: (_) => HomeScreen(),
           ProfileTab.routeName: (_) => ProfileTab(),
         },
-        initialRoute: _getInitialRoute(storedToken, runforthefirsttime),
+        home: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            if (state is AuthInitial || state is AuthLoading) {
+              return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+            }
+            if (state is AuthLoginSuccess) {
+              return HomeScreen();
+            }
+            bool runFirstTime = LocalStorageServices.getbool(
+                  LocalStorageKeys.runforthefirsttime,
+                ) ??
+                false;
+            return runFirstTime ? LoginScreen() : OnBoardingScreen();
+          },
+        ),
       ),
     );
-  }
-
-  String _getInitialRoute(String? token, bool runFirstTime) {
-    if (token != null && token.isNotEmpty) {
-      return HomeScreen.routeName;
-    }
-    return runFirstTime ? LoginScreen.routeName : OnBoardingScreen.routeName;
   }
 }
