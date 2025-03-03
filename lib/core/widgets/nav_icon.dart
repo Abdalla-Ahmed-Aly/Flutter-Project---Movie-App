@@ -9,7 +9,7 @@ class NavIcon extends StatelessWidget {
     return SvgPicture.asset(
       "assets/icons/${imageIcon}.svg",
       fit: BoxFit.scaleDown,
-      height: 24,
+      height: MediaQuery.of(context).size.height * 0.025,
       width: 24,
     );
   }

@@ -9,9 +9,7 @@ class MovieDataSource implements CategoryMoviesDataSourceAbstract {
 
   Future<List<Movie>> fetchMoviesByGenre(String genre) async {
     try {
-      final response = await dio.get(apiUrl, queryParameters: {
-        "genre": genre,
-      });
+      final response = await dio.get(apiUrl, queryParameters: {"genre": genre});
       if (response.statusCode == 200) {
         final data = response.data;
         final List movies = data['data']['movies'] ?? [];
