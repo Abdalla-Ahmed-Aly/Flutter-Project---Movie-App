@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
-  List<Widget> tabs = [
+  final List<Widget> tabs = [
     HomeTab(),
     SearchTab(),
     BrowseTab(),
@@ -24,46 +24,49 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize=MediaQuery.sizeOf(context);
     return Scaffold(
       body: tabs[currentIndex],
-      bottomNavigationBar: Container(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        margin: const EdgeInsets.only(left: 9, right: 9, bottom: 9),
-          height: screenSize.height*.065,
-        width:screenSize.width,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16), color: AppTheme.gray),
-        child: BottomNavigationBar(
+      bottomNavigationBar: SafeArea(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppTheme.gray,
             elevation: 0,
             showUnselectedLabels: false,
             showSelectedLabels: false,
             currentIndex: currentIndex,
             onTap: (value) {
-              if (currentIndex == value) return;
-              currentIndex = value;
-              setState(() {});
+              if (currentIndex != value) {
+                setState(() {
+                  currentIndex = value;
+                });
+              }
             },
             items: [
+               BottomNavigationBarItem(
+                icon: NavIcon(imageIcon: "home"),
+                activeIcon: NavIcon(imageIcon: "homeActive"),
+                label: "Home",
+              ),
+               BottomNavigationBarItem(
+                icon: NavIcon(imageIcon: "search"),
+                activeIcon: NavIcon(imageIcon: "searchActive"),
+                label: "Search",
+              ),
+               BottomNavigationBarItem(
+                icon: NavIcon(imageIcon: "browse"),
+                activeIcon: NavIcon(imageIcon: "browseActive"),
+                label: "Browse",
+              ),
               BottomNavigationBarItem(
-                  icon: NavIcon(imageIcon: "home"),
-                  activeIcon: NavIcon(imageIcon: "homeActive"),
-                  label: "Home"),
-              BottomNavigationBarItem(
-                  icon: NavIcon(imageIcon: "search"),
-                  activeIcon: NavIcon(imageIcon: "searchActive"),
-                  label: "Search"),
-              BottomNavigationBarItem(
-                  icon: NavIcon(imageIcon: "browse"),
-                  activeIcon: NavIcon(imageIcon: "browseActive"),
-                  label: "Browse"),
-              BottomNavigationBarItem(
-                  icon: NavIcon(imageIcon: "profile"),
-                  activeIcon: NavIcon(imageIcon: "profileActive"),
-                  label: "Profile"),
-            ]),
+                icon: NavIcon(imageIcon: "profile"),
+                activeIcon:  NavIcon(imageIcon: "profileActive"),
+                label: "Profile",
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
