@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/repositories/category_movies_repository.dart';
 import 'category_movies_state.dart';
 
-
 class MovieCubit extends Cubit<MovieState> {
   final MovieRepository movieRepository;
   bool _isLoading = false;
