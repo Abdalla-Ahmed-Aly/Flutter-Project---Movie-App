@@ -3,5 +3,5 @@ import 'package:movieapp/features/Update_Profile/data/models/update_data_request
 
 abstract class AuthRemoteDataSources {
   Future<UpdateDataResponse> update(UpdateDataRequest updateDataRequest);
-
+  Future<void> delete();
 }

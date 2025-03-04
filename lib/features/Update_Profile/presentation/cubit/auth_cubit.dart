@@ -4,6 +4,8 @@ import 'package:movieapp/features/Update_Profile/data/data_sources/auth_remote_a
 import 'package:movieapp/features/Update_Profile/data/models/UpdateDataRequest.dart';
 import 'package:movieapp/features/Update_Profile/data/repositories/update_repositry.dart';
 import 'package:movieapp/features/Update_Profile/presentation/cubit/AuthState.dart';
+import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
+import 'package:movieapp/features/onboarding/services/sharedpreferences.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
@@ -12,14 +14,29 @@ class AuthCubit extends Cubit<AuthState> {
       UpdateRepositry(AuthRemoteApiDataSources());
   Future<void> updateData(UpdateDataRequest updateDataRequest) async {
     try {
-      if (isClosed) return; // التحقق من إغلاق Cubit
+      if (isClosed) return;
       emit(AuthLoading());
       final updatedData = await _authRepository.updateData(updateDataRequest);
-      if (isClosed) return; // التحقق من إغلاق Cubit
-      emit(AuthUpdateSuccess(updatedData)); // حالة نجاح التحديث
+      if (isClosed) return;
+      emit(AuthUpdateSuccess(updatedData));
     } on AppException catch (e) {
-      if (isClosed) return; // التحقق من إغلاق Cubit
-      emit(AuthError(e.message)); // حالة خطأ التحديث
+      if (isClosed) return;
+      emit(AuthError(e.message));
+    }
+  }
+
+  Future<void> delete() async {
+    try {
+      if (isClosed) return;
+      emit(AuthLoading());
+      final updatedData = await _authRepository.delet();
+      await LocalStorageServices.setString(LocalStorageKeys.authToken, '');
+
+      if (isClosed) return;
+      emit(AuthdeletSuccess());
+    } on AppException catch (e) {
+      if (isClosed) return;
+      emit(AuthError(e.message));
     }
   }
 }
