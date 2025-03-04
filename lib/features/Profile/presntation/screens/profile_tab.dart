@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
+import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
+import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 import '../../../../core/widgets/tab_bar_icon.dart';
 import '../../../../theme/apptheme.dart';
@@ -14,6 +16,7 @@ class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    int selectedAvatarIndex = 0;
 
     return BlocProvider(
       create: (context) => AuthCubit()..getData(),
@@ -39,12 +42,17 @@ class ProfileTab extends StatelessWidget {
 
                       if (state is AuthDataSuccess) {
                         final user = state.dataResponse.data!;
+                        selectedAvatarIndex = user.avaterId ?? 0;
+
+                        String avatarPath =
+                            Avatar.avatarPaths[selectedAvatarIndex].imagePath;
+
+                        print(avatarPath);
                         return Column(
                           children: [
                             CircleAvatar(
                               radius: 60,
-                              backgroundImage:
-                                  AssetImage("assets/Avatar/gamer1.png"),
+                              backgroundImage: AssetImage(avatarPath),
                             ),
                             const SizedBox(height: 10),
                             Text(user.name!, style: textTheme.displaySmall),
@@ -95,7 +103,9 @@ class ProfileTab extends StatelessWidget {
                                       buttonTitle: "Exit",
                                       buttonColor: AppTheme.red,
                                       onPressed: () {
-                                        Navigator.pop(context);
+                                        Navigator.of(context)
+                                            .pushReplacementNamed(
+                                                LoginScreen.routeName);
                                       },
                                       fontColor: AppTheme.white,
                                       buttonTitleStyle: textTheme.titleMedium,
