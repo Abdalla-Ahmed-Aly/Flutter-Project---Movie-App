@@ -12,6 +12,7 @@ class AuthLoginSuccess extends AuthState {
   final String token;
   AuthLoginSuccess(this.token);
 }
+
 class AuthDataSuccess extends AuthState {
   final GetDataResponse dataResponse;
   AuthDataSuccess(this.dataResponse);
