@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   int currentIndex = 0;
   final List<Widget> tabs = [
     HomeTab(),
@@ -21,7 +22,18 @@ class _HomeScreenState extends State<HomeScreen> {
     BrowseTab(),
     ProfileTab(),
   ];
-
+@override
+void initState() {
+  super.initState();
+  Future.delayed(Duration.zero, () {
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args is int) {
+      setState(() {
+        currentIndex = args;
+      });
+    }
+  });
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(

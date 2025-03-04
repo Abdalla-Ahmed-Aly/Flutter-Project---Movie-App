@@ -20,10 +20,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorageServices.init();
 
-  runApp(BlocProvider(
-    create: (context) => AuthCubit()..initializeAuth(),
-    child: MyApp(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit()..initializeAuth(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -1,35 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/core/utils/validator.dart';
-import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
+import 'package:movieapp/features/Auth/data/models/data.dart';
+import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.dart';
+import 'package:movieapp/features/Update_Profile/data/models/UpdateDataRequest.dart';
 import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
+import 'package:movieapp/features/Update_Profile/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/cutomTextFormField.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/showAvatar.dart';
 
-class UpdateProfile extends StatefulWidget {
+class UpdateProfile extends StatelessWidget {
   static const String routeName = '/update';
 
   @override
-  _UpdateProfileState createState() => _UpdateProfileState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: UpdateProfileBody(),
+    );
+  }
 }
 
-class _UpdateProfileState extends State<UpdateProfile> {
+class UpdateProfileBody extends StatefulWidget {
+  @override
+  _UpdateProfileBodyState createState() => _UpdateProfileBodyState();
+}
+
+class _UpdateProfileBodyState extends State<UpdateProfileBody> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   int selectedAvatarIndex = 0;
+  String? avatarPath;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    final _userData = context.read<AuthCubit>().userData;
-    selectedAvatarIndex = _userData?.avaterId ?? 0;
-    nameController.text = _userData?.name ?? '';
-    phoneController.text = _userData?.phone?.replaceFirst("+2", "") ?? '';
-    print(_userData!.email);
-    print(_userData!.password);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final user = ModalRoute.of(context)!.settings.arguments as Data;
+      setState(() {
+        selectedAvatarIndex = user.avaterId ?? 0;
+        nameController.text = user.name!;
+        phoneController.text = user.phone!.replaceFirst('+2', '');
+        avatarPath = Avatar.avatarPaths[selectedAvatarIndex].imagePath;
+      });
+    });
+  }
+
+  Future<void> updateProfile() async {
+    if (formKey.currentState!.validate()) {
+      await context
+          .read<AuthCubit>()
+          .updateData(
+            UpdateDataRequest(
+              name: nameController.text,
+              phone: '+2' + phoneController.text,
+              avaterId: selectedAvatarIndex,
+            ),
+          )
+          .then((_) {
+        Navigator.of(context)
+            .pushReplacementNamed(HomeScreen.routeName, arguments: 3);
+      }).catchError((error) {
+        print(error);
+      });
+    }
   }
 
   void _showAvatarSelection() {
@@ -47,6 +84,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           onAvatarSelected: (index) {
             setState(() {
               selectedAvatarIndex = index;
+              avatarPath = Avatar.avatarPaths[selectedAvatarIndex].imagePath;
             });
           },
         ),
@@ -56,10 +94,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
-    int avatarIndex = selectedAvatarIndex;
-    String avatarPath = Avatar.avatarPaths[avatarIndex].imagePath;
-    TextTheme textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -77,14 +111,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       child: IconButton(
                         color: AppTheme.primary,
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.of(context).pop(true);
                         },
                         icon: Icon(Icons.arrow_back),
                       ),
                     ),
                     Text(
                       'Pick Avatar',
-                      style: textTheme.titleSmall
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
                           ?.copyWith(color: AppTheme.primary),
                     ),
                   ],
@@ -93,11 +129,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 Center(
                   child: GestureDetector(
                     onTap: _showAvatarSelection,
-                    child: Image.asset(
-                      avatarPath,
-                      width: MediaQuery.sizeOf(context).width * 0.4,
-                      fit: BoxFit.fill,
-                    ),
+                    child: avatarPath != null
+                        ? Image.asset(
+                            avatarPath!,
+                            width: MediaQuery.sizeOf(context).width * 0.4,
+                            fit: BoxFit.fill,
+                          )
+                        : CircularProgressIndicator(),
                   ),
                 ),
                 SizedBox(height: 35),
@@ -126,7 +164,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           onPressed: () {},
                           child: Text(
                             'Reset Password',
-                            style: textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
                       ],
@@ -155,21 +193,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
               buttonTitle: 'Update Data',
               buttonColor: AppTheme.primary,
               fontColor: AppTheme.black,
-              onPressed: () {
-                login();
-              },
+              onPressed: updateProfile,
             ),
           ],
         ),
       ),
     );
-  }
-
-  void login() {
-    if (formKey.currentState!.validate()) {
-      print(nameController.text);
-      print(phoneController.text);
-      print('Selected Avatar ID: $selectedAvatarIndex');
-    }
   }
 }

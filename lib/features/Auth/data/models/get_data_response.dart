@@ -1,4 +1,3 @@
-
 import 'package:movieapp/features/Auth/data/models/data.dart';
 
 class GetDataResponse {
@@ -15,5 +14,4 @@ class GetDataResponse {
           : Data.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
-
 }

@@ -10,9 +10,14 @@ import 'package:movieapp/features/Update_Profile/presentation/screens/update_pro
 import '../../../../core/widgets/tab_bar_icon.dart';
 import '../../../../theme/apptheme.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   static const String routeName = "/ProfileTab";
 
+  @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -47,7 +52,6 @@ class ProfileTab extends StatelessWidget {
                         String avatarPath =
                             Avatar.avatarPaths[selectedAvatarIndex].imagePath;
 
-                        print(avatarPath);
                         return Column(
                           children: [
                             CircleAvatar(
@@ -91,8 +95,14 @@ class ProfileTab extends StatelessWidget {
                                     child: CustomButton(
                                       buttonTitle: "Edit Profile",
                                       buttonColor: AppTheme.primary,
-                                      onPressed: () => Navigator.pushNamed(
-                                          context, UpdateProfile.routeName),
+                                      onPressed: () async {
+                                        final result =
+                                            await Navigator.pushNamed(
+                                          context,
+                                          UpdateProfile.routeName,
+                                          arguments: user,
+                                        );
+                                      },
                                       fontColor: AppTheme.black,
                                       buttonTitleStyle: textTheme.titleMedium,
                                     ),

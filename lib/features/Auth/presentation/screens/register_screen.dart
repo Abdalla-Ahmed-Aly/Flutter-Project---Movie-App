@@ -11,7 +11,6 @@ import 'package:movieapp/core/widgets/LoadingIndicatore.dart';
 import 'package:movieapp/features/Auth/data/models/register_request.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
-import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
@@ -57,11 +56,6 @@ class _SignupState extends State<Signup> {
             backgroundColor: Colors.red),
       );
     }
-    print(_nameController.text);
-    print(_emailController.text);
-    print(_passwordController.text);
-    print(_confirmPasswordController.text);
-    print(_phoneController.text);
   }
 
   @override
@@ -203,7 +197,7 @@ class _SignupState extends State<Signup> {
                       } else if (state is AuthSuccess) {
                         LoadingIndicator.hide(context);
                         Navigator.of(context).pushNamedAndRemoveUntil(
-                          HomeScreen.routeName,
+                          LoginScreen.routeName,
                           (Route<dynamic> route) => false,
                         );
                       } else if (state is AuthError) {
