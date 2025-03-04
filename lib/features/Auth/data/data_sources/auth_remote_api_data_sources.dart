@@ -7,6 +7,8 @@ import 'package:movieapp/features/Auth/data/models/register_request.dart';
 import 'package:movieapp/features/Auth/data/models/register_response.dart';
 import 'package:movieapp/features/Auth/data/models/login_request.dart';
 import 'package:movieapp/features/Auth/data/models/login_response.dart';
+import 'package:movieapp/features/Auth/data/models/reset_password_request.dart';
+import 'package:movieapp/features/Auth/data/models/reset_password_response.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferences.dart';
 
@@ -85,6 +87,18 @@ class AuthRemoteApiDataSources implements AuthRemoteDataSources {
       return GetDataResponse.fromJson(response.data);
     } on DioException catch (errorMessage) {
       throw RemoteException(errorMessage.message.toString());
+    }
+  }
+
+  @override
+  Future<ResetPasswordResponse> resetPassword(
+      ResetPasswordRequest resetPasswordRequest) async {
+    try {
+      final response = await _dio.patch(ConstansApi.resetPassword,
+          data: resetPasswordRequest.toJson());
+      return ResetPasswordResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      throw RemoteException(e.toString());
     }
   }
 }

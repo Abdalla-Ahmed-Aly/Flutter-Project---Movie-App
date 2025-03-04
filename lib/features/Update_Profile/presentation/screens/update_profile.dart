@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/core/utils/validator.dart';
 import 'package:movieapp/features/Auth/data/models/data.dart';
+import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.dart';
 import 'package:movieapp/features/Update_Profile/data/models/UpdateDataRequest.dart';
 import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
@@ -186,7 +187,12 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
               buttonTitle: 'Delete Account',
               buttonColor: AppTheme.red,
               fontColor: AppTheme.white,
-              onPressed: () {},
+              onPressed: () {
+                context.read<AuthCubit>().delete().then((onValue) {
+                  Navigator.of(context)
+                      .pushReplacementNamed(LoginScreen.routeName);
+                });
+              },
             ),
             SizedBox(height: 10),
             CustomButton(

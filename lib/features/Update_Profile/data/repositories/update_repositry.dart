@@ -3,11 +3,17 @@ import 'package:movieapp/features/Update_Profile/data/models/UpdateDataRequest.d
 import 'package:movieapp/features/Update_Profile/data/models/update_data_request.dart';
 
 class UpdateRepositry {
-    final AuthRemoteDataSources _remoteDataSources;
+  final AuthRemoteDataSources _remoteDataSources;
 
   UpdateRepositry(this._remoteDataSources);
-  Future<UpdateDataResponse> updateData(UpdateDataRequest updateDataRequest) async {
+  Future<UpdateDataResponse> updateData(
+      UpdateDataRequest updateDataRequest) async {
     final getDataResponse = await _remoteDataSources.update(updateDataRequest);
     return getDataResponse;
+  }
+
+  Future<void> delet() async {
+    final deletDataResponse = await _remoteDataSources.delete();
+    return deletDataResponse;
   }
 }

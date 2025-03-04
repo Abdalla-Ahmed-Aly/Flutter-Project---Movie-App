@@ -16,7 +16,7 @@ class AuthRemoteApiDataSources implements AuthRemoteDataSources {
     ),
   );
 
- AuthRemoteApiDataSources() {
+  AuthRemoteApiDataSources() {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         final token =
@@ -37,54 +37,61 @@ class AuthRemoteApiDataSources implements AuthRemoteDataSources {
   }
 
   @override
-Future<UpdateDataResponse> update(UpdateDataRequest updateDataRequest) async {
-  log("✅ update() function started");
+  Future<UpdateDataResponse> update(UpdateDataRequest updateDataRequest) async {
+    log("✅ update() function started");
 
-  try {
-    Map<String, dynamic> requestData = updateDataRequest.toJson();
-    log("📤 Request Data: $requestData");
+    try {
+      Map<String, dynamic> requestData = updateDataRequest.toJson();
+      log("📤 Request Data: $requestData");
 
-    final response = await _dio.patch(
-      ConstansApi.UPDATE_PROFILE,
-      data: requestData,
-    );
+      final response = await _dio.patch(
+        ConstansApi.UPDATE_PROFILE,
+        data: requestData,
+      );
 
-    log("✅ Response received successfully!");
-    log("📩 Response Data: ${response.data}");
+      log("✅ Response received successfully!");
+      log("📩 Response Data: ${response.data}");
 
-    return UpdateDataResponse.fromJson(response.data);
-  } on DioException catch (e) {
-    log("❌ DioException caught: ${e.message}");
+      return UpdateDataResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      log("❌ DioException caught: ${e.message}");
 
-    String errorMessage = "حدث خطأ غير متوقع!";
-    if (e.response != null) {
-      log("📥 Response Data: ${e.response?.data}");
-      log("⚠️ Status Code: ${e.response?.statusCode}");
+      String errorMessage = "حدث خطأ غير متوقع!";
+      if (e.response != null) {
+        log("📥 Response Data: ${e.response?.data}");
+        log("⚠️ Status Code: ${e.response?.statusCode}");
 
-      if (e.response?.statusCode == 400) {
-        errorMessage = "⚠️ خطأ: ${e.response?.data['message']}";
-      } else if (e.response?.statusCode == 401) {
-        errorMessage = "⛔ غير مصرح لك!";
-      } else if (e.response?.statusCode == 500) {
-        errorMessage = "🚨 خطأ في السيرفر!";
+        if (e.response?.statusCode == 400) {
+          errorMessage = "⚠️ خطأ: ${e.response?.data['message']}";
+        } else if (e.response?.statusCode == 401) {
+          errorMessage = "⛔ غير مصرح لك!";
+        } else if (e.response?.statusCode == 500) {
+          errorMessage = "🚨 خطأ في السيرفر!";
+        }
       }
+
+      Fluttertoast.showToast(
+        msg: errorMessage,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      throw Exception();
+    } catch (e) {
+      log("❌ Unexpected Error: $e");
+      Fluttertoast.showToast(
+        msg: "⚠️ خطأ غير متوقع: $e",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+      throw Exception();
     }
-
-    Fluttertoast.showToast(
-      msg: errorMessage,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-    );
-
-    throw Exception();
-  } catch (e) {
-    log("❌ Unexpected Error: $e");
-    Fluttertoast.showToast(
-      msg: "⚠️ خطأ غير متوقع: $e",
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-    );
-    throw Exception();
   }
-}
+
+  @override
+  Future<void> delete() async {
+    await _dio.delete(
+      ConstansApi.DELETE_PROFILE,
+    );
+  }
 }

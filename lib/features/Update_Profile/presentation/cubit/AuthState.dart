@@ -6,11 +6,13 @@ class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
-
 class AuthUpdateSuccess extends AuthState {
   final UpdateDataResponse dataResponse;
   AuthUpdateSuccess(this.dataResponse);
 }
+
+class AuthdeletSuccess extends AuthState {}
+
 class AuthError extends AuthState {
   final String message;
 

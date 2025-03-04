@@ -5,6 +5,8 @@ import 'package:movieapp/features/Auth/data/models/data.dart';
 import 'package:movieapp/features/Auth/data/models/get_data_response.dart';
 import 'package:movieapp/features/Auth/data/models/register_request.dart';
 import 'package:movieapp/features/Auth/data/models/login_request.dart';
+import 'package:movieapp/features/Auth/data/models/reset_password_request.dart';
+import 'package:movieapp/features/Auth/data/models/reset_password_response.dart';
 
 import 'package:movieapp/features/Auth/data/repositories/auth_repository.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
@@ -21,6 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
   String? token;
   String? message;
   GetDataResponse? data;
+  ResetPasswordResponse? resetPasswordResponse;
 
   Future<void> register(RegisterRequest registerRequest) async {
     try {
@@ -37,6 +40,18 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(AuthLoading());
       data = await _authRepository.getData();
+      emit(AuthDataSuccess(data!));
+    } on AppException catch (e) {
+      emit(AuthError(e.message));
+      // rethrow;
+    }
+  }
+
+  Future<void> resetPssword(ResetPasswordRequest resetPasswordRequest) async {
+    try {
+      emit(AuthLoading());
+      resetPasswordResponse =
+          await _authRepository.resetPassword(resetPasswordRequest);
       emit(AuthDataSuccess(data!));
     } on AppException catch (e) {
       emit(AuthError(e.message));
@@ -62,10 +77,11 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-   Future<void> initializeAuth() async {
+  Future<void> initializeAuth() async {
     print("Initializing auth..."); // Debug print
     emit(AuthLoading());
-    final storedToken = LocalStorageServices.getString(LocalStorageKeys.authToken);
+    final storedToken =
+        LocalStorageServices.getString(LocalStorageKeys.authToken);
     if (storedToken != null && storedToken.isNotEmpty) {
       print("Token found: $storedToken"); // Debug print
       token = storedToken;
