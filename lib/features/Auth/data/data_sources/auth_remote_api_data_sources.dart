@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:movieapp/core/constans.dart';
 import 'package:movieapp/core/error/exception.dart';
 import 'package:movieapp/features/Auth/data/data_sources/auth_remote_data_sources.dart';
+import 'package:movieapp/features/Auth/data/models/get_data_response.dart';
 import 'package:movieapp/features/Auth/data/models/register_request.dart';
 import 'package:movieapp/features/Auth/data/models/register_response.dart';
 import 'package:movieapp/features/Auth/data/models/login_request.dart';
@@ -74,6 +75,16 @@ class AuthRemoteApiDataSources implements AuthRemoteDataSources {
         }
       }
       throw RemoteException(errorMessage);
+    }
+  }
+
+  @override
+  Future<GetDataResponse> getData() async {
+    try {
+      final response = await _dio.get(ConstansApi.GET_DATA);
+      return GetDataResponse.fromJson(response.data);
+    } on DioException catch (errorMessage) {
+      throw RemoteException(errorMessage.message.toString());
     }
   }
 }

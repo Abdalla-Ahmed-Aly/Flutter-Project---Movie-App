@@ -44,24 +44,24 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
             items: [
-               BottomNavigationBarItem(
+              BottomNavigationBarItem(
                 icon: NavIcon(imageIcon: "home"),
                 activeIcon: NavIcon(imageIcon: "homeActive"),
                 label: "Home",
               ),
-               BottomNavigationBarItem(
+              BottomNavigationBarItem(
                 icon: NavIcon(imageIcon: "search"),
                 activeIcon: NavIcon(imageIcon: "searchActive"),
                 label: "Search",
               ),
-               BottomNavigationBarItem(
+              BottomNavigationBarItem(
                 icon: NavIcon(imageIcon: "browse"),
                 activeIcon: NavIcon(imageIcon: "browseActive"),
                 label: "Browse",
               ),
               BottomNavigationBarItem(
                 icon: NavIcon(imageIcon: "profile"),
-                activeIcon:  NavIcon(imageIcon: "profileActive"),
+                activeIcon: NavIcon(imageIcon: "profileActive"),
                 label: "Profile",
               ),
             ],

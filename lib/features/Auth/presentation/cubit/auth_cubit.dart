@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/core/error/exception.dart';
 import 'package:movieapp/features/Auth/data/data_sources/auth_remote_api_data_sources.dart';
 import 'package:movieapp/features/Auth/data/models/data.dart';
+import 'package:movieapp/features/Auth/data/models/get_data_response.dart';
 import 'package:movieapp/features/Auth/data/models/register_request.dart';
 import 'package:movieapp/features/Auth/data/models/login_request.dart';
 
@@ -19,12 +20,23 @@ class AuthCubit extends Cubit<AuthState> {
   Data? userData;
   String? token;
   String? message;
+  GetDataResponse? data;
 
   Future<void> register(RegisterRequest registerRequest) async {
     try {
       emit(AuthLoading());
       userData = await _authRepository.register(registerRequest);
       emit(AuthSuccess());
+    } on AppException catch (e) {
+      emit(AuthError(e.message));
+      // rethrow;
+    }
+  }
+  Future<void> getData() async {
+    try {
+      emit(AuthLoading());
+      data = await _authRepository.getData();
+      emit(AuthDataSuccess(data!));
     } on AppException catch (e) {
       emit(AuthError(e.message));
       // rethrow;

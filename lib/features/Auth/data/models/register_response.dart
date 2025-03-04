@@ -14,6 +14,4 @@ class RegisterResponse {
           : Data.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
-
-
 }

@@ -7,7 +7,9 @@ class LoadingIndicator {
       context: context,
       barrierDismissible: false,
       builder: (context) => Center(
-        child: CircularProgressIndicator(color: AppTheme.primary,),
+        child: CircularProgressIndicator(
+          color: AppTheme.primary,
+        ),
       ),
     );
   }
