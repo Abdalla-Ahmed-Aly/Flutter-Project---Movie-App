@@ -4,6 +4,7 @@ import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/features/Auth/data/models/reset_password_request.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
+import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.dart';
 import '../../../../core/utils/validator.dart';
 import '../../../../theme/apptheme.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
@@ -63,7 +64,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             builder: (context) => Center(child: CircularProgressIndicator()),
           );
         } else if (state is ResetPasswordSuccess) {
-          Navigator.pop(context);
+          Navigator.of(context)
+              .pushReplacementNamed(HomeScreen.routeName, arguments: 3);
           _showSnackbar(
               state.resetPasswordResponse.message ??
                   'Password reset successfully!',
