@@ -102,7 +102,10 @@ class AuthRemoteApiDataSources implements AuthRemoteDataSources {
       return ResetPasswordResponse.fromJson(response.data);
     } on DioException catch (e) {
       print("Error: ${e.response?.data}"); // Log the error response
-      throw RemoteException(e.response?.data['message'] ?? e.toString());
+      throw RemoteException(e.response?.data['message'] is List
+          ? (e.response?.data['message'] as List)
+              .join("\n") // تحويل القائمة إلى نص
+          : e.response?.data['message'] ?? e.toString());
     }
   }
 }
