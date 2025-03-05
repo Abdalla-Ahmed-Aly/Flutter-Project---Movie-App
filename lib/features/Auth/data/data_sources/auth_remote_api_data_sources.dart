@@ -94,11 +94,15 @@ class AuthRemoteApiDataSources implements AuthRemoteDataSources {
   Future<ResetPasswordResponse> resetPassword(
       ResetPasswordRequest resetPasswordRequest) async {
     try {
-      final response = await _dio.patch(ConstansApi.resetPassword,
-          data: resetPasswordRequest.toJson());
+      final response = await _dio.patch(
+        ConstansApi.resetPassword,
+        data: resetPasswordRequest.toJson(),
+      );
+      print("Response Data: ${response.data}"); // Log the response
       return ResetPasswordResponse.fromJson(response.data);
     } on DioException catch (e) {
-      throw RemoteException(e.toString());
+      print("Error: ${e.response?.data}"); // Log the error response
+      throw RemoteException(e.response?.data['message'] ?? e.toString());
     }
   }
 }

@@ -45,16 +45,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     Center(child: CircularProgressIndicator()),
               );
             } else if (state is AuthLoginSuccess) {
-              // Hide loading indicator
               Navigator.of(context).pop();
-              // Navigate to HomeScreen
+
               Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
               token = state.token;
-              print('Token: ${state.token}');
             } else if (state is AuthError) {
-              // Hide loading indicator
               Navigator.of(context).pop();
-              // Show error message
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
@@ -112,9 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontColor: AppTheme.gray,
                       onPressed: () {
                         login();
-//        LocalStorageServices.setbool(
-                        //     LocalStorageKeys.runforthefirsttime, true);
-                        // Navigator.of(context).pushAndReplacementNamed(HomeScreen.routeName);
                       },
                     ),
                     SizedBox(height: 20),

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
+import 'package:movieapp/features/Auth/data/models/reset_password_request.dart';
+import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
+import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
 import '../../../../core/utils/validator.dart';
 import '../../../../theme/apptheme.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
@@ -14,7 +18,7 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  final _formKey = GlobalKey<FormState>(); // Form Key
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
 
@@ -31,8 +35,18 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      print('Email is valid: ${_newPasswordController.text}');
-      _showSnackbar('Verification email sent successfully!', Colors.green);
+      final oldPassword = _oldPasswordController.text.trim();
+      final newPassword = _newPasswordController.text.trim();
+
+      if (oldPassword.isEmpty || newPassword.isEmpty) {
+        _showSnackbar('Please fill in all fields.', Colors.red);
+        return;
+      }
+
+      context.read<AuthCubit>().resetPssword(ResetPasswordRequest(
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+          ));
     } else {
       _showSnackbar('Please fix the errors before proceeding.', Colors.red);
     }
@@ -40,7 +54,26 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthLoading) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => Center(child: CircularProgressIndicator()),
+          );
+        } else if (state is ResetPasswordSuccess) {
+          Navigator.pop(context);
+          _showSnackbar(
+              state.resetPasswordResponse.message ??
+                  'Password reset successfully!',
+              Colors.green);
+        } else if (state is AuthError) {
+          Navigator.pop(context);
+          _showSnackbar(state.message, Colors.red);
+        }
+      },
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppTheme.black,
           title: const Text(
@@ -60,10 +93,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormFieldCustom(
                     controller: _oldPasswordController,
-                    hintText: 'old password',
+                    hintText: 'Old Password',
                     prefixIconPath: "assets/svg/password.svg",
                     validator: (value) =>
-                        Validator.validateField(value, 'password'),
+                        Validator.validateField(value, 'Old Password'),
                   ),
                 ),
                 Padding(
@@ -71,19 +104,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       const EdgeInsets.only(top: 16.0, right: 16, left: 16),
                   child: TextFormFieldCustom(
                     controller: _newPasswordController,
-                    hintText: 'new password',
+                    hintText: 'New Password',
                     prefixIconPath: "assets/svg/password.svg",
-                    validator: (value) => Validator.validateField(
-                      value,
-                      'new password',
-                    ),
+                    validator: (value) =>
+                        Validator.validateField(value, 'New Password'),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: CustomButton(
                     onPressed: _submitForm,
-                    buttonTitle: 'Verify Email',
+                    buttonTitle: 'Reset',
                     buttonColor: AppTheme.primary,
                     fontColor: AppTheme.black,
                   ),
@@ -91,6 +122,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
