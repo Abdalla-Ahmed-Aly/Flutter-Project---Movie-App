@@ -20,7 +20,7 @@ class UpdateProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(),
+      create: (context) => UpdateAuthCubit(),
       child: UpdateProfileBody(),
     );
   }
