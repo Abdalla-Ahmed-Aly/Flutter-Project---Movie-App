@@ -8,11 +8,11 @@ import 'package:movieapp/features/Home/data/repositories/category_movies_reposit
 import 'package:movieapp/features/Home/presentation/cubit/category_movies_cubit.dart';
 import 'package:movieapp/features/Home/presentation/cubit/category_movies_state.dart';
 import 'package:movieapp/features/Home/presentation/screens/Category_and_movies.dart';
-import 'package:movieapp/features/Home/presentation/screens/newestmovies.dart';
-import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
 import 'package:movieapp/theme/apptheme.dart';
 
 class HomeTab extends StatefulWidget {
+  const HomeTab({super.key});
+
   @override
   State<HomeTab> createState() => _HomeTabState();
 }

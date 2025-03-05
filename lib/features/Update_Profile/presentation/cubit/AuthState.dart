@@ -1,20 +1,20 @@
 import 'package:movieapp/features/Update_Profile/data/models/update_data_request.dart';
 
-class AuthState {}
+class UpdateAuthState {}
 
-class AuthInitial extends AuthState {}
+class UpdateAuthInitial extends UpdateAuthState {}
 
-class AuthLoading extends AuthState {}
+class UpdateAuthLoading extends UpdateAuthState {}
 
-class AuthUpdateSuccess extends AuthState {
+class UpdateAuthUpdateSuccess extends UpdateAuthState {
   final UpdateDataResponse dataResponse;
-  AuthUpdateSuccess(this.dataResponse);
+  UpdateAuthUpdateSuccess(this.dataResponse);
 }
 
-class AuthdeletSuccess extends AuthState {}
+class UpdateAuthdeletSuccess extends UpdateAuthState {}
 
-class AuthError extends AuthState {
+class UpdateAuthError extends UpdateAuthState {
   final String message;
 
-  AuthError(this.message);
+  UpdateAuthError(this.message);
 }

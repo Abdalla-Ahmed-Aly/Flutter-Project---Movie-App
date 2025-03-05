@@ -8,6 +8,7 @@ import 'package:movieapp/features/Home/data/repositories/category_movies_reposit
 import 'package:movieapp/features/Home/presentation/cubit/category_movies_cubit.dart';
 import 'package:movieapp/features/Home/presentation/cubit/category_movies_state.dart';
 
+// ignore: must_be_immutable
 class MostRecentMovies extends StatelessWidget {
   MostRecentMovies({super.key, required this.movies});
   List<Movie> movies;

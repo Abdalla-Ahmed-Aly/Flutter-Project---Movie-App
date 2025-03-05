@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movieapp/theme/apptheme.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   final String buttonTitle;
   final Color buttonColor;
@@ -14,7 +15,8 @@ class CustomButton extends StatelessWidget {
   IconAlignment iconAlignment;
 
   CustomButton(
-      {required this.buttonTitle,
+      {super.key,
+      required this.buttonTitle,
       required this.buttonColor,
       this.fontColor,
       this.notFillColor = false,
