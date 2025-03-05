@@ -7,7 +7,6 @@ import 'package:movieapp/features/Auth/data/models/register_request.dart';
 import 'package:movieapp/features/Auth/data/models/login_request.dart';
 import 'package:movieapp/features/Auth/data/models/reset_password_request.dart';
 import 'package:movieapp/features/Auth/data/models/reset_password_response.dart';
-
 import 'package:movieapp/features/Auth/data/repositories/auth_repository.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
