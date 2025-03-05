@@ -36,4 +36,21 @@ class MovieCubit extends Cubit<MovieState> {
       _isLoading = false;
     }
   }
+
+  Future<void> loadNewestMovies() async {
+    if (_hasLoadedMovies || _isLoading) return;
+
+    _isLoading = true;
+    emit(NewestMoviesLoading());
+
+    try {
+      final movies = await movieRepository.fetchNewestMovies();
+      _hasLoadedMovies = true;
+      emit(NewestMoviesLoaded(movies));
+    } catch (e) {
+      emit(NewestMoviesError(e.toString()));
+    } finally {
+      _isLoading = false;
+    }
+  }
 }

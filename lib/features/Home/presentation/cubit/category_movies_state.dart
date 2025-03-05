@@ -27,3 +27,16 @@ class MovieListError extends MovieState {
   final String message;
   MovieListError(this.message);
 }
+
+// New states for newest movies
+class NewestMoviesLoading extends MovieState {}
+
+class NewestMoviesLoaded extends MovieState {
+  final List<Movie> movies;
+  NewestMoviesLoaded(this.movies);
+}
+
+class NewestMoviesError extends MovieState {
+  final String message;
+  NewestMoviesError(this.message);
+}

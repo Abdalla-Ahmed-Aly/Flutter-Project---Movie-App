@@ -39,6 +39,12 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
   @override
   void initState() {
     super.initState();
+    final _userData = context.read<AuthCubit>().userData;
+    selectedAvatarIndex = _userData?.avaterId ?? 0;
+    nameController.text = _userData?.name ?? '';
+    phoneController.text = _userData?.phone?.replaceFirst("+2", "") ?? '';
+
+    // print(_userData!.password);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final user = ModalRoute.of(context)!.settings.arguments as Data;
       setState(() {

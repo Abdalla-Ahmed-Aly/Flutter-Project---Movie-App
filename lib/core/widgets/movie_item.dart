@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class MovieItem extends StatelessWidget {
   String movieImageUrl;
   double movieRating;
-  MovieItem({required this.movieImageUrl, required this.movieRating});
+  double? screenwidth;
+  MovieItem(
+      {super.key,
+      required this.movieImageUrl,
+      required this.movieRating,
+      this.screenwidth});
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      width: screenWidth * 0.37,
+      width: screenwidth ?? screenWidth * 0.37,
       margin: EdgeInsets.only(right: screenWidth * 0.023),
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -17,13 +23,17 @@ class MovieItem extends StatelessWidget {
           InkWell(
             onTap: () {},
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(screenWidth * 0.025),
-              child: Image.network(
-                movieImageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-              ),
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(movieImageUrl,
+                  fit: BoxFit.fill,
+                  width: double.infinity,
+                  height: double.infinity,
+                  errorBuilder: (context, error, stackTrace) {
+                return Image.asset("assets/images/failureloading.png",
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                    height: double.infinity);
+              }),
             ),
           ),
           Positioned(
@@ -36,7 +46,7 @@ class MovieItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(screenWidth * 0.025),
               ),
               child: Text(
-                "${movieRating}⭐",
+                "$movieRating⭐",
                 style: TextStyle(
                   fontSize: screenWidth * 0.04,
                   color: Colors.white,

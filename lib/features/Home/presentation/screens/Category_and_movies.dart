@@ -9,6 +9,8 @@ import '../cubit/category_movies_state.dart';
 import 'movielist.dart';
 
 class CategoryAndMovies extends StatefulWidget {
+  const CategoryAndMovies({super.key});
+
   @override
   State<CategoryAndMovies> createState() => _CategoryAndMoviesState();
 }
@@ -18,8 +20,6 @@ class _CategoryAndMoviesState extends State<CategoryAndMovies> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double baseWidth = 430.0;
-    final double baseHeight = 932.0;
 
     return BlocProvider(
       create: (context) => MovieCubit(

@@ -13,4 +13,8 @@ class MovieRepository {
   Future<List<Movie>> fetchMoviesByGenre(String genre) async {
     return await dataSource.fetchMoviesByGenre(genre);
   }
+
+  Future<List<Movie>> fetchNewestMovies() async {
+    return await dataSource.fetchNewestMovies();
+  }
 }
