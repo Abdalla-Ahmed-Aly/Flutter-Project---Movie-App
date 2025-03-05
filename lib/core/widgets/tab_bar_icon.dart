@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// ignore: must_be_immutable
 class TabBarIcon extends StatelessWidget {
-  TabBarIcon({required this.iconName, required this.label});
+  TabBarIcon({super.key, required this.iconName, required this.label});
   String iconName;
   String label;
   @override
@@ -10,7 +11,7 @@ class TabBarIcon extends StatelessWidget {
     return Column(
       children: [
         SvgPicture.asset(
-          "assets/icons/${iconName}.svg",
+          "assets/icons/$iconName.svg",
           height: 24,
           width: 24,
           fit: BoxFit.scaleDown,

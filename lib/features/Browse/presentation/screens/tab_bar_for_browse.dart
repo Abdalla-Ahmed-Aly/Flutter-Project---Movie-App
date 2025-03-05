@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../theme/apptheme.dart';
 
+// ignore: must_be_immutable
 class TabBarForBrowse extends StatelessWidget {
   bool isSelected;
   String label;
-  TabBarForBrowse({required this.label, required this.isSelected});
+  TabBarForBrowse({super.key, required this.label, required this.isSelected});
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -7,36 +7,36 @@ import 'package:movieapp/features/Update_Profile/presentation/cubit/AuthState.da
 import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferences.dart';
 
-class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+class UpdateAuthCubit extends Cubit<UpdateAuthState> {
+  UpdateAuthCubit() : super(UpdateAuthInitial());
 
   final UpdateRepositry _authRepository =
       UpdateRepositry(AuthRemoteApiDataSources());
   Future<void> updateData(UpdateDataRequest updateDataRequest) async {
     try {
       if (isClosed) return;
-      emit(AuthLoading());
+      emit(UpdateAuthLoading());
       final updatedData = await _authRepository.updateData(updateDataRequest);
       if (isClosed) return;
-      emit(AuthUpdateSuccess(updatedData));
+      emit(UpdateAuthUpdateSuccess(updatedData));
     } on AppException catch (e) {
       if (isClosed) return;
-      emit(AuthError(e.message));
+      emit(UpdateAuthError(e.message));
     }
   }
 
   Future<void> delete() async {
     try {
       if (isClosed) return;
-      emit(AuthLoading());
+      emit(UpdateAuthLoading());
       final updatedData = await _authRepository.delet();
       await LocalStorageServices.setString(LocalStorageKeys.authToken, '');
 
       if (isClosed) return;
-      emit(AuthdeletSuccess());
+      emit(UpdateAuthdeletSuccess());
     } on AppException catch (e) {
       if (isClosed) return;
-      emit(AuthError(e.message));
+      emit(UpdateAuthError(e.message));
     }
   }
 }

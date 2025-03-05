@@ -37,13 +37,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool runforthefirsttime = LocalStorageServices.getbool(
-          LocalStorageKeys.runforthefirsttime,
-        ) ??
-        false;
-
-    final String? storedToken =
-        LocalStorageServices.getString(LocalStorageKeys.authToken);
+    // final String? storedToken =
+    //     LocalStorageServices.getString(LocalStorageKeys.authToken);
 
     return ScreenUtilInit(
       designSize: const Size(430, 932),
