@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movieapp/core/utils/validator.dart';
 import 'package:movieapp/core/widgets/LoadingIndicatore.dart';
-
 import 'package:movieapp/features/Auth/data/models/register_request.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
@@ -47,7 +46,7 @@ class _SignupState extends State<Signup> {
             email: _emailController.text,
             password: _passwordController.text,
             confirmPassword: _confirmPasswordController.text,
-            phone: '+2' + _phoneController.text,
+            phone: '+2${_phoneController.text}',
             avaterId: Avatar.avatarPaths.indexOf(_selectedAvatar!),
           ));
     } else {
@@ -57,11 +56,6 @@ class _SignupState extends State<Signup> {
             backgroundColor: Colors.red),
       );
     }
-    print(_nameController.text);
-    print(_emailController.text);
-    print(_passwordController.text);
-    print(_confirmPasswordController.text);
-    print(_phoneController.text);
   }
 
   @override
@@ -94,9 +88,8 @@ class _SignupState extends State<Signup> {
                     itemBuilder: (context, index, realIndex) {
                       bool isSelected =
                           _selectedAvatar == Avatar.avatarPaths[index];
-                      if (_selectedAvatar == null) {
-                        _selectedAvatar = Avatar.avatarPaths.first;
-                      }
+                      _selectedAvatar ?? Avatar.avatarPaths.first;
+
                       return GestureDetector(
                         onTap: () {
                           setState(() {

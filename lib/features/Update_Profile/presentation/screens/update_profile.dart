@@ -28,8 +28,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
     selectedAvatarIndex = _userData?.avaterId ?? 0;
     nameController.text = _userData?.name ?? '';
     phoneController.text = _userData?.phone?.replaceFirst("+2", "") ?? '';
-    print(_userData!.email);
-    print(_userData!.password);
+
+    // print(_userData!.password);
   }
 
   void _showAvatarSelection() {

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/repositories/category_movies_repository.dart';
 import 'category_movies_state.dart';
 
-
 class MovieCubit extends Cubit<MovieState> {
   final MovieRepository movieRepository;
   bool _isLoading = false;
@@ -33,6 +32,23 @@ class MovieCubit extends Cubit<MovieState> {
       emit(MoviesListLoaded(movies));
     } catch (e) {
       emit(MovieListError(e.toString()));
+    } finally {
+      _isLoading = false;
+    }
+  }
+
+  Future<void> loadNewestMovies() async {
+    if (_hasLoadedMovies || _isLoading) return;
+
+    _isLoading = true;
+    emit(NewestMoviesLoading());
+
+    try {
+      final movies = await movieRepository.fetchNewestMovies();
+      _hasLoadedMovies = true;
+      emit(NewestMoviesLoaded(movies));
+    } catch (e) {
+      emit(NewestMoviesError(e.toString()));
     } finally {
       _isLoading = false;
     }
