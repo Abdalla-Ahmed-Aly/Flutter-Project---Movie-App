@@ -5,6 +5,8 @@ import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
 import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
+import 'package:movieapp/features/Profile/presntation/screens/history_tab.dart';
+import 'package:movieapp/features/Profile/presntation/screens/watch_list_tab.dart';
 import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 import '../../../../core/widgets/tab_bar_icon.dart';
@@ -18,6 +20,7 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  int currentIndex=0;
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -131,7 +134,17 @@ class _ProfileTabState extends State<ProfileTab> {
                                 indicatorWeight: 3,
                                 labelPadding:
                                     const EdgeInsets.symmetric(vertical: 10),
+                                indicatorSize:TabBarIndicatorSize.tab ,
+                                onTap: (currentTap) {
+                                  if (currentIndex != currentTap) {
+                                    setState(() {
+                                      currentIndex = currentTap;
+                                    });
+                                  }
+
+                                },
                                 tabs: [
+
                                   TabBarIcon(
                                       iconName: "watchlist",
                                       label: "Watch List"),
@@ -150,7 +163,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
               ),
               Expanded(
-                child: Image.asset("assets/images/login_screen_header.png"),
+                child: currentIndex==0?WatchListTab():HistoryTab()
               ),
             ],
           ),
