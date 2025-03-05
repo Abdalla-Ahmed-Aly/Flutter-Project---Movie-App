@@ -1,4 +1,5 @@
 import 'package:movieapp/features/Auth/data/models/get_data_response.dart';
+import 'package:movieapp/features/Auth/data/models/reset_password_response.dart';
 
 abstract class AuthState {}
 
@@ -16,6 +17,11 @@ class AuthLoginSuccess extends AuthState {
 class AuthDataSuccess extends AuthState {
   final GetDataResponse dataResponse;
   AuthDataSuccess(this.dataResponse);
+}
+
+class ResetPasswordSuccess extends AuthState {
+  final ResetPasswordResponse resetPasswordResponse;
+  ResetPasswordSuccess(this.resetPasswordResponse);
 }
 
 class AuthError extends AuthState {

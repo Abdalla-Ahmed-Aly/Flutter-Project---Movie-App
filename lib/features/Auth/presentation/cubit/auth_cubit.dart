@@ -52,7 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLoading());
       resetPasswordResponse =
           await _authRepository.resetPassword(resetPasswordRequest);
-      emit(AuthDataSuccess(data!));
+      emit(ResetPasswordSuccess(resetPasswordResponse!));
     } on AppException catch (e) {
       emit(AuthError(e.message));
       // rethrow;

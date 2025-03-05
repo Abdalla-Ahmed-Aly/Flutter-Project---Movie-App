@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/core/utils/validator.dart';
 import 'package:movieapp/features/Auth/data/models/data.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
+import 'package:movieapp/features/Auth/presentation/screens/forget_password_screen.dart';
 import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
 import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.dart';
 import 'package:movieapp/features/Update_Profile/data/models/UpdateDataRequest.dart';
@@ -169,7 +170,10 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
                         ),
                         SizedBox(height: 19),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(ResetPasswordScreen.routeName);
+                          },
                           child: Text(
                             'Reset Password',
                             style: Theme.of(context).textTheme.titleMedium,
