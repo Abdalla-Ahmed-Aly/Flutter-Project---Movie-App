@@ -6,7 +6,6 @@ import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
 import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.dart';
 import 'package:movieapp/theme/apptheme.dart';
-import 'package:movieapp/features/Auth/presentation/screens/forget_password_screen.dart';
 import 'package:movieapp/features/Auth/presentation/screens/register_screen.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/cutomTextFormField.dart';
@@ -87,22 +86,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) =>
                           Validator.validateField(value, 'password'),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(ResetPasswordScreen.routeName);
-                          },
-                          child: Text(
-                            'Forget Password ?',
-                            style: textTheme.bodyLarge
-                                ?.copyWith(color: AppTheme.primary),
-                          ),
-                        ),
-                      ],
-                    ),
+                    SizedBox(height: 30),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     TextButton(
+                    //       onPressed: () {
+                    //         Navigator.of(context)
+                    //             .pushNamed(ResetPasswordScreen.routeName);
+                    //       },
+                    //       child: Text(
+                    //         'Forget Password ?',
+                    //         style: textTheme.bodyLarge
+                    //             ?.copyWith(color: AppTheme.primary),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     CustomButton(
                       buttonTitle: 'Login',
                       buttonColor: AppTheme.primary,
