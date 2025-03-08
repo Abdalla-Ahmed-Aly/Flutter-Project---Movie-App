@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
+import 'package:movieapp/features/Movie_details/presntation/screens/movie_details_screen.dart';
 import 'package:movieapp/features/Profile/presntation/screens/profile_tab.dart';
 
 import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
           OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
           HomeScreen.routeName: (_) => HomeScreen(),
           ProfileTab.routeName: (_) => ProfileTab(),
+
         },
         home: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {

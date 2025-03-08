@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/features/Movie_details/presntation/screens/movie_details_screen.dart';
 
 // ignore: must_be_immutable
 class MovieItem extends StatelessWidget {
@@ -21,7 +22,9 @@ class MovieItem extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+
+            },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(movieImageUrl,
