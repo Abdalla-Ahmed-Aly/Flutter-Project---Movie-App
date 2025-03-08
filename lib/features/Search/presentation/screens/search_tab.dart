@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/cutomTextFormField.dart';
-import '../../../../core/widgets/movie_item.dart';
-import '../../../../theme/apptheme.dart';
+
 
 class SearchTab extends StatefulWidget {
   @override
@@ -24,23 +23,21 @@ class _SearchTabState extends State<SearchTab> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 21,right:16 ,left: 16),
-            child: TextFormFieldCustom(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 21,right:16 ,left: 16),
+        child: Column(
+          children: [
+            TextFormFieldCustom(
               hintText: "Search",
               prefixIconPath: "assets/icons/search.svg",
               onChanged: onQueryChanged,
             ),
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(screenWidth * 0.023),
+            SizedBox(
+              height: 12,
+            ),
+            Expanded(
                 child: GridView.builder(
+
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: screenWidth * 0.023,
@@ -67,7 +64,7 @@ class _SearchTabState extends State<SearchTab> {
                               top: screenHeight * 0.01,
                               left: screenWidth * 0.023,
                               child: Container(
-                                padding: EdgeInsets.all(screenWidth * 0.014),
+                                padding: EdgeInsets.all(screenWidth * 0.011),
                                 decoration: BoxDecoration(
                                   color: Colors.black54,
                                   borderRadius: BorderRadius.circular(
@@ -88,9 +85,9 @@ class _SearchTabState extends State<SearchTab> {
                       ),
                     );
                   },
-                ),
-              ))
-        ],
+                ))
+          ],
+        ),
       ),
     );
   }
