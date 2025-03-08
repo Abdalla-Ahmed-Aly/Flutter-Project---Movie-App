@@ -50,7 +50,7 @@ class _BrowseTabState extends State<BrowseTab> {
                         .toList())),
             Expanded(
                 child: GridView.builder(
-                  padding: EdgeInsets.only(left: 16,right: 16),
+                  padding: EdgeInsets.only(left: 16,right: 16,top:25),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: screenWidth * 0.023,
