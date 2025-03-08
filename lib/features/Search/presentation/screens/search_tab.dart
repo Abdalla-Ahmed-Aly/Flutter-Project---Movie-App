@@ -10,78 +10,87 @@ class SearchTab extends StatefulWidget {
 }
 
 class _SearchTabState extends State<SearchTab> {
+  List<String> searchMovieResults = [];
+  List<String> movieList = ["Marvel", "Dc", "mc"];
+  void onQueryChanged(String query) {
+    searchMovieResults = movieList
+        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
-    List<String> searchMovieResults = [];
-    List<String> movieList = ["Marvel", "Dc", "mc"];
-    void onQueryChanged(String query) {
-      searchMovieResults = movieList
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-
-      setState(() {});
-    }
-
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 21, left: 16, right: 16),
-        child: Column(
-          children: [
-            TextFormFieldCustom(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 21,right:16 ,left: 16),
+            child: TextFormFieldCustom(
               hintText: "Search",
               prefixIconPath: "assets/icons/search.svg",
               onChanged: onQueryChanged,
             ),
-            SizedBox(
-              height: 12,
-            ),
-            Expanded(
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(screenWidth * 0.023),
                 child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 8),
-                    itemBuilder: (context, index) => GestureDetector(
-                          onTap: () {},
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    "assets/images/Dummyimage.png",
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    fit: BoxFit.fill,
-                                  )),
-                              Positioned(
-                                  top: 13,
-                                  left: 10,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 8),
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.black.withOpacity(.7),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text("7.7",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleSmall),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text("⭐")
-                                      ],
-                                    ),
-                                  ))
-                            ],
-                          ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: screenWidth * 0.023,
+                    mainAxisSpacing: screenWidth * 0.023,
+                    childAspectRatio: screenWidth / (screenHeight * 0.7),
+                  ),
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {},
+                      child: ClipRRect(
+                        borderRadius:
+                        BorderRadius.circular(screenWidth * 0.025),
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            Image.asset(
+                              "assets/images/Dummyimage.png",
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.fill,
+                            ),
+                            Positioned(
+                              top: screenHeight * 0.01,
+                              left: screenWidth * 0.023,
+                              child: Container(
+                                padding: EdgeInsets.all(screenWidth * 0.014),
+                                decoration: BoxDecoration(
+                                  color: Colors.black54,
+                                  borderRadius: BorderRadius.circular(
+                                      screenWidth * 0.025),
+                                ),
+                                child: Text(
+                                  "7.7 ⭐",
+                                  style: TextStyle(
+                                    fontSize: screenWidth * 0.032,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                    itemCount: 10))
-          ],
-        ),
+                      ),
+                    );
+                  },
+                ),
+              ))
+        ],
       ),
     );
   }
