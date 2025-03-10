@@ -3,8 +3,8 @@ import 'package:movieapp/features/Movie_details/data/repositories/movie_details_
 import 'package:movieapp/features/Movie_details/presntation/cubits/Movie_details_cubit/movie_details_cubit.dart';
 import 'package:movieapp/features/Movie_details/presntation/cubits/Movie_details_cubit/movie_details_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movieapp/features/Movie_details/presntation/screens/similar.dart';
 import 'package:movieapp/theme/apptheme.dart';
-import '../../../Home/presentation/widgets/see_more_shimmer.dart';
 import '../../data/data_sources/Movie_details_data_source/movie_details_data_source_impl.dart';
 import '../shimmerUi.dart';
 
@@ -48,6 +48,10 @@ class MovieDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   SizedBox(height: 16),
+                  Expanded(
+                      child: SimilarWidget(
+                    id: state.movieDetails.id,
+                  ))
                 ],
               ),
             );
