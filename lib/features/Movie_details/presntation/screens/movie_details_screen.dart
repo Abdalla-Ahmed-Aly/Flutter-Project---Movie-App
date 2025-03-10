@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import '../../../Home/presentation/widgets/see_more_shimmer.dart';
 import '../../data/data_sources/Movie_details_data_source/movie_details_data_source_impl.dart';
+import '../shimmerUi.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   static const String routeName = 'movieDetails';
@@ -24,7 +25,7 @@ class MovieDetailsScreen extends StatelessWidget {
       child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
         builder: (context, state) {
           if (state is MovieDetailsLoading) {
-            return BuildLoadShimmerMoviesSeeMore();
+            return BuildLoadShimmerMovieDetails();
           } else if (state is MovieDetailsError) {
             print(state.errorMessage);
             return Center(
@@ -51,7 +52,7 @@ class MovieDetailsScreen extends StatelessWidget {
               ),
             );
           } else {
-            return BuildLoadShimmerMoviesSeeMore();
+            return BuildLoadShimmerMovieDetails();
           }
         },
       ),
