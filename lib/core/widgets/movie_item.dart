@@ -23,6 +23,7 @@ class MovieItem extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
+              Navigator.of(context).pushNamed(MovieDetailsScreen.routeName);
 
             },
             child: ClipRRect(

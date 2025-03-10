@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
           OnBoardingScreen.routeName: (_) => OnBoardingScreen(),
           HomeScreen.routeName: (_) => HomeScreen(),
           ProfileTab.routeName: (_) => ProfileTab(),
+          MovieDetailsScreen.routeName: (_) => MovieDetailsScreen(),
 
         },
         home: BlocBuilder<AuthCubit, AuthState>(

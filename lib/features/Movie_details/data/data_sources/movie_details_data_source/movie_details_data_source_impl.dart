@@ -9,7 +9,7 @@ import 'movie_details_data_source.dart';
 class MovieDetailsDataSourceImpl implements MovieDetailsDataSource {
  final Dio _dio=Dio();
   @override
-  Future<MovieDetails> getMovieDetails(String movieId)async {
+  Future<MovieDetails> getMovieDetails(int movieId)async {
 
 try{
   final response = await _dio.get(ConstansApi.MovieDetails, queryParameters: {"movie_id": movieId});

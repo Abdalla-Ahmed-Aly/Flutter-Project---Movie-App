@@ -7,7 +7,7 @@ import 'movie_suggestions_data_source.dart';
 class MovieSuggestionsDataSourceImpl implements MovieSuggestionsDataSource {
   Dio dio=Dio();
   @override
-  Future<List<MovieSuggestions>> getMovieSuggestions(String movieId) async {
+  Future<List<MovieSuggestions>> getMovieSuggestions(int movieId) async {
     try {
       final response = await dio.get(ConstansApi.movieSuggestions, queryParameters: {"movie_id": movieId});
       if (response.statusCode == 200) {
