@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movieapp/core/widgets/movie_item.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import '../../data/data_sources/category_movies_data_source.dart';
 import '../../data/repositories/category_movies_repository.dart';
@@ -22,6 +23,8 @@ class _SeeMoreState extends State<SeeMore> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
+    double childAspectRatio = (screenWidth * 0.45) / (screenHeight * 0.3);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.genre),
@@ -32,13 +35,11 @@ class _SeeMoreState extends State<SeeMore> {
       body: BlocProvider(
         create: (context) => MovieCubit(
           movieRepository: MovieRepository(dataSource: MovieDataSource()),
-        ),
+        )..loadMoviesByGenre(widget.genre),
         child: BlocBuilder<MovieCubit, MovieState>(
           builder: (context, state) {
-            context.read<MovieCubit>().loadMoviesByGenre(widget.genre);
-
             if (state is MovieListLoading) {
-              return BuildLoadShimmerMoviesSeeMore();
+              return const BuildLoadShimmerMoviesSeeMore();
             } else if (state is MovieListError) {
               return Center(
                 child: Text(state.message),
@@ -50,56 +51,23 @@ class _SeeMoreState extends State<SeeMore> {
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: screenWidth * 0.023,
-                    mainAxisSpacing: screenWidth * 0.023,
-                    childAspectRatio: screenWidth / (screenHeight * 0.9),
+                    crossAxisSpacing: screenWidth * 0.02,
+                    mainAxisSpacing: screenHeight * 0.015,
+                    childAspectRatio: childAspectRatio,
                   ),
                   itemCount: movies.length,
                   itemBuilder: (context, index) {
                     final movie = movies[index];
-                    return InkWell(
-                      onTap: () {},
-                      child: ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(screenWidth * 0.025),
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Image.network(
-                              movie.imageUrl,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                            ),
-                            Positioned(
-                              top: screenHeight * 0.01,
-                              left: screenWidth * 0.023,
-                              child: Container(
-                                padding: EdgeInsets.all(screenWidth * 0.014),
-                                decoration: BoxDecoration(
-                                  color: Colors.black54,
-                                  borderRadius: BorderRadius.circular(
-                                      screenWidth * 0.025),
-                                ),
-                                child: Text(
-                                  "${movie.rating}⭐",
-                                  style: TextStyle(
-                                    fontSize: screenWidth * 0.032,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    return MovieItem(
+                      movieImageUrl: movie.imageUrl,
+                      movie_id: movie.id,
+                      movieRating: movie.rating,
                     );
                   },
                 ),
               );
             } else {
-              return BuildLoadShimmerMoviesSeeMore();
+              return const BuildLoadShimmerMoviesSeeMore();
             }
           },
         ),
