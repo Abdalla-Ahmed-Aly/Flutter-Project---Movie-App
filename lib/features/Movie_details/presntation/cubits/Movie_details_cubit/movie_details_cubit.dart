@@ -6,7 +6,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   MovieDetailsRepository movieDetailsRepository;
 
   MovieDetailsCubit({required this.movieDetailsRepository}) : super(MovieDetailsInitial());
-  Future<void> getMovieDetails(String movieId) async {
+  Future<void> getMovieDetails(int movieId) async {
     emit(MovieDetailsLoading());
     try {
       final movieDetails = await movieDetailsRepository.getMovieDetails(movieId);

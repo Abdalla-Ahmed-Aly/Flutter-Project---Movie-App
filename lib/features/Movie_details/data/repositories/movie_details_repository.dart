@@ -4,7 +4,7 @@ import 'package:movieapp/features/Movie_details/data/models/Movie_details_model/
 class MovieDetailsRepository {
 final  MovieDetailsDataSource movieDetailsDataSource;
   MovieDetailsRepository({required this.movieDetailsDataSource});
-  Future<MovieDetails> getMovieDetails(String movieId){
+  Future<MovieDetails> getMovieDetails(int movieId){
     return movieDetailsDataSource.getMovieDetails(movieId);
 
   }

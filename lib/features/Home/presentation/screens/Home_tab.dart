@@ -92,6 +92,7 @@ class _HomeTabState extends State<HomeTab> {
 
                           final movie = state.movies[index];
                           return MovieItem(
+                            movie_id: movie.id,
                             movieImageUrl: movie.imageUrl,
                             movieRating: movie.rating,
                             screenwidth: screenWidth * 0.8,
