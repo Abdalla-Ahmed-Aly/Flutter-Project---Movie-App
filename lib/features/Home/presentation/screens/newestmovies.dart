@@ -39,6 +39,7 @@ class MostRecentMovies extends StatelessWidget {
                 return MovieItem(
                   movieImageUrl: movie.imageUrl,
                   movieRating: movie.rating,
+                  movie_id: movie.id,
                   screenwidth: screenWidth * 0.8,
                 );
               },

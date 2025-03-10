@@ -47,7 +47,9 @@ class _MovieListState extends State<MovieList> {
                 itemBuilder: (context, index) {
                   final movie = movies[index];
                   return MovieItem(
-                      movieImageUrl: movie.imageUrl, movieRating: movie.rating);
+                      movieImageUrl: movie.imageUrl,
+                      movie_id: movie.id,
+                      movieRating: movie.rating);
                 },
               ),
             );

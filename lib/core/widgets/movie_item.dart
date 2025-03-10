@@ -6,11 +6,15 @@ class MovieItem extends StatelessWidget {
   String movieImageUrl;
   double movieRating;
   double? screenwidth;
+  int movie_id;
   MovieItem(
       {super.key,
       required this.movieImageUrl,
       required this.movieRating,
-      this.screenwidth});
+      this.screenwidth,
+      required this.movie_id,
+
+      });
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -23,7 +27,11 @@ class MovieItem extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-
+               Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => MovieDetailsScreen(id: movie_id),
+                ),
+              );
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),

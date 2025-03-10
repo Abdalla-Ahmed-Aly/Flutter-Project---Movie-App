@@ -5,7 +5,7 @@ import 'package:movieapp/features/Movie_details/presntation/cubits/movie_suggest
 class MovieSuggestionsCubit extends Cubit<MovieSuggestionsState> {
 MovieSuggestionsRepository movieSuggestionsRepository;
   MovieSuggestionsCubit({required this.movieSuggestionsRepository}) : super(MovieSuggestionsInitial());
-  Future<void>loadMovieSuggestions(String movieId) async{
+  Future<void>loadMovieSuggestions(int movieId) async{
     emit(MovieSuggestionsLoading());
     try{
       final movieSuggestionsList=await movieSuggestionsRepository.getMovieSuggestionsList(movieId);
