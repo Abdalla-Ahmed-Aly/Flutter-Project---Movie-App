@@ -31,67 +31,66 @@ class _SimilarWidgetState extends State<SimilarWidget> {
           movieSuggestionsDataSource: MovieSuggestionsDataSourceImpl(),
         ),
       )..loadMovieSuggestions(widget.id),
-      child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Similar',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Similar',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          Expanded(
+            child: BlocBuilder<MovieSuggestionsCubit, MovieSuggestionsState>(
+              builder: (context, state) {
+                if (state is MovieSuggestionsLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: AppTheme.white,
+                    ),
+                  );
+                } else if (state is MovieSuggestionsError) {
+                  return Center(child: Text(state.errorMessage));
+                } else if (state is MovieSuggestionsLoaded) {
+                  final movies = state.movieSuggestionList;
+                  return GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.all(8),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                      childAspectRatio: 0.7,
+                    ),
+                    itemCount: movies.length,
+                    itemBuilder: (context, index) {
+                      final movie = movies[index];
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MovieDetailsScreen(id: movie.id ?? 1),
+                            ),
+                          );
+                        },
+                        child: MovieItem(
+                          movieImageUrl: movie.mediumCoverImage ?? " ",
+                          movieRating: movie.rating ?? 1,
+                          movie_id: movie.id,
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: AppTheme.white,
+                    ),
+                  );
+                }
+              },
             ),
-            Expanded(
-              child: BlocBuilder<MovieSuggestionsCubit, MovieSuggestionsState>(
-                builder: (context, state) {
-                  if (state is MovieSuggestionsLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: AppTheme.white,
-                      ),
-                    );
-                  } else if (state is MovieSuggestionsError) {
-                    return Center(child: Text(state.errorMessage));
-                  } else if (state is MovieSuggestionsLoaded) {
-                    final movies = state.movieSuggestionList;
-                    return GridView.builder(
-                      padding: EdgeInsets.all(8),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                        childAspectRatio: 0.7,
-                      ),
-                      itemCount: movies.length,
-                      itemBuilder: (context, index) {
-                        final movie = movies[index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    MovieDetailsScreen(id: movie.id ?? 1),
-                              ),
-                            );
-                          },
-                          child: MovieItem(
-                            movieImageUrl: movie.mediumCoverImage ?? " ",
-                            movieRating: movie.rating ?? 1,
-                            movie_id: movie.id,
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: AppTheme.white,
-                      ),
-                    );
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
