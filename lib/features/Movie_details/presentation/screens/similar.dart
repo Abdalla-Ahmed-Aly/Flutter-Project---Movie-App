@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/features/Movie_details/data/data_sources/movie_suggestions_data-source/movie_suggestions_data_source_impl.dart';
 import 'package:movieapp/features/Movie_details/data/repositories/movie_suggestions_repository.dart';
-import 'package:movieapp/features/Movie_details/presntation/cubits/movie_suggestions_cubit/movie_suggestions_cubit.dart';
+import 'package:movieapp/features/Movie_details/presentation/cubits/movie_suggestions_cubit/movie_suggestions_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import '../../../../core/widgets/movie_item.dart';
