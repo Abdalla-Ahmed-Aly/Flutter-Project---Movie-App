@@ -48,6 +48,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     timecount: state.movieDetails.runtime,
                     title: state.movieDetails.title,
                     releaseDate: state.movieDetails.year,
+                    uRL: state.movieDetails.url,
                   ),
                   SizedBox(height: 50),
                   SimilarWidget(id: state.movieDetails.id),

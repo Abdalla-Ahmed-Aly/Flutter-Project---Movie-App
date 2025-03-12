@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/theme/apptheme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MovieHeader extends StatefulWidget {
-  const MovieHeader(
-      {super.key,
-      required this.screenHeight,
-      required this.textTheme,
-      required this.imageurl,
-      required this.rating,
-      required this.likes,
-      required this.timecount,
-      required this.title,
-      required this.releaseDate,
-      required this.screenwidth});
+  const MovieHeader({
+    super.key,
+    required this.screenHeight,
+    required this.textTheme,
+    required this.imageurl,
+    required this.rating,
+    required this.likes,
+    required this.timecount,
+    required this.title,
+    required this.releaseDate,
+    required this.screenwidth,
+    required this.uRL,
+  });
 
   final double screenHeight;
   final double screenwidth;
@@ -24,6 +27,7 @@ class MovieHeader extends StatefulWidget {
   final int timecount;
   final String title;
   final int releaseDate;
+  final String uRL;
 
   @override
   State<MovieHeader> createState() => _MovieHeaderState();
@@ -31,10 +35,24 @@ class MovieHeader extends StatefulWidget {
 
 class _MovieHeaderState extends State<MovieHeader> {
   bool isBookmarked = false;
+
+  Future<void> openMovieWebsite(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(
+      uri,
+    )) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: screenHeight * 0.75,
       width: double.infinity,
       child: Stack(
         alignment: Alignment.topCenter,
@@ -109,7 +127,9 @@ class _MovieHeaderState extends State<MovieHeader> {
                 height: widget.screenHeight * 0.175,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  openMovieWebsite(widget.uRL);
+                },
                 child: Image.asset(
                   'assets/images/displaybutton.png',
                 ),
@@ -141,7 +161,9 @@ class _MovieHeaderState extends State<MovieHeader> {
                   buttonTitle: 'Watch',
                   buttonColor: AppTheme.red,
                   fontColor: AppTheme.white,
-                  onPressed: () {},
+                  onPressed: () {
+                    openMovieWebsite(widget.uRL);
+                  },
                 ),
               ),
               SizedBox(

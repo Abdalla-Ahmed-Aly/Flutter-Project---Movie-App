@@ -41,7 +41,7 @@ class SummaryAndGenres extends StatelessWidget {
                     )
                   else
                     Text(
-                      'No description available',
+                      'No available summary',
                       style: textTheme.titleSmall,
                     ),
                   SizedBox(height: 20),
@@ -64,10 +64,9 @@ class SummaryAndGenres extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Container(
                           decoration: BoxDecoration(
-                            color: AppTheme.gray,
-                            borderRadius: BorderRadius.circular(100),
-                            shape: BoxShape.rectangle
-                          ),
+                              color: AppTheme.gray,
+                              borderRadius: BorderRadius.circular(100),
+                              shape: BoxShape.rectangle),
                           child: Center(
                             child: Text(
                               state.movieDetails.genres[index],
