@@ -175,7 +175,7 @@ class _MovieHeaderState extends State<MovieHeader> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: widget.screenwidth * 0.28,
+                      width: widget.screenwidth * 0.30,
                       padding: EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 8,
@@ -196,6 +196,7 @@ class _MovieHeaderState extends State<MovieHeader> {
                           Text(
                             '${widget.likes}',
                             style: widget.textTheme.displayMedium,
+                            
                           ),
                         ],
                       ),
