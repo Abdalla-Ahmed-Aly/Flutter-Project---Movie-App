@@ -1,4 +1,3 @@
-
 class ResetPasswordResponse {
   final String? message;
 
@@ -9,6 +8,4 @@ class ResetPasswordResponse {
       message: json['message'] as String?,
     );
   }
-
-
 }

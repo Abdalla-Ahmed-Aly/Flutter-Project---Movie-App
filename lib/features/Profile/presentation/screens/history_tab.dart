@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WatchListTab extends StatelessWidget {
-  const WatchListTab({super.key});
+class HistoryTab extends StatelessWidget {
+  const HistoryTab({super.key});
 
   @override
   Widget build(BuildContext context) {

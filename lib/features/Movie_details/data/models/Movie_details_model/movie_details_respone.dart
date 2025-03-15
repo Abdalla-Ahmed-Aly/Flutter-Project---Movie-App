@@ -81,8 +81,7 @@ class MovieDetails {
       mediumCoverImage: json["medium_cover_image"] ?? "",
       largeCoverImage: json["large_cover_image"] ?? "",
       torrents: (json["torrents"] != null)
-          ? List<Torrent>.from(
-          json["torrents"].map((x) => Torrent.fromJson(x)))
+          ? List<Torrent>.from(json["torrents"].map((x) => Torrent.fromJson(x)))
           : [],
       dateUploaded: json["date_uploaded"] ?? "",
       dateUploadedUnix: json["date_uploaded_unix"] ?? 0,

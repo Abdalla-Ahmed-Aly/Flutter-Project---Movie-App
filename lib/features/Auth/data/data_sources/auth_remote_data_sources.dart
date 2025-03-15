@@ -10,5 +10,6 @@ abstract class AuthRemoteDataSources {
   Future<RegisterResponse> register(RegisterRequest registerRequest);
   Future<LoginResponse> login(LoginRequest loginRequest);
   Future<GetDataResponse> getData();
-  Future<ResetPasswordResponse> resetPassword(ResetPasswordRequest resetPasswordRequest);
+  Future<ResetPasswordResponse> resetPassword(
+      ResetPasswordRequest resetPasswordRequest);
 }

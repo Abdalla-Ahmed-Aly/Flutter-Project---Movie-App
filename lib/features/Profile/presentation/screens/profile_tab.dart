@@ -5,10 +5,12 @@ import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
 import 'package:movieapp/features/Auth/presentation/screens/login_screen.dart';
-import 'package:movieapp/features/Profile/presntation/screens/history_tab.dart';
-import 'package:movieapp/features/Profile/presntation/screens/watch_list_tab.dart';
+import 'package:movieapp/features/Profile/presentation/cubit/watch_cubit.dart';
+import 'package:movieapp/features/Profile/presentation/screens/history_tab.dart';
+import 'package:movieapp/features/Profile/presentation/screens/watch_list_tab.dart';
 import 'package:movieapp/features/Update_Profile/data/models/avatar_model.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/widgets/tab_bar_icon.dart';
 import '../../../../theme/apptheme.dart';
 
@@ -20,14 +22,29 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  int currentIndex=0;
+  int currentIndex = 0;
+  int watchListCount = 0;
+
+  void updateWatchListCount(int count) {
+    setState(() {
+      watchListCount = count;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     int selectedAvatarIndex = 0;
 
-    return BlocProvider(
-      create: (context) => AuthCubit()..getData(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthCubit()..getData(),
+        ),
+        BlocProvider(
+          create: (context) => WatchCubit()..getWatchList(),
+        )
+      ],
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -68,17 +85,16 @@ class _ProfileTabState extends State<ProfileTab> {
                               children: [
                                 Column(
                                   children: [
-                                    Text("${''}",
-                                        style: textTheme.displayLarge),
+                                    Text("$watchListCount", style: textTheme.displayLarge),
                                     SizedBox(height: 5),
-                                    Text("Wish List",
+                                    Text("Watch List",
                                         style: textTheme.displayMedium),
                                   ],
                                 ),
                                 SizedBox(width: 40),
                                 Column(
                                   children: [
-                                    Text("${''}",
+                                    Text("${'50'}",
                                         style: textTheme.displayLarge),
                                     SizedBox(height: 5),
                                     Text("History",
@@ -99,8 +115,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                       buttonTitle: "Edit Profile",
                                       buttonColor: AppTheme.primary,
                                       onPressed: () async {
-                                        final result =
-                                            await Navigator.pushNamed(
+                                        await Navigator.pushNamed(
                                           context,
                                           UpdateProfile.routeName,
                                           arguments: user,
@@ -115,7 +130,11 @@ class _ProfileTabState extends State<ProfileTab> {
                                     child: CustomButton(
                                       buttonTitle: "Exit",
                                       buttonColor: AppTheme.red,
-                                      onPressed: () {
+                                      onPressed: () async {
+                                        SharedPreferences pref =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        pref.remove("authtoken");
                                         Navigator.of(context)
                                             .pushReplacementNamed(
                                                 LoginScreen.routeName);
@@ -134,20 +153,19 @@ class _ProfileTabState extends State<ProfileTab> {
                                 indicatorWeight: 3,
                                 labelPadding:
                                     const EdgeInsets.symmetric(vertical: 10),
-                                indicatorSize:TabBarIndicatorSize.tab ,
+                                indicatorSize: TabBarIndicatorSize.tab,
                                 onTap: (currentTap) {
                                   if (currentIndex != currentTap) {
                                     setState(() {
                                       currentIndex = currentTap;
                                     });
                                   }
-
                                 },
                                 tabs: [
-
                                   TabBarIcon(
-                                      iconName: "watchlist",
-                                      label: "Watch List"),
+                                    iconName: "watchlist",
+                                    label: "Watch List",
+                                  ),
                                   TabBarIcon(
                                       iconName: "file", label: "History"),
                                 ],
@@ -163,8 +181,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
               ),
               Expanded(
-                child: currentIndex==0?WatchListTab():HistoryTab()
-              ),
+                  child: currentIndex == 0 ? WatchListTab(onWatchListUpdated: updateWatchListCount) : HistoryTab()),
             ],
           ),
         ),
