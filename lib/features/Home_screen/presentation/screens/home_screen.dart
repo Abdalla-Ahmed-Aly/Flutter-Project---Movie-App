@@ -4,7 +4,7 @@ import '../../../../core/widgets/nav_icon.dart';
 import '../../../../theme/apptheme.dart';
 import '../../../Browse/presentation/screens/browse_tab.dart';
 import '../../../Home/presentation/screens/Home_tab.dart';
-import '../../../Profile/presntation/screens/profile_tab.dart';
+import '../../../Profile/presentation/screens/profile_tab.dart';
 import '../../../Search/presentation/screens/search_tab.dart';
 
 class HomeScreen extends StatefulWidget {

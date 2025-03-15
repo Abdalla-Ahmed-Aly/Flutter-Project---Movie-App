@@ -39,8 +39,8 @@ class Data {
     return Data(
       movieCount: json['movie_count'] ?? 0,
       movies: (json['movies'] as List<dynamic>?)
-          ?.map((v) => MovieSuggestions.fromJson(v))
-          .toList() ??
+              ?.map((v) => MovieSuggestions.fromJson(v))
+              .toList() ??
           [],
     );
   }
@@ -133,8 +133,8 @@ class MovieSuggestions {
       mediumCoverImage: json['medium_cover_image'] ?? '',
       state: json['state'] ?? '',
       torrents: (json['torrents'] as List<dynamic>?)
-          ?.map((v) => Torrents.fromJson(v))
-          .toList() ??
+              ?.map((v) => Torrents.fromJson(v))
+              .toList() ??
           [],
       dateUploaded: json['date_uploaded'] ?? '',
       dateUploadedUnix: json['date_uploaded_unix'] ?? 0,

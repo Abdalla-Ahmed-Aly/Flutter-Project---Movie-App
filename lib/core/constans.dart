@@ -7,5 +7,10 @@ class ConstansApi {
   static const String UPDATE_PROFILE = 'profile';
   static const String DELETE_PROFILE = 'profile';
   static const String MovieDetails = 'https://yts.mx/api/v2/movie_details.json';
-  static const String movieSuggestions = 'https://yts.mx/api/v2/movie_suggestions.json';
+  static const String movieSuggestions =
+      'https://yts.mx/api/v2/movie_suggestions.json';
+  static const String WatchList =
+      'favorites/all';
+  static const String DeleteWatchList =
+      'favorites/remove';
 }

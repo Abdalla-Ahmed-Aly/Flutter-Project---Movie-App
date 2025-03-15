@@ -196,7 +196,6 @@ class _MovieHeaderState extends State<MovieHeader> {
                           Text(
                             '${widget.likes}',
                             style: widget.textTheme.displayMedium,
-                            
                           ),
                         ],
                       ),

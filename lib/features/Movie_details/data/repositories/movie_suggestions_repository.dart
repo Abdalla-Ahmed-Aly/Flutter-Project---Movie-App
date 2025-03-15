@@ -5,11 +5,7 @@ import '../data_sources/movie_suggestions_data-source/movie_suggestions_data_sou
 class MovieSuggestionsRepository {
   MovieSuggestionsDataSource movieSuggestionsDataSource;
   MovieSuggestionsRepository({required this.movieSuggestionsDataSource});
-  Future<List<MovieSuggestions>>getMovieSuggestionsList(int movieId){
+  Future<List<MovieSuggestions>> getMovieSuggestionsList(int movieId) {
     return movieSuggestionsDataSource.getMovieSuggestions(movieId);
-
-
-}
-
-
+  }
 }
