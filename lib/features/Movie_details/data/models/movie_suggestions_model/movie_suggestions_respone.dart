@@ -17,13 +17,7 @@ class MovieSuggestionsResponse {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'status': status,
-      'status_message': statusMessage,
-      'data': data?.toJson(),
-    };
-  }
+
 }
 
 class Data {
@@ -45,12 +39,7 @@ class Data {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'movie_count': movieCount,
-      'movies': movies.map((v) => v.toJson()).toList(),
-    };
-  }
+
 }
 
 class MovieSuggestions {
@@ -76,7 +65,6 @@ class MovieSuggestions {
   final String smallCoverImage;
   final String mediumCoverImage;
   final String state;
-  final List<Torrents> torrents;
   final String dateUploaded;
   final int dateUploadedUnix;
 
@@ -103,7 +91,6 @@ class MovieSuggestions {
     required this.smallCoverImage,
     required this.mediumCoverImage,
     required this.state,
-    required this.torrents,
     required this.dateUploaded,
     required this.dateUploadedUnix,
   });
@@ -132,110 +119,12 @@ class MovieSuggestions {
       smallCoverImage: json['small_cover_image'] ?? '',
       mediumCoverImage: json['medium_cover_image'] ?? '',
       state: json['state'] ?? '',
-      torrents: (json['torrents'] as List<dynamic>?)
-          ?.map((v) => Torrents.fromJson(v))
-          .toList() ??
-          [],
       dateUploaded: json['date_uploaded'] ?? '',
       dateUploadedUnix: json['date_uploaded_unix'] ?? 0,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'url': url,
-      'imdb_code': imdbCode,
-      'title': title,
-      'title_english': titleEnglish,
-      'title_long': titleLong,
-      'slug': slug,
-      'year': year,
-      'rating': rating,
-      'runtime': runtime,
-      'genres': genres,
-      'summary': summary,
-      'description_full': descriptionFull,
-      'synopsis': synopsis,
-      'yt_trailer_code': ytTrailerCode,
-      'language': language,
-      'mpa_rating': mpaRating,
-      'background_image': backgroundImage,
-      'background_image_original': backgroundImageOriginal,
-      'small_cover_image': smallCoverImage,
-      'medium_cover_image': mediumCoverImage,
-      'state': state,
-      'torrents': torrents.map((v) => v.toJson()).toList(),
-      'date_uploaded': dateUploaded,
-      'date_uploaded_unix': dateUploadedUnix,
-    };
-  }
+
 }
 
-class Torrents {
-  final String url;
-  final String hash;
-  final String quality;
-  final String isRepack;
-  final String videoCodec;
-  final String bitDepth;
-  final String audioChannels;
-  final int seeds;
-  final int peers;
-  final String size;
-  final int sizeBytes;
-  final String dateUploaded;
-  final int dateUploadedUnix;
 
-  Torrents({
-    required this.url,
-    required this.hash,
-    required this.quality,
-    required this.isRepack,
-    required this.videoCodec,
-    required this.bitDepth,
-    required this.audioChannels,
-    required this.seeds,
-    required this.peers,
-    required this.size,
-    required this.sizeBytes,
-    required this.dateUploaded,
-    required this.dateUploadedUnix,
-  });
-
-  factory Torrents.fromJson(Map<String, dynamic> json) {
-    return Torrents(
-      url: json['url'] ?? '',
-      hash: json['hash'] ?? '',
-      quality: json['quality'] ?? '',
-      isRepack: json['is_repack'] ?? '',
-      videoCodec: json['video_codec'] ?? '',
-      bitDepth: json['bit_depth'] ?? '',
-      audioChannels: json['audio_channels'] ?? '',
-      seeds: json['seeds'] ?? 0,
-      peers: json['peers'] ?? 0,
-      size: json['size'] ?? '',
-      sizeBytes: json['size_bytes'] ?? 0,
-      dateUploaded: json['date_uploaded'] ?? '',
-      dateUploadedUnix: json['date_uploaded_unix'] ?? 0,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'url': url,
-      'hash': hash,
-      'quality': quality,
-      'is_repack': isRepack,
-      'video_codec': videoCodec,
-      'bit_depth': bitDepth,
-      'audio_channels': audioChannels,
-      'seeds': seeds,
-      'peers': peers,
-      'size': size,
-      'size_bytes': sizeBytes,
-      'date_uploaded': dateUploaded,
-      'date_uploaded_unix': dateUploadedUnix,
-    };
-  }
-}
