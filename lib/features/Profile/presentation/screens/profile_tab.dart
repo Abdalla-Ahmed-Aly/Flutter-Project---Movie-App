@@ -22,12 +22,16 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  int currentIndex = 0;
+  ValueNotifier<int> currentIndexNotifier = ValueNotifier<int>(0);
   int watchListCount = 0;
 
-  void updateWatchListCount(int count) {
-    setState(() {
-      watchListCount = count;
+  void updateWatchListCountSafely(int count) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        setState(() {
+          watchListCount = count;
+        });
+      }
     });
   }
 
@@ -38,12 +42,8 @@ class _ProfileTabState extends State<ProfileTab> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => AuthCubit()..getData(),
-        ),
-        BlocProvider(
-          create: (context) => WatchCubit()..getWatchList(),
-        )
+        BlocProvider(create: (context) => AuthCubit()..getData()),
+        BlocProvider(create: (context) => WatchCubit()..getWatchList()),
       ],
       child: DefaultTabController(
         length: 2,
@@ -68,16 +68,11 @@ class _ProfileTabState extends State<ProfileTab> {
                       if (state is AuthDataSuccess) {
                         final user = state.dataResponse.data!;
                         selectedAvatarIndex = user.avaterId ?? 0;
-
-                        String avatarPath =
-                            Avatar.avatarPaths[selectedAvatarIndex].imagePath;
+                        String avatarPath = Avatar.avatarPaths[selectedAvatarIndex].imagePath;
 
                         return Column(
                           children: [
-                            CircleAvatar(
-                              radius: 60,
-                              backgroundImage: AssetImage(avatarPath),
-                            ),
+                            CircleAvatar(radius: 60, backgroundImage: AssetImage(avatarPath)),
                             const SizedBox(height: 10),
                             Text(user.name!, style: textTheme.displaySmall),
                             Row(
@@ -87,26 +82,22 @@ class _ProfileTabState extends State<ProfileTab> {
                                   children: [
                                     Text("$watchListCount", style: textTheme.displayLarge),
                                     SizedBox(height: 5),
-                                    Text("Watch List",
-                                        style: textTheme.displayMedium),
+                                    Text("Watch List", style: textTheme.displayMedium),
                                   ],
                                 ),
                                 SizedBox(width: 40),
                                 Column(
                                   children: [
-                                    Text("${'50'}",
-                                        style: textTheme.displayLarge),
+                                    Text("${'50'}", style: textTheme.displayLarge),
                                     SizedBox(height: 5),
-                                    Text("History",
-                                        style: textTheme.displayMedium),
+                                    Text("History", style: textTheme.displayMedium),
                                   ],
                                 ),
                               ],
                             ),
                             SizedBox(height: 20),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -131,13 +122,9 @@ class _ProfileTabState extends State<ProfileTab> {
                                       buttonTitle: "Exit",
                                       buttonColor: AppTheme.red,
                                       onPressed: () async {
-                                        SharedPreferences pref =
-                                            await SharedPreferences
-                                                .getInstance();
+                                        SharedPreferences pref = await SharedPreferences.getInstance();
                                         pref.remove("authtoken");
-                                        Navigator.of(context)
-                                            .pushReplacementNamed(
-                                                LoginScreen.routeName);
+                                        Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                                       },
                                       fontColor: AppTheme.white,
                                       buttonTitleStyle: textTheme.titleMedium,
@@ -148,40 +135,45 @@ class _ProfileTabState extends State<ProfileTab> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
-                              child: TabBar(
-                                indicatorColor: AppTheme.primary,
-                                indicatorWeight: 3,
-                                labelPadding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                indicatorSize: TabBarIndicatorSize.tab,
-                                onTap: (currentTap) {
-                                  if (currentIndex != currentTap) {
-                                    setState(() {
-                                      currentIndex = currentTap;
-                                    });
-                                  }
+                              child: ValueListenableBuilder<int>(
+                                valueListenable: currentIndexNotifier,
+                                builder: (context, currentIndex, child) {
+                                  return TabBar(
+                                    indicatorColor: AppTheme.primary,
+                                    indicatorWeight: 3,
+                                    labelPadding: const EdgeInsets.symmetric(vertical: 10),
+                                    indicatorSize: TabBarIndicatorSize.tab,
+                                    onTap: (currentTap) {
+                                      if (currentIndexNotifier.value != currentTap) {
+                                        currentIndexNotifier.value = currentTap;
+                                      }
+                                    },
+                                    tabs: [
+                                      TabBarIcon(iconName: "watchlist", label: "Watch List"),
+                                      TabBarIcon(iconName: "file", label: "History"),
+                                    ],
+                                  );
                                 },
-                                tabs: [
-                                  TabBarIcon(
-                                    iconName: "watchlist",
-                                    label: "Watch List",
-                                  ),
-                                  TabBarIcon(
-                                      iconName: "file", label: "History"),
-                                ],
                               ),
                             ),
                           ],
                         );
                       }
-
                       return SizedBox();
                     },
                   ),
                 ),
               ),
               Expanded(
-                  child: currentIndex == 0 ? WatchListTab(onWatchListUpdated: updateWatchListCount) : HistoryTab()),
+                child: ValueListenableBuilder<int>(
+                  valueListenable: currentIndexNotifier,
+                  builder: (context, currentIndex, child) {
+                    return currentIndex == 0
+                        ? WatchListTab(onWatchListUpdated: updateWatchListCountSafely)
+                        : HistoryTab();
+                  },
+                ),
+              ),
             ],
           ),
         ),
