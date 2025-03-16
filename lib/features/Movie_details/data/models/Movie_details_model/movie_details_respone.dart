@@ -22,7 +22,6 @@ class MovieDetails {
   final String smallCoverImage;
   final String mediumCoverImage;
   final String largeCoverImage;
-  final List<Torrent> torrents;
   final String dateUploaded;
   final int dateUploadedUnix;
 
@@ -50,7 +49,6 @@ class MovieDetails {
     required this.smallCoverImage,
     required this.mediumCoverImage,
     required this.largeCoverImage,
-    required this.torrents,
     required this.dateUploaded,
     required this.dateUploadedUnix,
   });
@@ -80,55 +78,10 @@ class MovieDetails {
       smallCoverImage: json["small_cover_image"] ?? "",
       mediumCoverImage: json["medium_cover_image"] ?? "",
       largeCoverImage: json["large_cover_image"] ?? "",
-      torrents: (json["torrents"] != null)
-          ? List<Torrent>.from(json["torrents"].map((x) => Torrent.fromJson(x)))
-          : [],
       dateUploaded: json["date_uploaded"] ?? "",
       dateUploadedUnix: json["date_uploaded_unix"] ?? 0,
     );
   }
 }
 
-class Torrent {
-  final String url;
-  final String hash;
-  final String quality;
-  final String type;
-  final String? videoCodec;
-  final int? seeds;
-  final int? peers;
-  final String? size;
-  final int? sizeBytes;
-  final String? dateUploaded;
-  final int? dateUploadedUnix;
 
-  Torrent({
-    required this.url,
-    required this.hash,
-    required this.quality,
-    required this.type,
-    this.videoCodec,
-    this.seeds,
-    this.peers,
-    this.size,
-    this.sizeBytes,
-    this.dateUploaded,
-    this.dateUploadedUnix,
-  });
-
-  factory Torrent.fromJson(Map<String, dynamic> json) {
-    return Torrent(
-      url: json["url"] ?? "",
-      hash: json["hash"] ?? "",
-      quality: json["quality"] ?? "",
-      type: json["type"] ?? "",
-      videoCodec: json["video_codec"],
-      seeds: json["seeds"],
-      peers: json["peers"],
-      size: json["size"],
-      sizeBytes: json["size_bytes"],
-      dateUploaded: json["date_uploaded"],
-      dateUploadedUnix: json["date_uploaded_unix"],
-    );
-  }
-}
