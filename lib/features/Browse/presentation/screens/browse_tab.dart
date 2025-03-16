@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/features/Browse/presentation/screens/tab_bar_for_browse.dart';
 
-import '../../../../core/widgets/movie_item.dart';
-import '../../../../theme/apptheme.dart';
+
 
 class BrowseTab extends StatefulWidget {
   @override
