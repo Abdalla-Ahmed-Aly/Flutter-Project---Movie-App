@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../theme/apptheme.dart';
+import '../../../../../../theme/apptheme.dart';
 
 class TabBarForBrowse extends StatelessWidget {
   bool isSelected;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/features/Browse/presentation/screens/tab_bar_for_browse.dart';
+import 'package:movieapp/features/Browse/presentation/screens/widget/tab_bar_for_browse.dart';
 
 
 
