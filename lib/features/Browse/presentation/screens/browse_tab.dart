@@ -88,7 +88,7 @@ class _BrowseTabState extends State<BrowseTab> {
             Expanded(
               child: BlocBuilder<LoadMovieByGeneraCubit,LoadMovieByGeneraState>(builder: (context, state) {
                 if (state is LoadMovieByGeneraLoading){
-                  return BuildLoadShimmerMoviesSeeMore();
+                  return BuildLoadShimmerMoviesSeeMore(columnNumber: 2,);
 
                 }else if (state is LoadMovieByGeneraError){
 
@@ -122,7 +122,7 @@ class _BrowseTabState extends State<BrowseTab> {
 
                   return Padding(
                     padding: const EdgeInsets.only(top:2 ),
-                    child: BuildLoadShimmerMoviesSeeMore(),
+                    child: BuildLoadShimmerMoviesSeeMore(columnNumber: 2),
                   );
                 }
               },),
