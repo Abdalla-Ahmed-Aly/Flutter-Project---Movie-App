@@ -126,6 +126,54 @@ class _BrowseTabState extends State<BrowseTab> {
                   );
                 }
               },),
+                child: GridView.builder(
+              padding: EdgeInsets.only(left: 16, right: 16, top: 25),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: screenWidth * 0.023,
+                mainAxisSpacing: screenWidth * 0.023,
+                childAspectRatio: screenWidth / (screenHeight * 0.7),
+              ),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {},
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(screenWidth * 0.025),
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Image.asset(
+                          "assets/images/Dummyimage.png",
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.fill,
+                        ),
+                        Positioned(
+                          top: screenHeight * 0.01,
+                          left: screenWidth * 0.023,
+                          child: Container(
+                            padding: EdgeInsets.all(screenWidth * 0.014),
+                            decoration: BoxDecoration(
+                              color: Colors.black54,
+                              borderRadius:
+                                  BorderRadius.circular(screenWidth * 0.025),
+                            ),
+                            child: Text(
+                              "7.7 ⭐",
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.032,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ))
           ],
         ),

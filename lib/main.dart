@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
-import 'package:movieapp/features/Profile/presntation/screens/profile_tab.dart';
+import 'package:movieapp/features/Profile/presentation/screens/profile_tab.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferences.dart';
 import 'package:movieapp/theme/apptheme.dart';

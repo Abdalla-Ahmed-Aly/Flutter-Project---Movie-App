@@ -43,10 +43,10 @@ class MovieCubit extends Cubit<MovieState> {
     emit(NewestMoviesLoading());
 
     try {
- if (isClosed) return;
+      if (isClosed) return;
       final movies = await movieRepository.fetchNewestMovies();
       _hasLoadedMovies = true;
- if (isClosed) return;
+      if (isClosed) return;
       emit(NewestMoviesLoaded(movies));
     } catch (e) {
       emit(NewestMoviesError(e.toString()));
