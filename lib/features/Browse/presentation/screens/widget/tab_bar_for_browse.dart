@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../theme/apptheme.dart';
+import '../../../../../../theme/apptheme.dart';
 
-// ignore: must_be_immutable
 class TabBarForBrowse extends StatelessWidget {
   bool isSelected;
   String label;
