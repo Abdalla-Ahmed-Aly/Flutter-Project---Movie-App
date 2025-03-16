@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class BuildLoadShimmerMoviesSeeMore extends StatelessWidget {
-  const BuildLoadShimmerMoviesSeeMore({super.key});
+  int columnNumber;
 
+  BuildLoadShimmerMoviesSeeMore({
+    super.key,
+    required this.columnNumber,
+  });
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;

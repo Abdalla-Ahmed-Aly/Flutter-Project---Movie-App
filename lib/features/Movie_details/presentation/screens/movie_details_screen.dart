@@ -39,6 +39,7 @@ class MovieDetailsScreen extends StatelessWidget {
               body: ListView(
                 children: [
                   MovieHeader(
+                    id: state.movieDetails.id,
                     screenHeight: screenHeight,
                     screenwidth: screenwidth,
                     textTheme: textTheme,

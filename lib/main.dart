@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,9 +15,15 @@ import 'package:movieapp/features/Auth/presentation/screens/register_screen.dart
 import 'package:movieapp/features/onboarding/onboardingscreen/onboarding.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/update_profile.dart';
 import 'features/Home_screen/presentation/screens/home_screen.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseFirestore.instance.enableNetwork();
   await LocalStorageServices.init();
 
   runApp(
