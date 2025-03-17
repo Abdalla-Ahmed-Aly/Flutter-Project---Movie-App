@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MovieContainerShimmer extends StatelessWidget {
-  const MovieContainerShimmer({super.key});
+  double? width;
+  MovieContainerShimmer({super.key, this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class MovieContainerShimmer extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      width: screenWidth * 0.372,
+      width: width ?? screenWidth * 0.372,
       margin: EdgeInsets.only(right: screenWidth * 0.023),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(screenWidth * 0.023),

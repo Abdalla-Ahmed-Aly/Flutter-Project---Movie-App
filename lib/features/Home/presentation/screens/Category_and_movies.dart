@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/features/Home/presentation/screens/see_more.dart';
 import 'package:movieapp/theme/apptheme.dart';
+import '../../../../core/widgets/listView_movies_shimmer.dart';
 import '../../data/data_sources/category_movies_data_source.dart';
 import '../../data/repositories/category_movies_repository.dart';
 import '../cubit/category_movies_cubit.dart';
 import '../cubit/category_movies_state.dart';
+import '../widgets/categoey_movies_shimmer.dart';
 import 'movielist.dart';
 
 class CategoryAndMovies extends StatefulWidget {
@@ -28,12 +30,7 @@ class _CategoryAndMoviesState extends State<CategoryAndMovies> {
       child: BlocBuilder<MovieCubit, MovieState>(
         builder: (context, state) {
           if (state is GenreLoading) {
-            return Center(
-              child: CircularProgressIndicator(
-                color: Colors.grey,
-                strokeWidth: screenWidth * 0.01,
-              ),
-            );
+            return CategoryMoviesShimmer();
           } else if (state is GenreError) {
             return Center(
               child: Text(
@@ -101,12 +98,7 @@ class _CategoryAndMoviesState extends State<CategoryAndMovies> {
               ),
             );
           }
-          return Center(
-            child: Text(
-              "Unknown State",
-              style: TextStyle(fontSize: screenWidth * 0.045),
-            ),
-          );
+          return CategoryMoviesShimmer();
         },
       ),
     );
