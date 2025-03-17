@@ -30,70 +30,77 @@ class HistoryTab extends StatelessWidget {
               return Center(child: Text(state.error));
             } else if (state is HistorySuccess) {
               final List<int> movieIds = state.movies;
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: screenWidth * 0.02,
-                  mainAxisSpacing: screenHeight * 0.015,
-                  childAspectRatio: childAspectRatio,
-                ),
-                itemCount: movieIds.length,
-                itemBuilder: (context, index) {
-                  return BlocProvider(
-                    create: (context) => MovieDetailsCubit(
-                      movieDetailsRepository: MovieDetailsRepository(
-                        movieDetailsDataSource: MovieDetailsDataSourceImpl(),
+              return movieIds.isEmpty
+                  ? Center(
+                      child:
+                          Image.asset("assets/images/login_screen_header.png"))
+                  : GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: screenWidth * 0.02,
+                        mainAxisSpacing: screenHeight * 0.015,
+                        childAspectRatio: childAspectRatio,
                       ),
-                    )..getMovieDetails(movieIds[index]),
-                    child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-                      builder: (context, state) {
-                        if (state is MovieDetailsLoading) {
-                          return Center(
-                              child: CircularProgressIndicator(
-                            color: AppTheme.white,
-                          ));
-                        } else if (state is MovieDetailsError) {
-                          return Center(
-                            child: Text(state.errorMessage),
-                          );
-                        } else if (state is MovieDetailsLoaded) {
-                          var movieDetails = state.movieDetails;
-                          return Stack(
-                            children: [
-                              MovieItem(
-                                movieImageUrl: movieDetails.mediumCoverImage,
-                                movie_id: movieDetails.id,
-                                movieRating: movieDetails.rating,
-                              ),
-                              Positioned(
-                                top: 8,
-                                right: 8,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.close,
-                                    color: AppTheme.white,
-                                    size: 30,
-                                  ),
-                                  onPressed: () {
-                                    context
-                                        .read<HistoryCubit>()
-                                        .removeMovieID(movieIds[index]);
-                                  },
-                                ),
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Center(
-                              child: CircularProgressIndicator(
-                            color: AppTheme.white,
-                          ));
-                        }
+                      itemCount: movieIds.length,
+                      itemBuilder: (context, index) {
+                        return BlocProvider(
+                          create: (context) => MovieDetailsCubit(
+                            movieDetailsRepository: MovieDetailsRepository(
+                              movieDetailsDataSource:
+                                  MovieDetailsDataSourceImpl(),
+                            ),
+                          )..getMovieDetails(movieIds[index]),
+                          child:
+                              BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
+                            builder: (context, state) {
+                              if (state is MovieDetailsLoading) {
+                                return Center(
+                                    child: CircularProgressIndicator(
+                                  color: AppTheme.white,
+                                ));
+                              } else if (state is MovieDetailsError) {
+                                return Center(
+                                  child: Text(state.errorMessage),
+                                );
+                              } else if (state is MovieDetailsLoaded) {
+                                var movieDetails = state.movieDetails;
+                                return Stack(
+                                  children: [
+                                    MovieItem(
+                                      movieImageUrl:
+                                          movieDetails.mediumCoverImage,
+                                      movie_id: movieDetails.id,
+                                      movieRating: movieDetails.rating,
+                                    ),
+                                    Positioned(
+                                      top: 8,
+                                      right: 8,
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.close,
+                                          color: AppTheme.white,
+                                          size: 30,
+                                        ),
+                                        onPressed: () {
+                                          context
+                                              .read<HistoryCubit>()
+                                              .removeMovieID(movieIds[index]);
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Center(
+                                    child: CircularProgressIndicator(
+                                  color: AppTheme.white,
+                                ));
+                              }
+                            },
+                          ),
+                        );
                       },
-                    ),
-                  );
-                },
-              );
+                    );
             } else {
               return Image.asset("assets/images/login_screen_header.png");
             }
