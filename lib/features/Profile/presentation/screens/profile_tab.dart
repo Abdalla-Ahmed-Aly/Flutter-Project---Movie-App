@@ -124,6 +124,13 @@ class _ProfileTabState extends State<ProfileTab> {
                                     BlocBuilder<HistoryCubit, HistoryState>(
                                       builder: (context, state) {
                                         int historyCount = 0;
+                                        if (state is HistoryLoading) {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              color: AppTheme.white,
+                                            ),
+                                          );
+                                        }
                                         if (state is HistorySuccess) {
                                           historyCount = state.movies.length;
                                         }
@@ -198,6 +205,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                                 vertical: 10),
                                         indicatorSize: TabBarIndicatorSize.tab,
                                         onTap: (currentTap) {
+                                          // ✅ تحديث حالة إظهار/إخفاء الجزء العلوي
                                           if (currentTap == 1) {
                                             showHeaderNotifier.value = false;
                                           } else {

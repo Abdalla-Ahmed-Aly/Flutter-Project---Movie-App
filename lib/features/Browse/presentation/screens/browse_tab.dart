@@ -7,7 +7,7 @@ import 'package:movieapp/features/Home/presentation/cubit/category_movies_cubit.
 import 'package:movieapp/features/Home/presentation/cubit/category_movies_state.dart';
 import '../../../../core/widgets/movie_item.dart';
 import '../../../Home/data/data_sources/category_movies_data_source.dart';
-import '../../../Home/presentation/widgets/see_more_shimmer.dart';
+import '../../../../core/widgets/gridviewMoviesShimmer.dart';
 import '../cubit/LoadMovieByGeneraCubit.dart';
 import '../cubit/LoadMovieByGeneraState.dart';
 
