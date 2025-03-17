@@ -13,6 +13,8 @@ import 'package:movieapp/features/Update_Profile/presentation/screens/update_pro
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/widgets/tab_bar_icon.dart';
 import '../../../../theme/apptheme.dart';
+import '../cubit/history/history_cubit.dart';
+import '../cubit/history/history_state.dart';
 
 class ProfileTab extends StatefulWidget {
   static const String routeName = "/ProfileTab";
@@ -45,6 +47,7 @@ class _ProfileTabState extends State<ProfileTab> {
       providers: [
         BlocProvider(create: (context) => AuthCubit()..getData()),
         BlocProvider(create: (context) => WatchCubit()..getWatchList()),
+        BlocProvider(create: (context) => HistoryCubit()..loadMovies()),
       ],
       child: DefaultTabController(
         length: 2,
@@ -118,14 +121,22 @@ class _ProfileTabState extends State<ProfileTab> {
                                       ],
                                     ),
                                     SizedBox(width: 40),
-                                    Column(
-                                      children: [
-                                        Text("${'50'}",
-                                            style: textTheme.displayLarge),
-                                        SizedBox(height: 5),
-                                        Text("History",
-                                            style: textTheme.displayMedium),
-                                      ],
+                                    BlocBuilder<HistoryCubit, HistoryState>(
+                                      builder: (context, state) {
+                                        int historyCount = 0;
+                                        if (state is HistorySuccess) {
+                                          historyCount = state.movies.length;
+                                        }
+                                        return Column(
+                                          children: [
+                                            Text("$historyCount",
+                                                style: textTheme.displayLarge),
+                                            SizedBox(height: 5),
+                                            Text("History",
+                                                style: textTheme.displayMedium),
+                                          ],
+                                        );
+                                      },
                                     ),
                                   ],
                                 ),
@@ -187,7 +198,6 @@ class _ProfileTabState extends State<ProfileTab> {
                                                 vertical: 10),
                                         indicatorSize: TabBarIndicatorSize.tab,
                                         onTap: (currentTap) {
-                                          // ✅ تحديث حالة إظهار/إخفاء الجزء العلوي
                                           if (currentTap == 1) {
                                             showHeaderNotifier.value = false;
                                           } else {
