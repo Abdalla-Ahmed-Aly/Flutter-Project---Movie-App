@@ -6,7 +6,7 @@ import '../../data/data_sources/category_movies_data_source.dart';
 import '../../data/repositories/category_movies_repository.dart';
 import '../cubit/category_movies_cubit.dart';
 import '../cubit/category_movies_state.dart';
-import '../widgets/see_more_shimmer.dart';
+import '../../../../core/widgets/gridviewMoviesShimmer.dart';
 
 class SeeMore extends StatefulWidget {
   final String genre;

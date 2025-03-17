@@ -5,7 +5,7 @@ import '../../data/data_sources/category_movies_data_source.dart';
 import '../../data/repositories/category_movies_repository.dart';
 import '../cubit/category_movies_cubit.dart';
 import '../cubit/category_movies_state.dart';
-import '../widgets/build_load_shimmer.dart';
+import '../../../../core/widgets/listView_movies_shimmer.dart';
 
 class MovieList extends StatefulWidget {
   final String genre;

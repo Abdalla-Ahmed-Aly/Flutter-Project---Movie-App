@@ -64,13 +64,13 @@ class _WatchListTabState extends State<WatchListTab> {
             watchList = List.from(state.data.data ?? []);
           });
         }
-        widget.onWatchListUpdated(watchList.length); 
+        widget.onWatchListUpdated(watchList.length);
       },
       child: RefreshIndicator(
-        color: AppTheme.primary, 
+        color: AppTheme.primary,
         backgroundColor: AppTheme.black,
         onRefresh: () async {
-          await refreshWatchList(); 
+          await refreshWatchList();
           widget.onWatchListUpdated(watchList.length);
         },
         child: SingleChildScrollView(
