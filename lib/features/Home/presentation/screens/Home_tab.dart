@@ -10,6 +10,8 @@ import 'package:movieapp/features/Home/presentation/cubit/category_movies_state.
 import 'package:movieapp/features/Home/presentation/screens/Category_and_movies.dart';
 import 'package:movieapp/theme/apptheme.dart';
 
+import '../widgets/newestMoviesShimmer.dart';
+
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
@@ -30,7 +32,7 @@ class _HomeTabState extends State<HomeTab> {
         ..loadNewestMovies(),
       child: BlocBuilder<MovieCubit, MovieState>(builder: (context, state) {
         if (state is NewestMoviesLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return NewestMoviesShimmer();
         } else if (state is NewestMoviesLoaded) {
           return Scaffold(
             body: SingleChildScrollView(
@@ -118,7 +120,7 @@ class _HomeTabState extends State<HomeTab> {
         } else if (state is NewestMoviesError) {
           return Center(child: Text(state.message));
         } else {
-          return const Placeholder();
+          return NewestMoviesShimmer();
         }
       }),
     );
