@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Profile/presentation/cubit/history/history_cubit.dart';
 import '../../../Profile/presentation/cubit/history/history_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MovieHeader extends StatefulWidget {
   const MovieHeader({
@@ -58,7 +59,7 @@ class _MovieHeaderState extends State<MovieHeader> {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) =>
-            HistoryCubit(), // لا نحتاج لتحميل البيانات في البداية
+            HistoryCubit(), 
         child:
         BlocBuilder<HistoryCubit, HistoryState>(builder: (context, state) {
           return SizedBox(
@@ -168,7 +169,7 @@ class _MovieHeaderState extends State<MovieHeader> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: CustomButton(
-                        buttonTitle: 'Watch',
+                        buttonTitle: AppLocalizations.of(context)!.watch,
                         buttonColor: AppTheme.red,
                         fontColor: AppTheme.white,
                         onPressed: () {

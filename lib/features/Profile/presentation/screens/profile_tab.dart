@@ -15,6 +15,7 @@ import '../../../../core/widgets/tab_bar_icon.dart';
 import '../../../../theme/apptheme.dart';
 import '../cubit/history/history_cubit.dart';
 import '../cubit/history/history_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileTab extends StatefulWidget {
   static const String routeName = "/ProfileTab";
@@ -42,7 +43,7 @@ class _ProfileTabState extends State<ProfileTab> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     int selectedAvatarIndex = 0;
-
+    final Localizations = AppLocalizations.of(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit()..getData()),
@@ -75,8 +76,9 @@ class _ProfileTabState extends State<ProfileTab> {
                         },
                         tabs: [
                           TabBarIcon(
-                              iconName: "watchlist", label: "Watch List"),
-                          TabBarIcon(iconName: "file", label: "History"),
+                              iconName: "watchlist",
+                              label: Localizations!.watchList),
+                          TabBarIcon(iconName: "file", label: Localizations.history),
                         ],
                       ),
                     );
@@ -92,7 +94,7 @@ class _ProfileTabState extends State<ProfileTab> {
 
                           if (state is AuthError) {
                             Fluttertoast.showToast(msg: state.message);
-                            return Center(child: Text("Error loading profile"));
+                            return Center(child: Text(Localizations!.errorLoadingProfile));
                           }
 
                           if (state is AuthDataSuccess) {
@@ -116,11 +118,11 @@ class _ProfileTabState extends State<ProfileTab> {
                                         Text("$watchListCount",
                                             style: textTheme.displayLarge),
                                         SizedBox(height: 5),
-                                        Text("Watch List",
+                                        Text(Localizations!.watchList,
                                             style: textTheme.displayMedium),
                                       ],
                                     ),
-                                    SizedBox(width: 40),
+                                    SizedBox(width: 50),
                                     BlocBuilder<HistoryCubit, HistoryState>(
                                       builder: (context, state) {
                                         int historyCount = 0;
@@ -139,7 +141,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                             Text("$historyCount",
                                                 style: textTheme.displayLarge),
                                             SizedBox(height: 5),
-                                            Text("History",
+                                            Text(Localizations.history,
                                                 style: textTheme.displayMedium),
                                           ],
                                         );
@@ -156,7 +158,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                       Expanded(
                                         flex: 2,
                                         child: CustomButton(
-                                          buttonTitle: "Edit Profile",
+                                          buttonTitle: Localizations.editProfile,
                                           buttonColor: AppTheme.primary,
                                           onPressed: () async {
                                             await Navigator.pushNamed(
@@ -173,7 +175,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                       const SizedBox(width: 10),
                                       Expanded(
                                         child: CustomButton(
-                                          buttonTitle: "Exit",
+                                          buttonTitle: Localizations.exit,
                                           buttonColor: AppTheme.red,
                                           onPressed: () async {
                                             SharedPreferences pref =
@@ -205,7 +207,6 @@ class _ProfileTabState extends State<ProfileTab> {
                                                 vertical: 10),
                                         indicatorSize: TabBarIndicatorSize.tab,
                                         onTap: (currentTap) {
-                                          // ✅ تحديث حالة إظهار/إخفاء الجزء العلوي
                                           if (currentTap == 1) {
                                             showHeaderNotifier.value = false;
                                           } else {
@@ -217,10 +218,10 @@ class _ProfileTabState extends State<ProfileTab> {
                                         tabs: [
                                           TabBarIcon(
                                               iconName: "watchlist",
-                                              label: "Watch List"),
+                                              label: Localizations.watchList),
                                           TabBarIcon(
                                               iconName: "file",
-                                              label: "History"),
+                                              label: Localizations.history),
                                         ],
                                       );
                                     },
