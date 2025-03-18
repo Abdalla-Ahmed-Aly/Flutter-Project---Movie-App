@@ -8,10 +8,16 @@ class MovieDetailsLoading extends MovieDetailsState {}
 
 class MovieDetailsLoaded extends MovieDetailsState {
   final MovieDetails movieDetails;
-  MovieDetailsLoaded({required this.movieDetails});
+
+  final String? errorMessage;
+
+  MovieDetailsLoaded({
+    required this.movieDetails,
+    this.errorMessage,
+  });
 }
 
 class MovieDetailsError extends MovieDetailsState {
-  String errorMessage;
+  final String errorMessage;
   MovieDetailsError({required this.errorMessage});
 }

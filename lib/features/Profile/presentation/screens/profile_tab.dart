@@ -26,8 +26,10 @@ class _ProfileTabState extends State<ProfileTab> {
   int watchListCount = 0;
 
   void updateWatchListCount(int count) {
-    setState(() {
-      watchListCount = count;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        watchListCount = count;
+      });
     });
   }
 
@@ -85,7 +87,8 @@ class _ProfileTabState extends State<ProfileTab> {
                               children: [
                                 Column(
                                   children: [
-                                    Text("$watchListCount", style: textTheme.displayLarge),
+                                    Text("$watchListCount",
+                                        style: textTheme.displayLarge),
                                     SizedBox(height: 5),
                                     Text("Watch List",
                                         style: textTheme.displayMedium),
@@ -181,7 +184,10 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
               ),
               Expanded(
-                  child: currentIndex == 0 ? WatchListTab(onWatchListUpdated: updateWatchListCount) : HistoryTab()),
+                child: currentIndex == 0
+                    ? WatchListTab(onWatchListUpdated: updateWatchListCount)
+                    : HistoryTab(),
+              ),
             ],
           ),
         ),

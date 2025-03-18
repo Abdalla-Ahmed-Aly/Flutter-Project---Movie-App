@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movieapp/features/Movie_details/data/data_sources/addtofavourite/addtofavouritedatasource.dart';
+import 'package:movieapp/features/Movie_details/data/data_sources/addtofavourite/addtofavouritedatasourceimpl.dart';
+import 'package:movieapp/features/Movie_details/data/repositories/addtofavouriterepo.dart';
 import 'package:movieapp/features/Movie_details/data/repositories/movie_details_repository.dart';
 import 'package:movieapp/features/Movie_details/presentation/cubits/Movie_details_cubit/movie_details_cubit.dart';
 import 'package:movieapp/features/Movie_details/presentation/cubits/Movie_details_cubit/movie_details_state.dart';
+import 'package:movieapp/features/Movie_details/presentation/cubits/addtofavouritecubit/addtofavouritecubit.dart';
 import 'package:movieapp/features/Movie_details/presentation/screens/SummaryAndGenres.dart';
 import 'package:movieapp/features/Movie_details/presentation/screens/movieheader.dart';
 import 'package:movieapp/features/Movie_details/presentation/screens/similar.dart';
@@ -20,20 +24,29 @@ class MovieDetailsScreen extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenwidth = MediaQuery.of(context).size.width;
     TextTheme textTheme = Theme.of(context).textTheme;
-    return BlocProvider(
-      create: (context) => MovieDetailsCubit(
-        movieDetailsRepository: MovieDetailsRepository(
-          movieDetailsDataSource: MovieDetailsDataSourceImpl(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MovieDetailsCubit(
+            movieDetailsRepository: MovieDetailsRepository(
+              movieDetailsDataSource: MovieDetailsDataSourceImpl(),
+            ),
+          )..getMovieDetails(id),
         ),
-      )..getMovieDetails(id),
+        BlocProvider<AddToFavouritCubit>(
+          create: (context) => AddToFavouritCubit(
+            addToFavouriteRepository: AddToFavouriteRepository(
+              addToFavouriteDataSource: AddToFavouriteDataSourceImpl(),
+            ),
+          ),
+        ),
+      ],
       child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
         builder: (context, state) {
           if (state is MovieDetailsLoading) {
             return BuildLoadShimmerMovieDetails();
           } else if (state is MovieDetailsError) {
-            return Center(
-              child: Text(state.errorMessage),
-            );
+            return Center(child: Text(state.errorMessage));
           } else if (state is MovieDetailsLoaded) {
             return Scaffold(
               body: ListView(
@@ -42,6 +55,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     screenHeight: screenHeight,
                     screenwidth: screenwidth,
                     textTheme: textTheme,
+                    movieId: state.movieDetails.id.toString(),
                     imageurl: state.movieDetails.largeCoverImage,
                     rating: state.movieDetails.rating,
                     likes: state.movieDetails.likeCount,
@@ -53,7 +67,11 @@ class MovieDetailsScreen extends StatelessWidget {
                   SizedBox(height: 50),
                   SimilarWidget(id: state.movieDetails.id),
                   SizedBox(height: 16),
-                  SummaryAndGenres(state.movieDetails.id),
+                  SummaryAndGenres(
+                    id: state.movieDetails.id,
+                    descriptionIntro: state.movieDetails.descriptionIntro,
+                    genres: state.movieDetails.genres,
+                  ),
                 ],
               ),
             );

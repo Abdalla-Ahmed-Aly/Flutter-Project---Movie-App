@@ -9,8 +9,8 @@ class ConstansApi {
   static const String MovieDetails = 'https://yts.mx/api/v2/movie_details.json';
   static const String movieSuggestions =
       'https://yts.mx/api/v2/movie_suggestions.json';
-  static const String WatchList =
-      'favorites/all';
-  static const String DeleteWatchList =
-      'favorites/remove';
+  static const String WatchList = 'favorites/all';
+  static const String DeleteWatchList = 'favorites/remove';
+  static const String AddToFavourite = 'favorites/add';
+  static const String IsItFavourite = 'favorites/is-favorite/';
 }

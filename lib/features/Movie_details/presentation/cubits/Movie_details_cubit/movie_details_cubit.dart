@@ -8,13 +8,21 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   MovieDetailsCubit({required this.movieDetailsRepository})
       : super(MovieDetailsInitial());
   Future<void> getMovieDetails(int movieId) async {
-    emit(MovieDetailsLoading());
+    emit(
+      MovieDetailsLoading(),
+    );
     try {
       final movieDetails =
           await movieDetailsRepository.getMovieDetails(movieId);
-      emit(MovieDetailsLoaded(movieDetails: movieDetails));
+      emit(
+        MovieDetailsLoaded(movieDetails: movieDetails),
+      );
     } catch (error) {
-      emit(MovieDetailsError(errorMessage: error.toString()));
+      emit(
+        MovieDetailsError(
+          errorMessage: error.toString(),
+        ),
+      );
     }
   }
 }
