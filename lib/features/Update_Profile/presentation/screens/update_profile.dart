@@ -13,6 +13,7 @@ import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/cutomTextFormField.dart';
 import 'package:movieapp/features/Update_Profile/presentation/screens/showAvatar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpdateProfile extends StatelessWidget {
   static const String routeName = '/update';
@@ -103,6 +104,8 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
 
   @override
   Widget build(BuildContext context) {
+    final Localizations = AppLocalizations.of(context);
+
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -126,7 +129,7 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
                       ),
                     ),
                     Text(
-                      'Pick Avatar',
+                      Localizations!.pickAvatar,
                       style: Theme.of(context)
                           .textTheme
                           .titleSmall
@@ -154,7 +157,7 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextFormFieldCustom(
-                          hintText: 'Name',
+                          hintText: Localizations.name,
                           prefixIconPath: 'assets/icons/UserIcon.svg',
                           validator: (value) =>
                               Validator.validateField(value, 'name'),
@@ -162,7 +165,7 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
                         ),
                         SizedBox(height: 19),
                         TextFormFieldCustom(
-                          hintText: 'Phone',
+                          hintText: Localizations.phoneNumber,
                           prefixIconPath: 'assets/icons/phoneicons.svg',
                           validator: (value) =>
                               Validator.validateField(value, 'phone'),
@@ -175,7 +178,7 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
                                 .pushNamed(ResetPasswordScreen.routeName);
                           },
                           child: Text(
-                            'Reset Password',
+                            Localizations.resetPassword,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
@@ -195,7 +198,7 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomButton(
-              buttonTitle: 'Delete Account',
+              buttonTitle: Localizations.deleteAccount,
               buttonColor: AppTheme.red,
               fontColor: AppTheme.white,
               onPressed: () {
@@ -207,7 +210,7 @@ class _UpdateProfileBodyState extends State<UpdateProfileBody> {
             ),
             SizedBox(height: 10),
             CustomButton(
-              buttonTitle: 'Update Data',
+              buttonTitle: Localizations.updateData,
               buttonColor: AppTheme.primary,
               fontColor: AppTheme.black,
               onPressed: updateProfile,

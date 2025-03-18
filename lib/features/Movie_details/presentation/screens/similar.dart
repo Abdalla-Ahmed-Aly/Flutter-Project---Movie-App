@@ -36,7 +36,7 @@ class SimilarWidget extends StatelessWidget {
               if (state is MovieSuggestionsLoading) {
                 return Center(
                   child: CircularProgressIndicator(
-                    color: AppTheme.white,
+                    color: AppTheme.primary,
                   ),
                 );
               } else if (state is MovieSuggestionsError) {
@@ -76,7 +76,7 @@ class SimilarWidget extends StatelessWidget {
               } else {
                 return Center(
                   child: CircularProgressIndicator(
-                    color: AppTheme.white,
+                    color: AppTheme.primary,
                   ),
                 );
               }

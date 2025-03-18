@@ -23,7 +23,7 @@ class MostRecentMovies extends StatelessWidget {
       child: BlocBuilder<MovieCubit, MovieState>(
         builder: (context, state) {
           if (state is NewestMoviesLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return CircularProgressIndicator();
           } else if (state is NewestMoviesLoaded) {
             return CarouselSlider.builder(
               options: CarouselOptions(

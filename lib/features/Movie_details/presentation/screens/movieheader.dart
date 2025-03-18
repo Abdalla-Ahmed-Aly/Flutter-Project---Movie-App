@@ -9,6 +9,10 @@ import 'package:movieapp/theme/apptheme.dart';
 import 'package:movieapp/features/Movie_details/data/models/favourite_movie/addtofavouritrequest.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../Profile/presentation/cubit/history/history_cubit.dart';
+import '../../../Profile/presentation/cubit/history/history_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class MovieHeader extends StatefulWidget {
   const MovieHeader({
     super.key,
@@ -53,7 +57,10 @@ class _MovieHeaderState extends State<MovieHeader> {
   Future<void> openMovieWebsite(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
     } else {
       throw 'Could not launch $url';
     }
@@ -184,6 +191,7 @@ class _MovieHeaderState extends State<MovieHeader> {
                       bool isLoading = state is AddToFavouriteLoading;
 
                       return Row(
+
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
@@ -191,9 +199,11 @@ class _MovieHeaderState extends State<MovieHeader> {
                             icon: Icon(
                               Icons.arrow_back_ios_new_rounded,
                               color: AppTheme.white,
+
                               size: 30,
                             ),
                           ),
+
                           SizedBox(
                             height: widget.screenHeight * 0.068,
                             width: widget.screenwidth * 0.15,
@@ -232,7 +242,9 @@ class _MovieHeaderState extends State<MovieHeader> {
                 ),
                 SizedBox(height: widget.screenHeight * 0.175),
                 InkWell(
-                  onTap: () => openMovieWebsite(widget.uRL),
+                  onTap: () { 
+                    context.read<HistoryCubit>().addMovieID(widget.movieId);
+                    openMovieWebsite(widget.uRL);}
                   child: Image.asset('assets/images/displaybutton.png'),
                 ),
                 SizedBox(height: widget.screenHeight * 0.15),
@@ -255,12 +267,12 @@ class _MovieHeaderState extends State<MovieHeader> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CustomButton(
-                      buttonTitle: 'Watch',
+                      buttonTitle: AppLocalizations.of(context)!.watch,
                       buttonColor: AppTheme.red,
                       fontColor: AppTheme.white,
                       onPressed: () {
                         openMovieWebsite(widget.uRL);
-
+                        context.read<HistoryCubit>().addMovieID(widget.movieId);
                         print(LocalStorageKeys.authToken);
                         print(widget.movieId);
                       }),
@@ -358,5 +370,7 @@ class _MovieHeaderState extends State<MovieHeader> {
         ),
       ),
     );
+
+
   }
 }

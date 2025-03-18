@@ -6,7 +6,7 @@ import '../../data/data_sources/category_movies_data_source.dart';
 import '../../data/repositories/category_movies_repository.dart';
 import '../cubit/category_movies_cubit.dart';
 import '../cubit/category_movies_state.dart';
-import '../widgets/see_more_shimmer.dart';
+import '../../../../core/widgets/gridviewMoviesShimmer.dart';
 
 class SeeMore extends StatefulWidget {
   final String genre;
@@ -39,7 +39,7 @@ class _SeeMoreState extends State<SeeMore> {
         child: BlocBuilder<MovieCubit, MovieState>(
           builder: (context, state) {
             if (state is MovieListLoading) {
-              return const BuildLoadShimmerMoviesSeeMore();
+              return   BuildLoadShimmerMoviesSeeMore(columnNumber: 2,);
             } else if (state is MovieListError) {
               return Center(
                 child: Text(state.message),
@@ -67,7 +67,7 @@ class _SeeMoreState extends State<SeeMore> {
                 ),
               );
             } else {
-              return const BuildLoadShimmerMoviesSeeMore();
+              return   BuildLoadShimmerMoviesSeeMore(columnNumber: 2,);
             }
           },
         ),

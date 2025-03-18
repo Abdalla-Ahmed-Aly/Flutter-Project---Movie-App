@@ -20,14 +20,14 @@ class WatchCubit extends Cubit<AuthState> {
   }
 
   Future<bool> deleteWatchList(int movieId) async {
-  try {
-    emit(Authloadingdelete());
-    await _authRepository.deleteWatchList(movieId);
-    emit(AuthSuccessdelete());
-    return true;
-  } on AppException catch (e) {
-    emit(AuthErrordlete(e.message));
-    return false;
+    try {
+      emit(Authloadingdelete());
+      await _authRepository.deleteWatchList(movieId);
+      emit(AuthSuccessdelete());
+      return true;
+    } on AppException catch (e) {
+      emit(AuthErrordlete(e.message));
+      return false;
+    }
   }
-}
 }
