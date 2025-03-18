@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/features/Home/presentation/screens/see_more.dart';
 import 'package:movieapp/theme/apptheme.dart';
-import '../../../../core/widgets/listView_movies_shimmer.dart';
 import '../../data/data_sources/category_movies_data_source.dart';
 import '../../data/repositories/category_movies_repository.dart';
 import '../cubit/category_movies_cubit.dart';
@@ -18,15 +17,24 @@ class CategoryAndMovies extends StatefulWidget {
 }
 
 class _CategoryAndMoviesState extends State<CategoryAndMovies> {
+  late MovieCubit _movieCubit;
+  List<String> shuffledGenres = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _movieCubit = MovieCubit(
+        movieRepository: MovieRepository(dataSource: MovieDataSource()));
+    _movieCubit.loadGenres();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    return BlocProvider(
-      create: (context) => MovieCubit(
-        movieRepository: MovieRepository(dataSource: MovieDataSource()),
-      )..loadGenres(),
+    return BlocProvider.value(
+      value: _movieCubit,
       child: BlocBuilder<MovieCubit, MovieState>(
         builder: (context, state) {
           if (state is GenreLoading) {
@@ -39,7 +47,9 @@ class _CategoryAndMoviesState extends State<CategoryAndMovies> {
               ),
             );
           } else if (state is GenreLoaded) {
-            List<String> shuffledGenres = List.from(state.genres)..shuffle();
+            if (shuffledGenres.isEmpty) {
+              shuffledGenres = List.from(state.genres)..shuffle();
+            }
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,15 +86,11 @@ class _CategoryAndMoviesState extends State<CategoryAndMovies> {
                             children: [
                               Text(
                                 "See More",
-                                style: TextStyle(
-                                  fontSize: screenWidth * 0.04,
-                                  color: AppTheme.primary,
-                                ),
+                                style: TextStyle(color: AppTheme.primary),
                               ),
                               SizedBox(width: screenWidth * 0.01),
                               Icon(
                                 Icons.arrow_forward,
-                                size: screenWidth * 0.045,
                                 color: AppTheme.primary,
                               )
                             ],
@@ -102,5 +108,11 @@ class _CategoryAndMoviesState extends State<CategoryAndMovies> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _movieCubit.close();
+    super.dispose();
   }
 }

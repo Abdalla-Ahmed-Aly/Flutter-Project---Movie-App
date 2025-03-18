@@ -16,6 +16,7 @@ import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/toggleSwitcher.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
 import '../../../Update_Profile/data/models/avatar_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Signup extends StatefulWidget {
   static const String routeName = "signup";
@@ -34,7 +35,7 @@ class _SignupState extends State<Signup> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-
+  AppLocalizations? Localizations;
   final CarouselSliderController _carouselController =
       CarouselSliderController();
   Avatar? _selectedAvatar;
@@ -51,7 +52,7 @@ class _SignupState extends State<Signup> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content: Text('Registration failed: $e'),
+            content: Text('${Localizations!.registrationFailed}: $e'),
             backgroundColor: Colors.red),
       );
     }
@@ -59,11 +60,12 @@ class _SignupState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
+    Localizations = AppLocalizations.of(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppTheme.black,
-          title: const Text('Register'),
+          title: Text('${Localizations?.register}'),
           foregroundColor: AppTheme.primary,
           centerTitle: true,
         ),
@@ -125,7 +127,7 @@ class _SignupState extends State<Signup> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  "Avatar",
+                  Localizations!.avatar,
                   style: TextStyle(color: AppTheme.white, fontSize: 20),
                 ),
                 const SizedBox(height: 20),
@@ -133,7 +135,7 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormFieldCustom(
                     controller: _nameController,
-                    hintText: 'Name',
+                    hintText: Localizations!.name,
                     prefixIconPath: "assets/svg/name.svg",
                     validator: (value) =>
                         Validator.validateField(value, 'name'),
@@ -144,7 +146,7 @@ class _SignupState extends State<Signup> {
                       vertical: 20.0, horizontal: 16),
                   child: TextFormFieldCustom(
                     controller: _emailController,
-                    hintText: 'Email',
+                    hintText: Localizations!.email,
                     prefixIconPath: "assets/svg/email.svg",
                     validator: (value) =>
                         Validator.validateField(value, 'email'),
@@ -155,7 +157,7 @@ class _SignupState extends State<Signup> {
                   child: TextFormFieldCustom(
                     controller: _passwordController,
                     isPassword: true,
-                    hintText: 'Password',
+                    hintText: Localizations!.password,
                     prefixIconPath: "assets/svg/password.svg",
                     validator: (value) =>
                         Validator.validateField(value, 'password'),
@@ -167,7 +169,7 @@ class _SignupState extends State<Signup> {
                   child: TextFormFieldCustom(
                     controller: _confirmPasswordController,
                     isPassword: true,
-                    hintText: "Confirm Password",
+                    hintText: Localizations!.confirmPassword,
                     prefixIconPath: "assets/svg/password.svg",
                     validator: (value) => Validator.validateField(
                         value, 'confirmPassword',
@@ -178,7 +180,7 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormFieldCustom(
                     controller: _phoneController,
-                    hintText: 'Phone Number',
+                    hintText: Localizations!.phoneNumber,
                     prefixIconPath: "assets/svg/call.svg",
                     validator: (value) =>
                         Validator.validateField(value, 'phone'),
@@ -205,7 +207,7 @@ class _SignupState extends State<Signup> {
                     },
                     child: CustomButton(
                       onPressed: _submitForm,
-                      buttonTitle: 'Create Account',
+                      buttonTitle: Localizations!.createAccount,
                       buttonColor: AppTheme.primary,
                       fontColor: AppTheme.black,
                     ),
@@ -215,7 +217,7 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: RichText(
                     text: TextSpan(
-                      text: 'Already Have Account? ',
+                      text: Localizations!.alreadyHaveAccount,
                       style: TextStyle(
                         fontSize: 17,
                         letterSpacing: 0.7,
@@ -224,7 +226,7 @@ class _SignupState extends State<Signup> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'login',
+                          text: Localizations!.login,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: AppTheme.primary,

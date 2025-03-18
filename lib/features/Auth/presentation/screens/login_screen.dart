@@ -11,6 +11,7 @@ import 'package:movieapp/core/widgets/customButton.dart';
 import 'package:movieapp/core/widgets/cutomTextFormField.dart';
 import 'package:movieapp/core/widgets/toggleSwitcher.dart';
 import '../../../../core/utils/validator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -30,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Localizations=AppLocalizations.of(context);
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SafeArea(
@@ -71,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 70),
                     TextFormFieldCustom(
-                      hintText: 'Email',
+                      hintText: Localizations!.email,
                       controller: emailController,
                       prefixIconPath: 'assets/icons/email_icon.svg',
                       validator: (value) =>
@@ -79,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 20),
                     TextFormFieldCustom(
-                      hintText: 'Password',
+                      hintText: Localizations.password,
                       controller: passwordController,
                       prefixIconPath: 'assets/icons/password_icon.svg',
                       isPassword: true,
@@ -104,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   ],
                     // ),
                     CustomButton(
-                      buttonTitle: 'Login',
+                      buttonTitle: Localizations.login,
                       buttonColor: AppTheme.primary,
                       fontColor: AppTheme.gray,
                       onPressed: () {
@@ -119,11 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: Theme.of(context).textTheme.bodyLarge,
                             children: [
                               TextSpan(
-                                text: 'Don\'t Have Account ? ',
+                                text: Localizations.haveAccount,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
                               TextSpan(
-                                text: 'Create One',
+                                text: Localizations.createOne,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
