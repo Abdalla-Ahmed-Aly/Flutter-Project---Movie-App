@@ -266,6 +266,92 @@ class _MovieHeaderState extends State<MovieHeader> {
                       }),
                 ),
                 SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: widget.screenwidth * 0.30,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppTheme.gray,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/heart.png',
+                              height: 25,
+                              width: 28,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              '${widget.likes}',
+                              style: widget.textTheme.displayMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: widget.screenwidth * 0.28,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppTheme.gray,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/clock.png',
+                              height: 25,
+                              width: 28,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              '${widget.timecount}',
+                              style: widget.textTheme.displayMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: widget.screenwidth * 0.28,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppTheme.gray,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/star.png',
+                              height: 25,
+                              width: 28,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              '${widget.rating}',
+                              style: widget.textTheme.displayMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
