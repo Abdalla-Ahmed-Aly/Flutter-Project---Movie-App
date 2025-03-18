@@ -84,47 +84,61 @@ class _MovieHeaderState extends State<MovieHeader> {
   Widget build(BuildContext context) {
     return BlocListener<AddToFavouritCubit, AddToFavouriteState>(
       listener: (context, state) {
-        if (state is AddToFavouriteError) {
-          Fluttertoast.showToast(
-            msg: 'Failed to add "${widget.title}" to favorites',
-            fontSize: 16,
-            backgroundColor: AppTheme.primary,
-            textColor: Colors.black,
-            toastLength: Toast.LENGTH_SHORT,
-          );
-        } else if (state is AddToFavouriteSuccess) {
-          Fluttertoast.showToast(
-            msg: '"${widget.title}" added to favorites',
-            fontSize: 16,
-            backgroundColor: AppTheme.primary,
-            textColor: Colors.black,
-            toastLength: Toast.LENGTH_SHORT,
-          );
-          setState(() {
-            isBookmarked = true;
-          });
-        } else if (state is AddToFavouriteLoaded) {
-          setState(() {
-            isBookmarked = state.isFavourite;
-          });
+        switch (state) {
+          case AddToFavouriteError():
+            Fluttertoast.showToast(
+              msg: 'Failed to add "${widget.title}" to favorites',
+              fontSize: 16,
+              backgroundColor: AppTheme.primary,
+              textColor: Colors.black,
+              toastLength: Toast.LENGTH_SHORT,
+            );
+            break;
 
-          print(state.isFavourite);
-        } else if (state is FavouriteSuccessdelete) {
-          Fluttertoast.showToast(
-            msg: '"${widget.title}" removed from favorites',
-            fontSize: 16,
-            backgroundColor: AppTheme.primary,
-            textColor: Colors.black,
-            toastLength: Toast.LENGTH_SHORT,
-          );
-        } else if (state is FavouriteErrordlete) {
-          Fluttertoast.showToast(
-            msg: 'Failed to remove "${widget.title}" from favorites:',
-            fontSize: 16,
-            backgroundColor: AppTheme.primary,
-            textColor: Colors.black,
-            toastLength: Toast.LENGTH_SHORT,
-          );
+          case AddToFavouriteSuccess():
+            Fluttertoast.showToast(
+              msg: '"${widget.title}" added to favorites',
+              fontSize: 16,
+              backgroundColor: AppTheme.primary,
+              textColor: Colors.black,
+              toastLength: Toast.LENGTH_SHORT,
+            );
+            setState(() {
+              isBookmarked = true;
+            });
+            break;
+
+          case AddToFavouriteLoaded(
+              :final isFavourite
+            ): // Dart 3 pattern matching
+            setState(() {
+              isBookmarked = isFavourite;
+            });
+            print(isFavourite);
+            break;
+
+          case FavouriteSuccessdelete():
+            Fluttertoast.showToast(
+              msg: '"${widget.title}" removed from favorites',
+              fontSize: 16,
+              backgroundColor: AppTheme.primary,
+              textColor: Colors.black,
+              toastLength: Toast.LENGTH_SHORT,
+            );
+            break;
+
+          case FavouriteErrordlete():
+            Fluttertoast.showToast(
+              msg: 'Failed to remove "${widget.title}" from favorites',
+              fontSize: 16,
+              backgroundColor: AppTheme.primary,
+              textColor: Colors.black,
+              toastLength: Toast.LENGTH_SHORT,
+            );
+            break;
+
+          default:
+            break;
         }
       },
       child: SizedBox(
@@ -246,6 +260,7 @@ class _MovieHeaderState extends State<MovieHeader> {
                       fontColor: AppTheme.white,
                       onPressed: () {
                         openMovieWebsite(widget.uRL);
+
                         print(LocalStorageKeys.authToken);
                         print(widget.movieId);
                       }),
