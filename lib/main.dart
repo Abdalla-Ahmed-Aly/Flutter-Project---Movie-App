@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
               builder: (context, state) {
                 if (state is AuthInitial || state is AuthLoading) {
                   return const Scaffold(
-                    body: Center(child: CircularProgressIndicator()),
+                    body: Center(child: CircularProgressIndicator(color: Color(0xffF6BD00),)),
                   );
                 }
                 if (state is AuthLoginSuccess) {

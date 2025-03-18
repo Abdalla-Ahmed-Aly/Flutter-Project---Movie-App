@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) =>
-                    Center(child: CircularProgressIndicator()),
+                    Center(child: CircularProgressIndicator(color: AppTheme.primary,)),
               );
             } else if (state is AuthLoginSuccess) {
               Navigator.of(context).pop();

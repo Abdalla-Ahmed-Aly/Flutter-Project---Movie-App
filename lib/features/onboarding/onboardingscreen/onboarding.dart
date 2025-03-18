@@ -69,7 +69,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   fit: BoxFit.fill,
                 )
               : CircularProgressIndicator(
-                  color: Colors.transparent,
+                  color: AppTheme.primary,
                 );
         },
       ),

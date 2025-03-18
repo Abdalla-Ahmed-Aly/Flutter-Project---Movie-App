@@ -61,7 +61,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (context) => Center(child: CircularProgressIndicator()),
+            builder: (context) => Center(child: CircularProgressIndicator(color: AppTheme.primary,)),
           );
         } else if (state is ResetPasswordSuccess) {
           Navigator.of(context)
