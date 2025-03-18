@@ -104,7 +104,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                 .avatarPaths[selectedAvatarIndex].imagePath;
 
                             return Column(
-                              children: [
+
                                 CircleAvatar(
                                     radius: 60,
                                     backgroundImage: AssetImage(avatarPath)),
@@ -238,6 +238,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 },
               ),
               Expanded(
+
                 child: ValueListenableBuilder<int>(
                   valueListenable: currentIndexNotifier,
                   builder: (context, currentIndex, child) {

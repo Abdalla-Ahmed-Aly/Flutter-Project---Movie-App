@@ -4,7 +4,12 @@ import 'package:movieapp/features/Movie_details/data/models/Movie_details_model/
 import 'movie_details_data_source.dart';
 
 class MovieDetailsDataSourceImpl implements MovieDetailsDataSource {
-  final Dio _dio = Dio();
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: ConstansApi.BASE_URL,
+    ),
+  );
+
   @override
   Future<MovieDetails> getMovieDetails(int movieId) async {
     try {
@@ -26,7 +31,7 @@ class MovieDetailsDataSourceImpl implements MovieDetailsDataSource {
             "Failed to load movie details. Status code: ${response.statusCode}");
       }
     } catch (error) {
-      print('Error occurred: $error'); // For debugging
+      print('Error occurred: $error');
       throw Exception('Error occurred: $error');
     }
   }
