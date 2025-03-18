@@ -8,6 +8,7 @@ import '../cubit/category_movies_cubit.dart';
 import '../cubit/category_movies_state.dart';
 import '../widgets/categoey_movies_shimmer.dart';
 import 'movielist.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryAndMovies extends StatefulWidget {
   const CategoryAndMovies({super.key});
@@ -85,7 +86,7 @@ class _CategoryAndMoviesState extends State<CategoryAndMovies> {
                           child: Row(
                             children: [
                               Text(
-                                "See More",
+                                AppLocalizations.of(context)!.seemore,
                                 style: TextStyle(color: AppTheme.primary),
                               ),
                               SizedBox(width: screenWidth * 0.01),
