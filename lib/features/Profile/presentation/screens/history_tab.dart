@@ -32,6 +32,8 @@ class HistoryTab extends StatelessWidget {
               ? Center(
                   child: Image.asset("assets/images/login_screen_header.png"))
               : GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: screenWidth * 0.02,

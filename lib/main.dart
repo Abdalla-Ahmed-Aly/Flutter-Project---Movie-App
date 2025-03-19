@@ -7,6 +7,9 @@ import 'package:movieapp/core/LocalizationCubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
 import 'package:movieapp/features/Profile/presentation/screens/profile_tab.dart';
+import 'package:movieapp/features/Search/data/datasources/searchmoviedatasource.dart';
+import 'package:movieapp/features/Search/data/repository/searchmovierepo.dart';
+import 'package:movieapp/features/Search/presentation/cubit/searchmoviecubit.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferencekeys.dart';
 import 'package:movieapp/features/onboarding/services/sharedpreferences.dart';
 import 'package:movieapp/theme/apptheme.dart';
@@ -36,6 +39,13 @@ void main() async {
         ),
         BlocProvider<LocalizationCubit>(
           create: (context) => LocalizationCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SearchMovieCubit(
+            searchmovieRepository: SearchMovieRepository(
+              dataSource: SearchMovieDataSource(),
+            ),
+          ),
         ),
       ],
       child: MyApp(),
@@ -73,7 +83,10 @@ class MyApp extends StatelessWidget {
               builder: (context, state) {
                 if (state is AuthInitial || state is AuthLoading) {
                   return const Scaffold(
-                    body: Center(child: CircularProgressIndicator(color: Color(0xffF6BD00),)),
+                    body: Center(
+                        child: CircularProgressIndicator(
+                      color: Color(0xffF6BD00),
+                    )),
                   );
                 }
                 if (state is AuthLoginSuccess) {
