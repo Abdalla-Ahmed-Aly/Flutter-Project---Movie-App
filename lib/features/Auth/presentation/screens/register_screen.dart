@@ -40,6 +40,7 @@ class _SignupState extends State<Signup> {
       CarouselSliderController();
   Avatar? _selectedAvatar;
   Future<void> _submitForm() async {
+    print(Avatar.avatarPaths.indexOf(_selectedAvatar!));
     if (_formKey.currentState!.validate()) {
       await context.read<AuthCubit>().register(RegisterRequest(
             name: _nameController.text,
@@ -193,7 +194,7 @@ class _SignupState extends State<Signup> {
                   child: BlocListener<AuthCubit, AuthState>(
                     listener: (context, state) {
                       if (state is AuthLoading) {
-                        LoadingIndicator();
+                        LoadingIndicator.show(context);
                       } else if (state is AuthSuccess) {
                         LoadingIndicator.hide(context);
                         Navigator.of(context).pushNamedAndRemoveUntil(
