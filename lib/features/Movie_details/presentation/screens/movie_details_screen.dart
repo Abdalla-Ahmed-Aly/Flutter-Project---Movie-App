@@ -10,6 +10,7 @@ import 'package:movieapp/features/Movie_details/presentation/cubits/addtofavouri
 import 'package:movieapp/features/Movie_details/presentation/screens/SummaryAndGenres.dart';
 import 'package:movieapp/features/Movie_details/presentation/screens/movieheader.dart';
 import 'package:movieapp/features/Movie_details/presentation/screens/similar.dart';
+import 'package:movieapp/features/Profile/presentation/cubit/history/history_cubit.dart';
 import '../../data/data_sources/Movie_details_data_source/movie_details_data_source_impl.dart';
 import '../shimmerUi.dart';
 
@@ -40,6 +41,9 @@ class MovieDetailsScreen extends StatelessWidget {
             ),
           ),
         ),
+        BlocProvider<HistoryCubit>(
+          create: (context) => HistoryCubit(),
+        ),
       ],
       child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
         builder: (context, state) {
@@ -52,7 +56,6 @@ class MovieDetailsScreen extends StatelessWidget {
               body: ListView(
                 children: [
                   MovieHeader(
-                    id: state.movieDetails.id,
                     screenHeight: screenHeight,
                     screenwidth: screenwidth,
                     textTheme: textTheme,

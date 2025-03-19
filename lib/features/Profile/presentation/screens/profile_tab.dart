@@ -78,7 +78,8 @@ class _ProfileTabState extends State<ProfileTab> {
                           TabBarIcon(
                               iconName: "watchlist",
                               label: Localizations!.watchList),
-                          TabBarIcon(iconName: "file", label: Localizations.history),
+                          TabBarIcon(
+                              iconName: "file", label: Localizations.history),
                         ],
                       ),
                     );
@@ -94,7 +95,9 @@ class _ProfileTabState extends State<ProfileTab> {
 
                           if (state is AuthError) {
                             Fluttertoast.showToast(msg: state.message);
-                            return Center(child: Text(Localizations!.errorLoadingProfile));
+                            return Center(
+                                child:
+                                    Text(Localizations!.errorLoadingProfile));
                           }
 
                           if (state is AuthDataSuccess) {
@@ -104,7 +107,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                 .avatarPaths[selectedAvatarIndex].imagePath;
 
                             return Column(
-
+                              children: [
                                 CircleAvatar(
                                     radius: 60,
                                     backgroundImage: AssetImage(avatarPath)),
@@ -158,7 +161,8 @@ class _ProfileTabState extends State<ProfileTab> {
                                       Expanded(
                                         flex: 2,
                                         child: CustomButton(
-                                          buttonTitle: Localizations.editProfile,
+                                          buttonTitle:
+                                              Localizations.editProfile,
                                           buttonColor: AppTheme.primary,
                                           onPressed: () async {
                                             await Navigator.pushNamed(
@@ -238,7 +242,6 @@ class _ProfileTabState extends State<ProfileTab> {
                 },
               ),
               Expanded(
-
                 child: ValueListenableBuilder<int>(
                   valueListenable: currentIndexNotifier,
                   builder: (context, currentIndex, child) {

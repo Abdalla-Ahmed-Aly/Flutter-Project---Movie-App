@@ -10,7 +10,6 @@ import 'package:movieapp/features/Movie_details/data/models/favourite_movie/addt
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Profile/presentation/cubit/history/history_cubit.dart';
-import '../../../Profile/presentation/cubit/history/history_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MovieHeader extends StatefulWidget {
@@ -191,7 +190,6 @@ class _MovieHeaderState extends State<MovieHeader> {
                       bool isLoading = state is AddToFavouriteLoading;
 
                       return Row(
-
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
@@ -199,11 +197,9 @@ class _MovieHeaderState extends State<MovieHeader> {
                             icon: Icon(
                               Icons.arrow_back_ios_new_rounded,
                               color: AppTheme.white,
-
                               size: 30,
                             ),
                           ),
-
                           SizedBox(
                             height: widget.screenHeight * 0.068,
                             width: widget.screenwidth * 0.15,
@@ -242,9 +238,12 @@ class _MovieHeaderState extends State<MovieHeader> {
                 ),
                 SizedBox(height: widget.screenHeight * 0.175),
                 InkWell(
-                  onTap: () { 
-                    context.read<HistoryCubit>().addMovieID(widget.movieId);
-                    openMovieWebsite(widget.uRL);}
+                  onTap: () {
+                    context
+                        .read<HistoryCubit>()
+                        .addMovieID(int.parse(widget.movieId));
+                    openMovieWebsite(widget.uRL);
+                  },
                   child: Image.asset('assets/images/displaybutton.png'),
                 ),
                 SizedBox(height: widget.screenHeight * 0.15),
@@ -272,7 +271,9 @@ class _MovieHeaderState extends State<MovieHeader> {
                       fontColor: AppTheme.white,
                       onPressed: () {
                         openMovieWebsite(widget.uRL);
-                        context.read<HistoryCubit>().addMovieID(widget.movieId);
+                        context
+                            .read<HistoryCubit>()
+                            .addMovieID(int.parse(widget.movieId));
                         print(LocalStorageKeys.authToken);
                         print(widget.movieId);
                       }),
@@ -370,7 +371,5 @@ class _MovieHeaderState extends State<MovieHeader> {
         ),
       ),
     );
-
-
   }
 }
