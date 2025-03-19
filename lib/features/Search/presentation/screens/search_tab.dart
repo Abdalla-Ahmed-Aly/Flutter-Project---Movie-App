@@ -7,6 +7,7 @@ import 'package:movieapp/features/Search/presentation/cubit/searchmoviecubit.dar
 import 'package:movieapp/features/Search/presentation/cubit/searchmoviestates.dart';
 import 'package:movieapp/theme/apptheme.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchTab extends StatefulWidget {
   @override
@@ -22,6 +23,7 @@ class _SearchTabState extends State<SearchTab> {
 
   @override
   Widget build(BuildContext context) {
+    final Localization = AppLocalizations.of(context);
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
@@ -30,7 +32,7 @@ class _SearchTabState extends State<SearchTab> {
         child: Column(
           children: [
             TextFormFieldCustom(
-              hintText: "Search",
+              hintText: Localization!.search,
               prefixIconPath: "assets/icons/search.svg",
               color: ischanged ? AppTheme.primary : null,
               controller: searchEditingController,
@@ -85,7 +87,7 @@ class _SearchTabState extends State<SearchTab> {
                         )
                       : Center(
                           child: Text(
-                            'No Results Yet',
+                            Localization.noResultsYet,
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium
@@ -99,7 +101,7 @@ class _SearchTabState extends State<SearchTab> {
                 } else {
                   return Center(
                     child: Text(
-                      'No Results Yet',
+                      Localization.noResultsYet,
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 color: AppTheme.primary,

@@ -26,6 +26,14 @@
   "resetPassword": "إعادة تعيين كلمة المرور",
   "deleteAccount": "حذف الحساب",
   "updateData": "تحديث البيانات",
-  "watch": "مشاهده",
-  "seemore": "عرض المزيد"
+  "watch": "مشاهدة",
+  "seemore": "عرض المزيد",
+  "oldPassword": "كلمة المرور القديمة",
+  "newPassword": "كلمة المرور الجديدة",
+  "pleaseFillAllFields": "يرجى ملء جميع الحقول.",
+  "fixErrorsBeforeProceeding": "يرجى تصحيح الأخطاء قبل المتابعة.",
+  "passwordResetSuccessfully": "تمت إعادة تعيين كلمة المرور بنجاح!",
+  "reset": "إعادة تعيين",
+  "search": "بحث",
+  "noResultsYet": "لا توجد نتائج بعد"
 }

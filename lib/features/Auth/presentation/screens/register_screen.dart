@@ -192,17 +192,25 @@ class _SignupState extends State<Signup> {
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                   child: BlocListener<AuthCubit, AuthState>(
                     listener: (context, state) {
-                      if (state is AuthLoading) {
+                      if (state is AuthRegisterLoading) {
                         LoadingIndicator.show(context);
-                      } else if (state is AuthSuccess) {
+                      } else if (state is AuthRegisterError) {
                         LoadingIndicator.hide(context);
+
+                        Fluttertoast.showToast(
+                          msg: state.message,
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                        );
+                      } else if (state is AuthRegisterSuccess) {
+                        LoadingIndicator.hide(context);
+
                         Navigator.of(context).pushNamedAndRemoveUntil(
                           LoginScreen.routeName,
-                          (Route<dynamic> route) => false,
+                          (route) => false,
                         );
-                      } else if (state is AuthError) {
-                        LoadingIndicator.hide(context);
-                        Fluttertoast.showToast(msg: state.message);
                       }
                     },
                     child: CustomButton(

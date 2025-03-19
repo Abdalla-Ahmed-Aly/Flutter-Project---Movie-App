@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movieapp/core/widgets/LoadingIndicatore.dart';
 import 'package:movieapp/features/Auth/data/models/login_request.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_cubit.dart';
 import 'package:movieapp/features/Auth/presentation/cubit/auth_state.dart';
@@ -32,16 +31,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Localizations = AppLocalizations.of(context);
+    final Localizations=AppLocalizations.of(context);
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SafeArea(
         child: BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthLoading) {
-              LoadingIndicator();
+              // Show loading indicator
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) =>
+                    Center(child: CircularProgressIndicator()),
+              );
             } else if (state is AuthLoginSuccess) {
               Navigator.of(context).pop();
+
               Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
               token = state.token;
             } else if (state is AuthError) {

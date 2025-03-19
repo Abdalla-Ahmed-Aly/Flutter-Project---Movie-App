@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
             },
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            locale: locale, // ✅ هنا تم التعديل
+            locale: locale, 
             home: BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {
                 if (state is AuthInitial || state is AuthLoading) {

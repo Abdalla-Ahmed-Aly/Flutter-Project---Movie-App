@@ -8,6 +8,7 @@ import 'package:movieapp/features/Home_screen/presentation/screens/home_screen.d
 import '../../../../core/utils/validator.dart';
 import '../../../../theme/apptheme.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   static const String routeName = "forgetPassword";
@@ -22,6 +23,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
+  AppLocalizations? Localizations;
 
   void _showSnackbar(String message, Color bgColor) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -40,7 +42,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       final newPassword = _newPasswordController.text.trim();
 
       if (oldPassword.isEmpty || newPassword.isEmpty) {
-        _showSnackbar('Please fill in all fields.', Colors.red);
+        _showSnackbar(Localizations!.pleaseFillAllFields, Colors.red);
         return;
       }
 
@@ -55,20 +57,25 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Localizations = AppLocalizations.of(context);
+
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthLoading) {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (context) => Center(child: CircularProgressIndicator(color: AppTheme.primary,)),
+            builder: (context) => Center(
+                child: CircularProgressIndicator(
+              color: AppTheme.primary,
+            )),
           );
         } else if (state is ResetPasswordSuccess) {
           Navigator.of(context)
               .pushReplacementNamed(HomeScreen.routeName, arguments: 3);
           _showSnackbar(
               state.resetPasswordResponse.message ??
-                  'Password reset successfully!',
+                  Localizations!.passwordResetSuccessfully,
               Colors.green);
         } else if (state is AuthError) {
           Navigator.pop(context);
@@ -78,8 +85,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppTheme.black,
-          title: const Text(
-            'Reset Password',
+          title: Text(
+            '${Localizations!.resetPassword}',
             style: TextStyle(fontSize: 16),
           ),
           foregroundColor: Colors.amber,
@@ -95,7 +102,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: TextFormFieldCustom(
                     controller: _oldPasswordController,
-                    hintText: 'Old Password',
+                    hintText: Localizations!.oldPassword,
                     prefixIconPath: "assets/svg/password.svg",
                     validator: (value) =>
                         Validator.validateField(value, 'Old Password'),
@@ -106,7 +113,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       const EdgeInsets.only(top: 16.0, right: 16, left: 16),
                   child: TextFormFieldCustom(
                     controller: _newPasswordController,
-                    hintText: 'New Password',
+                    hintText: Localizations!.newPassword,
                     prefixIconPath: "assets/svg/password.svg",
                     validator: (value) =>
                         Validator.validateField(value, 'New Password'),
@@ -116,7 +123,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: CustomButton(
                     onPressed: _submitForm,
-                    buttonTitle: 'Reset',
+                    buttonTitle: Localizations!.resetPassword,
                     buttonColor: AppTheme.primary,
                     fontColor: AppTheme.black,
                   ),
