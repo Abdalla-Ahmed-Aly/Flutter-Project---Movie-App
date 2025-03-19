@@ -193,7 +193,7 @@ class _SignupState extends State<Signup> {
                   child: BlocListener<AuthCubit, AuthState>(
                     listener: (context, state) {
                       if (state is AuthLoading) {
-                        LoadingIndicator.show(context);
+                        LoadingIndicator();
                       } else if (state is AuthSuccess) {
                         LoadingIndicator.hide(context);
                         Navigator.of(context).pushNamedAndRemoveUntil(

@@ -73,73 +73,76 @@ class _WatchListTabState extends State<WatchListTab> {
           await refreshWatchList();
           widget.onWatchListUpdated(watchList.length);
         },
-        child: watchList.isEmpty
-            ? Center(child: Image.asset("assets/images/profile.png"))
-            : Column(
-                children: watchList.map((movie) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              MovieDetailsScreen(id: int.parse(movie.movieId!)),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            blurRadius: 8,
-                            offset: Offset(0, 4),
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: watchList.isEmpty
+              ? Center(child: Image.asset("assets/images/profile.png"))
+              : Column(
+                  children: watchList.map((movie) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => MovieDetailsScreen(
+                                id: int.parse(movie.movieId!)),
                           ),
-                        ],
-                      ),
-                      child: Card(
-                        color: Colors.black87,
-                        shape: RoundedRectangleBorder(
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              blurRadius: 8,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
                         ),
-                        child: ListTile(
-                          contentPadding: EdgeInsets.all(10),
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              movie.imageUrl ?? "",
-                              width: 60,
-                              height: 80,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  Icon(Icons.image_not_supported,
-                                      color: Colors.grey),
+                        child: Card(
+                          color: Colors.black87,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ListTile(
+                            contentPadding: EdgeInsets.all(10),
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                movie.imageUrl ?? "",
+                                width: 60,
+                                height: 80,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Icon(Icons.image_not_supported,
+                                        color: Colors.grey),
+                              ),
+                            ),
+                            title: Text(
+                              movie.name ?? "اسم غير معروف",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              "⭐ ${movie.rating ?? 'غير متوفر'} | 📅 ${movie.year ?? 'غير متوفر'}",
+                              style: TextStyle(color: Colors.grey[400]),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () =>
+                                  removeMovie(watchList.indexOf(movie)),
+                              icon: Icon(Icons.bookmark_rounded,
+                                  size: 30, color: AppTheme.white),
                             ),
                           ),
-                          title: Text(
-                            movie.name ?? "اسم غير معروف",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            "⭐ ${movie.rating ?? 'غير متوفر'} | 📅 ${movie.year ?? 'غير متوفر'}",
-                            style: TextStyle(color: Colors.grey[400]),
-                          ),
-                          trailing: IconButton(
-                            onPressed: () =>
-                                removeMovie(watchList.indexOf(movie)),
-                            icon: Icon(Icons.bookmark_rounded,
-                                size: 30, color: AppTheme.white),
-                          ),
                         ),
                       ),
-                    ),
-                  );
-                }).toList(),
-              ),
+                    );
+                  }).toList(),
+                ),
+        ),
       ),
     );
   }
