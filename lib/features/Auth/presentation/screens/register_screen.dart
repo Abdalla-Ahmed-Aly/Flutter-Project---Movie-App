@@ -40,7 +40,6 @@ class _SignupState extends State<Signup> {
       CarouselSliderController();
   Avatar? _selectedAvatar;
   Future<void> _submitForm() async {
-    print(Avatar.avatarPaths.indexOf(_selectedAvatar!));
     if (_formKey.currentState!.validate()) {
       await context.read<AuthCubit>().register(RegisterRequest(
             name: _nameController.text,
