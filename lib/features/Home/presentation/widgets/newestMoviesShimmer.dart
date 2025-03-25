@@ -20,8 +20,8 @@ class NewestMoviesShimmer extends StatelessWidget {
           SizedBox(
             height: screenHeight,
             child: Shimmer.fromColors(
-              baseColor: Colors.black45!,
-              highlightColor: Colors.black26!,
+              baseColor: Colors.black45,
+              highlightColor: Colors.black26,
               child: Container(
                 color: Colors.white,
               ),

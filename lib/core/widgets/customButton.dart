@@ -59,7 +59,7 @@ class CustomButton extends StatelessWidget {
                     color: notFillColor ? AppTheme.primary : fontColor!,
                   )
               : buttonTitleStyle!),
-      iconAlignment: iconAlignment!,
+      iconAlignment: iconAlignment,
     );
   }
 }

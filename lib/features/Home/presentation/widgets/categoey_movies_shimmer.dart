@@ -1,7 +1,5 @@
-import 'package:movieapp/core/widgets/movieContainerShimmer.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import '../../../../core/widgets/listView_movies_shimmer.dart';
 import '../../../../theme/apptheme.dart';
 

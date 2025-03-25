@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movieapp/core/widgets/movieContainerShimmer.dart';
-import 'package:shimmer/shimmer.dart';
 
 class BuildLoadShimmerMoviesSeeMore extends StatelessWidget {
   int columnNumber;
