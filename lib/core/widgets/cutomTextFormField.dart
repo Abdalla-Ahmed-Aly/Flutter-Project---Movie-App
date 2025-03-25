@@ -12,6 +12,7 @@ class TextFormFieldCustom extends StatefulWidget {
     this.isPassword = false,
     this.onChanged,
     this.maxLines = 1,
+    this.color,
   });
 
   final TextEditingController? controller;
@@ -21,6 +22,7 @@ class TextFormFieldCustom extends StatefulWidget {
   final void Function(String)? onChanged;
   final bool isPassword;
   final int maxLines;
+  final Color? color;
 
   @override
   State<TextFormFieldCustom> createState() => _TextFormFieldCustomState();
@@ -56,6 +58,9 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
                 padding: const EdgeInsets.only(left: 19, right: 10),
                 child: SvgPicture.asset(
                   widget.prefixIconPath!,
+                  colorFilter: ColorFilter.mode(
+                      widget.color == null ? AppTheme.white : widget.color!,
+                      BlendMode.srcIn),
                 ),
               )
             : null,

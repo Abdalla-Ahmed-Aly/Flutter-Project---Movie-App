@@ -6,8 +6,10 @@ abstract class AuthState {}
 class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
+class AuthRegisterLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {}
+class AuthRegisterSuccess extends AuthState {}
 
 class AuthLoginSuccess extends AuthState {
   final String token;
@@ -28,4 +30,9 @@ class AuthError extends AuthState {
   final String message;
 
   AuthError(this.message);
+}
+class AuthRegisterError extends AuthState {
+  final String message;
+
+  AuthRegisterError(this.message);
 }

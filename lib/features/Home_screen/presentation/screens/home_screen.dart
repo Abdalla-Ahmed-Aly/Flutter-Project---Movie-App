@@ -39,44 +39,47 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: tabs[currentIndex],
       bottomNavigationBar: SafeArea(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: AppTheme.gray,
-            elevation: 0,
-            showUnselectedLabels: false,
-            showSelectedLabels: false,
-            currentIndex: currentIndex,
-            onTap: (value) {
-              if (currentIndex != value) {
-                setState(() {
-                  currentIndex = value;
-                });
-              }
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: NavIcon(imageIcon: "home"),
-                activeIcon: NavIcon(imageIcon: "homeActive"),
-                label: "Home",
-              ),
-              BottomNavigationBarItem(
-                icon: NavIcon(imageIcon: "search"),
-                activeIcon: NavIcon(imageIcon: "searchActive"),
-                label: "Search",
-              ),
-              BottomNavigationBarItem(
-                icon: NavIcon(imageIcon: "browse"),
-                activeIcon: NavIcon(imageIcon: "browseActive"),
-                label: "Browse",
-              ),
-              BottomNavigationBarItem(
-                icon: NavIcon(imageIcon: "profile"),
-                activeIcon: NavIcon(imageIcon: "profileActive"),
-                label: "Profile",
-              ),
-            ],
+        child: Container(
+          padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: AppTheme.gray,
+              elevation: 0,
+              showUnselectedLabels: false,
+              showSelectedLabels: false,
+              currentIndex: currentIndex,
+              onTap: (value) {
+                if (currentIndex != value) {
+                  setState(() {
+                    currentIndex = value;
+                  });
+                }
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: NavIcon(imageIcon: "home"),
+                  activeIcon: NavIcon(imageIcon: "homeActive"),
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                  icon: NavIcon(imageIcon: "search"),
+                  activeIcon: NavIcon(imageIcon: "searchActive"),
+                  label: "Search",
+                ),
+                BottomNavigationBarItem(
+                  icon: NavIcon(imageIcon: "browse"),
+                  activeIcon: NavIcon(imageIcon: "browseActive"),
+                  label: "Browse",
+                ),
+                BottomNavigationBarItem(
+                  icon: NavIcon(imageIcon: "profile"),
+                  activeIcon: NavIcon(imageIcon: "profileActive"),
+                  label: "Profile",
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movieapp/core/widgets/movie_item.dart';
+import 'package:movieapp/features/Search/data/datasources/searchmoviedatasource.dart';
+import 'package:movieapp/features/Search/data/repository/searchmovierepo.dart';
+import 'package:movieapp/features/Search/presentation/cubit/searchmoviecubit.dart';
+import 'package:movieapp/features/Search/presentation/cubit/searchmoviestates.dart';
+import 'package:movieapp/theme/apptheme.dart';
 import '../../../../core/widgets/cutomTextFormField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchTab extends StatefulWidget {
   @override
@@ -8,18 +15,15 @@ class SearchTab extends StatefulWidget {
 }
 
 class _SearchTabState extends State<SearchTab> {
-  List<String> searchMovieResults = [];
-  List<String> movieList = ["Marvel", "Dc", "mc"];
-  void onQueryChanged(String query) {
-    searchMovieResults = movieList
-        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-        .toList();
-
-    setState(() {});
-  }
+  final SearchMovieRepository searchMovieRepository = SearchMovieRepository(
+    dataSource: SearchMovieDataSource(),
+  );
+  TextEditingController searchEditingController = TextEditingController();
+  bool ischanged = false;
 
   @override
   Widget build(BuildContext context) {
+    final Localization = AppLocalizations.of(context);
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
@@ -28,60 +32,83 @@ class _SearchTabState extends State<SearchTab> {
         child: Column(
           children: [
             TextFormFieldCustom(
-              hintText: "Search",
+              hintText: Localization!.search,
               prefixIconPath: "assets/icons/search.svg",
-              onChanged: onQueryChanged,
+              color: ischanged ? AppTheme.primary : null,
+              controller: searchEditingController,
+              onChanged: (query) {
+                context.read<SearchMovieCubit>().searchMovies(query);
+                ischanged = query.isNotEmpty;
+                if (query.length <= 1) {
+                  setState(() {});
+                }
+              },
             ),
             SizedBox(
               height: 12,
             ),
-            Expanded(
-                child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: screenWidth * 0.023,
-                mainAxisSpacing: screenWidth * 0.023,
-                childAspectRatio: screenWidth / (screenHeight * 0.7),
-              ),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {},
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(screenWidth * 0.025),
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Image.asset(
-                          "assets/images/Dummyimage.png",
-                          width: double.infinity,
-                          height: double.infinity,
-                          fit: BoxFit.fill,
-                        ),
-                        Positioned(
-                          top: screenHeight * 0.01,
-                          left: screenWidth * 0.023,
-                          child: Container(
-                            padding: EdgeInsets.all(screenWidth * 0.011),
-                            decoration: BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius:
-                                  BorderRadius.circular(screenWidth * 0.025),
-                            ),
-                            child: Text(
-                              "7.7 ⭐",
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.032,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+            Expanded(child: BlocBuilder<SearchMovieCubit, SearchMovieState>(
+              builder: (context, state) {
+                if (state is SearchMoviesLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is SearchMoviesLoaded) {
+                  final movies = state.movies;
+                  return searchEditingController.text.isNotEmpty
+                      ? Column(
+                          children: [
+                            Expanded(
+                              child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: screenWidth * 0.023,
+                                  mainAxisSpacing: screenWidth * 0.023,
+                                  childAspectRatio:
+                                      screenWidth / (screenHeight * 0.7),
+                                ),
+                                itemCount: movies.length,
+                                itemBuilder: (context, index) {
+                                  final movie = movies[index];
+                                  return InkWell(
+                                    onTap: () {},
+                                    child: MovieItem(
+                                      movieImageUrl: movie.imageUrl,
+                                      movieRating: movie.rating,
+                                      movie_id: movie.id,
+                                    ),
+                                  );
+                                },
                               ),
                             ),
+                            SizedBox(
+                              height: 16,
+                            )
+                          ],
+                        )
+                      : Center(
+                          child: Text(
+                            Localization.noResultsYet,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  color: AppTheme.primary,
+                                ),
                           ),
-                        ),
-                      ],
+                        );
+                } else if (state is SearchMoviesError) {
+                  return Center(child: Text(state.message));
+                } else {
+                  return Center(
+                    child: Text(
+                      Localization.noResultsYet,
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                color: AppTheme.primary,
+                              ),
                     ),
-                  ),
-                );
+                  );
+                }
               },
             ))
           ],
