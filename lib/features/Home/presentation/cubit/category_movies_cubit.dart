@@ -37,14 +37,15 @@ class MovieCubit extends Cubit<MovieState> {
     }
   }
 
-  Future<void> loadNewestMovies() async {
+  Future<void> loadNewestMovies(String currentYear, String previousYear) async {
     if (_hasLoadedMovies || _isLoading) return;
     _isLoading = true;
     emit(NewestMoviesLoading());
 
     try {
       if (isClosed) return;
-      final movies = await movieRepository.fetchNewestMovies();
+      final movies =
+          await movieRepository.fetchNewestMovies(currentYear, previousYear);
       _hasLoadedMovies = true;
       if (isClosed) return;
       emit(NewestMoviesLoaded(movies));

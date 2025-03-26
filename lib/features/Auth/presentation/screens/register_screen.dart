@@ -39,6 +39,7 @@ class _SignupState extends State<Signup> {
   final CarouselSliderController _carouselController =
       CarouselSliderController();
   Avatar? _selectedAvatar;
+  int _currentIndex = 0;
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       await context.read<AuthCubit>().register(RegisterRequest(
@@ -61,6 +62,8 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     Localizations = AppLocalizations.of(context);
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -78,34 +81,35 @@ class _SignupState extends State<Signup> {
                   padding: EdgeInsets.only(top: 9),
                   child: CarouselSlider.builder(
                     options: CarouselOptions(
-                      height: 150,
+                      height: screenHeight * 0.2,
                       enlargeCenterPage: true,
-                      enlargeFactor: 0.3,
+                      enlargeFactor: 0.38,
                       enableInfiniteScroll: true,
-                      viewportFraction: 0.4,
+                      viewportFraction: 0.45,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentIndex = index;
+                          _selectedAvatar = Avatar.avatarPaths[index];
+                        });
+                      },
                     ),
                     carouselController: _carouselController,
                     itemCount: Avatar.avatarPaths.length,
                     itemBuilder: (context, index, realIndex) {
-                      bool isSelected =
-                          _selectedAvatar == Avatar.avatarPaths[index];
-                      _selectedAvatar ?? Avatar.avatarPaths.first;
+                      bool isCenterTab = _currentIndex == index;
 
                       return GestureDetector(
                         onTap: () {
-                          setState(() {
-                            _selectedAvatar = Avatar.avatarPaths[index];
-                          });
                           _carouselController.animateToPage(index);
                         },
                         child: Container(
-                          width: isSelected ? 400 : 100,
+                          width: screenWidth * 0.55,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: isSelected
+                            border: isCenterTab
                                 ? Border.all(color: Colors.amber, width: 3)
                                 : null,
-                            boxShadow: isSelected
+                            boxShadow: isCenterTab
                                 ? [
                                     BoxShadow(
                                       color: Colors.amber.withOpacity(0.5),

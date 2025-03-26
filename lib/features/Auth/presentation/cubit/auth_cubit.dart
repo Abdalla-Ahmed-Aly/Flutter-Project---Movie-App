@@ -76,17 +76,17 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> initializeAuth() async {
-    print("Initializing auth..."); // Debug print
+    print("Initializing auth...");
     emit(AuthLoading());
     final storedToken =
         LocalStorageServices.getString(LocalStorageKeys.authToken);
     if (storedToken != null && storedToken.isNotEmpty) {
-      print("Token found: $storedToken"); // Debug print
+      print("Token found: $storedToken");
       token = storedToken;
       await getData();
       emit(AuthLoginSuccess(storedToken));
     } else {
-      print("No token found"); // Debug print
+      print("No token found");
       emit(AuthError('No token found'));
     }
   }
