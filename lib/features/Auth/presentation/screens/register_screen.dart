@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
@@ -42,6 +40,9 @@ class _SignupState extends State<Signup> {
   int _currentIndex = 0;
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
+      if (_selectedAvatar == null) {
+        _selectedAvatar = Avatar.avatarPaths.first;
+      }
       await context.read<AuthCubit>().register(RegisterRequest(
             name: _nameController.text,
             email: _emailController.text,
@@ -53,7 +54,7 @@ class _SignupState extends State<Signup> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content: Text('${Localizations!.registrationFailed}: $e'),
+            content: Text('${Localizations!.registrationFailed}: '),
             backgroundColor: Colors.red),
       );
     }
