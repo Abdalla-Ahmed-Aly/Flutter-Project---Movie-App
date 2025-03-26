@@ -48,20 +48,21 @@ class MovieDataSource implements CategoryMoviesDataSourceAbstract {
   }
 
   @override
-  Future<List<Movie>> fetchNewestMovies() async {
+  Future<List<Movie>> fetchNewestMovies(
+      String currentYear, String previousYear) async {
     try {
       final response2024 = await dio.get(apiUrl, queryParameters: {
         "sort_by": "year",
         "order_by": "desc",
         "limit": 50,
-        "query_term": "2024",
+        "query_term": currentYear,
       });
 
       final response2025 = await dio.get(apiUrl, queryParameters: {
         "sort_by": "year",
         "order_by": "desc",
         "limit": 50,
-        "query_term": "2025",
+        "query_term": previousYear,
       });
 
       if (response2024.statusCode == 200 && response2025.statusCode == 200) {

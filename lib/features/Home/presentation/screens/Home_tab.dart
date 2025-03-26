@@ -22,6 +22,8 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   int currentIndex = 0;
   List<Movie> myMovies = [];
+  String currentYear = DateTime.now().year.toString();
+  String previousYear = (DateTime.now().year - 1).toString();
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -29,7 +31,7 @@ class _HomeTabState extends State<HomeTab> {
     return BlocProvider(
       create: (context) => MovieCubit(
           movieRepository: MovieRepository(dataSource: MovieDataSource()))
-        ..loadNewestMovies(),
+        ..loadNewestMovies(currentYear, previousYear),
       child: BlocBuilder<MovieCubit, MovieState>(builder: (context, state) {
         if (state is NewestMoviesLoading) {
           return NewestMoviesShimmer();
